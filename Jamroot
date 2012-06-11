@@ -1,7 +1,7 @@
 import os ;
 local HOME = [ os.environ HOME ] ;
 
-use-project /libea : ealib/libea ;
+use-project /libea : ../ealib/libea ;
 
 exe ealife :
     src/main.cpp

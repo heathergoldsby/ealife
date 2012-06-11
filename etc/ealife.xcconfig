@@ -1,5 +1,5 @@
-LIBEA_INCLUDE = ./ealib/libea/include
-LIBFN_INCLUDE = ./ealib/libfn/include 
+LIBEA_INCLUDE = ../ealib/libea/include
+LIBFN_INCLUDE = ../ealib/libfn/include 
 HEADER_SEARCH_PATHS = $(LIBEA_INCLUDE) $(LIBFN_INCLUDE) /usr/local/include 
 USE_HEADERMAP = NO
 GCC_WARN_UNUSED_VARIABLE = NO

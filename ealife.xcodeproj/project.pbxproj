@@ -12,41 +12,9 @@
 		42441A9D15861785009863BE /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
 		42441A9E15861785009863BE /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
 		42441A9F15861785009863BE /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
-		42441AA0158617A3009863BE /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A70158615F8009863BE /* libea.a */; };
-		42441AA1158617A3009863BE /* libfn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A72158615F8009863BE /* libfn.a */; };
 		42441AA2158617D9009863BE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42441A82158616AF009863BE /* main.cpp */; };
+		42441B2915862C44009863BE /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441B2815862C44009863BE /* libea.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		42441A6F158615F8009863BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42441A63158615F7009863BE /* ealib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 423CBD9F157D0E0B0003A644;
-			remoteInfo = ea;
-		};
-		42441A71158615F8009863BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42441A63158615F7009863BE /* ealib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 423CBDA7157D0E2B0003A644;
-			remoteInfo = fn;
-		};
-		42441A73158615F8009863BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42441A63158615F7009863BE /* ealib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 423CBE57157D0FCC0003A644;
-			remoteInfo = libea_test;
-		};
-		42441A75158615F8009863BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42441A63158615F7009863BE /* ealib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 420EB2F1157D11540060CAB2;
-			remoteInfo = libfn_test;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		42441A8915861724009863BE /* CopyFiles */ = {
@@ -61,10 +29,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		42441A63158615F7009863BE /* ealib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ealib.xcodeproj; path = ealib/ealib.xcodeproj; sourceTree = "<group>"; };
 		42441A7E158616AF009863BE /* ealife.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ealife.xcconfig; sourceTree = "<group>"; };
 		42441A7F158616AF009863BE /* libea_defaults.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; path = libea_defaults.cfg; sourceTree = "<group>"; };
-		42441A80158616AF009863BE /* Jamroot */ = {isa = PBXFileReference; path = Jamroot; sourceTree = "<group>"; };
+		42441A80158616AF009863BE /* Jamroot */ = {isa = PBXFileReference; lastKnownFileType = text; path = Jamroot; sourceTree = "<group>"; };
 		42441A82158616AF009863BE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		42441A8B15861724009863BE /* ealife */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ealife; sourceTree = BUILT_PRODUCTS_DIR; };
 		42441A9615861785009863BE /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = /usr/local/lib/libboost_iostreams.dylib; sourceTree = "<absolute>"; };
@@ -72,6 +39,7 @@
 		42441A9815861785009863BE /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = /usr/local/lib/libboost_regex.dylib; sourceTree = "<absolute>"; };
 		42441A9915861785009863BE /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = /usr/local/lib/libboost_serialization.dylib; sourceTree = "<absolute>"; };
 		42441A9A15861785009863BE /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = /usr/local/lib/libboost_signals.dylib; sourceTree = "<absolute>"; };
+		42441B2815862C44009863BE /* libea.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libea.a; path = ../../../DerivedData/research/Build/Products/Debug/libea.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42441AA0158617A3009863BE /* libea.a in Frameworks */,
-				42441AA1158617A3009863BE /* libfn.a in Frameworks */,
+				42441B2915862C44009863BE /* libea.a in Frameworks */,
 				42441A9B15861785009863BE /* libboost_iostreams.dylib in Frameworks */,
 				42441A9C15861785009863BE /* libboost_program_options.dylib in Frameworks */,
 				42441A9D15861785009863BE /* libboost_regex.dylib in Frameworks */,
@@ -95,7 +62,6 @@
 		424419E815861127009863BE = {
 			isa = PBXGroup;
 			children = (
-				42441A63158615F7009863BE /* ealib.xcodeproj */,
 				42441A80158616AF009863BE /* Jamroot */,
 				42441A7D158616AF009863BE /* etc */,
 				42441A9515861785009863BE /* lib */,
@@ -108,17 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				42441A8B15861724009863BE /* ealife */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		42441A64158615F7009863BE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				42441A70158615F8009863BE /* libea.a */,
-				42441A72158615F8009863BE /* libfn.a */,
-				42441A74158615F8009863BE /* libea_test */,
-				42441A76158615F8009863BE /* libfn_test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,6 +98,7 @@
 		42441A9515861785009863BE /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				42441B2815862C44009863BE /* libea.a */,
 				42441A9615861785009863BE /* libboost_iostreams.dylib */,
 				42441A9715861785009863BE /* libboost_program_options.dylib */,
 				42441A9815861785009863BE /* libboost_regex.dylib */,
@@ -191,49 +147,12 @@
 			mainGroup = 424419E815861127009863BE;
 			productRefGroup = 424419F415861127009863BE /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 42441A64158615F7009863BE /* Products */;
-					ProjectRef = 42441A63158615F7009863BE /* ealib.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				42441A8A15861724009863BE /* ealife */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		42441A70158615F8009863BE /* libea.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libea.a;
-			remoteRef = 42441A6F158615F8009863BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42441A72158615F8009863BE /* libfn.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libfn.a;
-			remoteRef = 42441A71158615F8009863BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42441A74158615F8009863BE /* libea_test */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = libea_test;
-			remoteRef = 42441A73158615F8009863BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42441A76158615F8009863BE /* libfn_test */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = libfn_test;
-			remoteRef = 42441A75158615F8009863BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		42441A8715861724009863BE /* Sources */ = {
@@ -290,6 +209,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -298,6 +221,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
