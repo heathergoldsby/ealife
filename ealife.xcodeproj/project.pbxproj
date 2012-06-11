@@ -64,7 +64,7 @@
 		42441A63158615F7009863BE /* ealib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ealib.xcodeproj; path = ealib/ealib.xcodeproj; sourceTree = "<group>"; };
 		42441A7E158616AF009863BE /* ealife.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ealife.xcconfig; sourceTree = "<group>"; };
 		42441A7F158616AF009863BE /* libea_defaults.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; path = libea_defaults.cfg; sourceTree = "<group>"; };
-		42441A80158616AF009863BE /* Jamfile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = Jamfile; sourceTree = "<group>"; };
+		42441A80158616AF009863BE /* Jamroot */ = {isa = PBXFileReference; path = Jamroot; sourceTree = "<group>"; };
 		42441A82158616AF009863BE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		42441A8B15861724009863BE /* ealife */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ealife; sourceTree = BUILT_PRODUCTS_DIR; };
 		42441A9615861785009863BE /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = /usr/local/lib/libboost_iostreams.dylib; sourceTree = "<absolute>"; };
@@ -96,8 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				42441A63158615F7009863BE /* ealib.xcodeproj */,
+				42441A80158616AF009863BE /* Jamroot */,
 				42441A7D158616AF009863BE /* etc */,
-				42441A80158616AF009863BE /* Jamfile */,
 				42441A9515861785009863BE /* lib */,
 				42441A81158616AF009863BE /* src */,
 				424419F415861127009863BE /* Products */,

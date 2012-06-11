@@ -1,0 +1,13 @@
+import os ;
+local HOME = [ os.environ HOME ] ;
+
+use-project /libea : ealib/libea ;
+
+exe ealife :
+    src/main.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <link>static
+    ;
+
+install dist : ealife : <location>$(HOME)/bin ;
