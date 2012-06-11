@@ -1,0 +1,3 @@
+[submodule "ealib"]
+	path = ealib
+	url = git://github.com/dknoester/ealib.git
