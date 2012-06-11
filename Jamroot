@@ -7,7 +7,7 @@ exe ealife :
     src/main.cpp
     /libea//libea
     /libea//libea_runner
-    : <link>static
+    : <include>./include <link>static
     ;
 
 install dist : ealife : <location>$(HOME)/bin ;
