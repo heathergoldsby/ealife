@@ -93,15 +93,15 @@ template <typename EA>
 class ealife : public cmdline_interface<EA> {
 public:
     virtual void configure(EA& ea) {
-        add_task<tasks::task_not,resources::unlimited,catalysts::power>("not", ea); // 1
-        add_task<tasks::task_nand,resources::unlimited,catalysts::power>("nand", ea); //1
-        add_task<tasks::task_and,resources::unlimited,catalysts::power>("and", ea); // 2
-        add_task<tasks::task_ornot,resources::unlimited,catalysts::power>("ornot", ea); // 2
-        add_task<tasks::task_or,resources::unlimited,catalysts::power>("or", ea); // 3
-        add_task<tasks::task_andnot,resources::unlimited,catalysts::power>("andnot", ea); // 3
-        add_task<tasks::task_nor,resources::unlimited,catalysts::power>("nor", ea); // 4
-        add_task<tasks::task_xor,resources::unlimited,catalysts::power>("xor", ea); // 4
-        add_task<tasks::task_equals,resources::unlimited,catalysts::power>("equals", ea); // 5
+        add_task<tasks::task_not,resources::unlimited,catalysts::additive<2> >("not", ea); // 1
+        add_task<tasks::task_nand,resources::unlimited,catalysts::additive<2> >("nand", ea); //1
+        add_task<tasks::task_and,resources::unlimited,catalysts::additive<4> >("and", ea); // 2
+        add_task<tasks::task_ornot,resources::unlimited,catalysts::additive<4> >("ornot", ea); // 2
+        add_task<tasks::task_or,resources::unlimited,catalysts::additive<8> >("or", ea); // 3
+        add_task<tasks::task_andnot,resources::unlimited,catalysts::additive<8> >("andnot", ea); // 3
+        add_task<tasks::task_nor,resources::unlimited,catalysts::additive<16> >("nor", ea); // 4
+        add_task<tasks::task_xor,resources::unlimited,catalysts::additive<16> >("xor", ea); // 4
+        add_task<tasks::task_equals,resources::unlimited,catalysts::additive<32> >("equals", ea); // 5
     }
     
     virtual void gather_options() {
