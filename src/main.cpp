@@ -20,70 +20,17 @@
 #include <ea/artificial_life/artificial_life.h>
 #include <ea/artificial_life/hardware.h>
 #include <ea/artificial_life/isa.h>
-#include <ea/artificial_life/topology.h>
-#include <ea/artificial_life/task_library.h>
-#include <ea/mutation.h>
-#include <ea/events.h>
+#include <ea/artificial_life/spatial.h>
+#include <ea/artificial_life/datafiles/reactions.h>
+#include <ea/artificial_life/datafiles/generation_priority.h>
 #include <ea/cmdline_interface.h>
-#include <ea/datafiles/generation_fitness.h>
+
 using namespace ea;
-
-
-/*! Datafile for mean generation, and mean & max fitness.
- */
-template <typename EA>
-struct task_performed_event : record_statistics_event<EA> {
-    task_performed_event(EA& ea) : record_statistics_event<EA>(ea), _df("tasks.dat") {
-        _df.add_field("update")
-        .add_field("not")
-        .add_field("nand")
-        .add_field("and")
-        .add_field("ornot")
-        .add_field("or")
-        .add_field("andnot")
-        .add_field("nor")
-        .add_field("xor")
-        .add_field("equals");
-        
-        _conn2 = ea.events().task_performed.connect(boost::bind(&task_performed_event::record_task, this, _1, _2, _3, _4));
-    }
-    
-    virtual ~task_performed_event() {
-    }
-    
-    
-    void record_task(typename EA::individual_type& ind, // individual
-                     double r, // amount of resource consumed
-                     const std::string& task, // task name
-                     EA& ea) {
-        ++_tasks[task];
-    }
-    
-    virtual void operator()(EA& ea) {
-        _df.write(ea.current_update())
-        .write(_tasks["not"])
-        .write(_tasks["nand"])
-        .write(_tasks["and"])
-        .write(_tasks["ornot"])
-        .write(_tasks["or"])
-        .write(_tasks["andnot"])
-        .write(_tasks["nor"])
-        .write(_tasks["xor"])
-        .write(_tasks["equals"])
-        .endl();
-        _tasks.clear();
-    }
-
-    boost::signals::scoped_connection _conn2;
-    datafile _df;
-    std::map<std::string, unsigned int> _tasks;
-};
-
 
 /*! Artificial life simulation definition.
  */
 typedef artificial_life<
-hardware, isa
+hardware, isa, spatial
 > al_type;
 
 
@@ -124,7 +71,7 @@ public:
     }
     
     virtual void gather_events(EA& ea) {
-        add_event<task_performed_event>(this,ea);
+        add_event<datafiles::record_reactions_event>(this,ea);
         add_event<datafiles::generation_priority>(this,ea);
     };
 };
