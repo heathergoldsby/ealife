@@ -79,29 +79,31 @@ struct grouping : spatial<EA> {
 /*! Artificial life simulation definition.
  */
 typedef artificial_life<
-hardware, isa, grouping
+hardware, isa, spatial
 > al_type;
 
 
 /*! 
  */
 template <typename EA>
-class ealife : public cmdline_interface<EA> {
+class cli : public cmdline_interface<EA> {
 public:
+    typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
+    typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
+    
     virtual void configure(EA& ea) {
-        add_task<tasks::task_not,resources::unlimited,catalysts::additive<2> >("not", ea); // 1
-        add_task<tasks::task_nand,resources::unlimited,catalysts::additive<2> >("nand", ea); //1
-        add_task<tasks::task_and,resources::unlimited,catalysts::additive<4> >("and", ea); // 2
-        add_task<tasks::task_ornot,resources::unlimited,catalysts::additive<4> >("ornot", ea); // 2
-        add_task<tasks::task_or,resources::unlimited,catalysts::additive<8> >("or", ea); // 3
-        add_task<tasks::task_andnot,resources::unlimited,catalysts::additive<8> >("andnot", ea); // 3
-        add_task<tasks::task_nor,resources::unlimited,catalysts::additive<16> >("nor", ea); // 4
-        add_task<tasks::task_xor,resources::unlimited,catalysts::additive<16> >("xor", ea); // 4
-        add_task<tasks::task_equals,resources::unlimited,catalysts::additive<32> >("equals", ea); // 5
+        task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<2> >("not", ea);
+        task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<2> >("nand", ea);
+
+        resource_ptr_type resA = make_resource("resA", ea);
+        resource_ptr_type resB = make_resource("resB", 100.0, 1.0, 0.01, 0.05, ea);
+        
+        task_nand->consumes(resB);
     }
     
     virtual void gather_options() {
         add_option<POPULATION_SIZE>(this);
+        add_option<INITIAL_POPULATION_SIZE>(this);
         add_option<REPRESENTATION_SIZE>(this);
         add_option<SCHEDULER_TIME_SLICE>(this);
         add_option<MUTATION_PER_SITE_P>(this);
@@ -114,6 +116,8 @@ public:
         add_option<CHECKPOINT_PREFIX>(this);        
         add_option<RNG_SEED>(this);
         add_option<RECORDING_PERIOD>(this);
+        add_option<SPATIAL_X>(this);
+        add_option<SPATIAL_Y>(this);
     }
     
     virtual void gather_tools() {
@@ -124,4 +128,4 @@ public:
         add_event<datafiles::generation_priority>(this,ea);
     };
 };
-LIBEA_CMDLINE_INSTANCE(al_type, ealife);
+LIBEA_CMDLINE_INSTANCE(al_type, cli);
