@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E082F6715CF0E9700097C42 /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E082F6615CF0E9700097C42 /* libea.a */; };
 		42441A9B15861785009863BE /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
 		42441A9C15861785009863BE /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
 		42441A9D15861785009863BE /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
 		42441A9E15861785009863BE /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
 		42441A9F15861785009863BE /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
 		42441AA2158617D9009863BE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42441A82158616AF009863BE /* main.cpp */; };
-		42441B2915862C44009863BE /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441B2815862C44009863BE /* libea.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E082F6615CF0E9700097C42 /* libea.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libea.a; path = ../ealib/build/Debug/libea.a; sourceTree = "<group>"; };
 		42441A7E158616AF009863BE /* ealife.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ealife.xcconfig; sourceTree = "<group>"; };
 		42441A7F158616AF009863BE /* libea_defaults.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; path = libea_defaults.cfg; sourceTree = "<group>"; };
 		42441A80158616AF009863BE /* Jamroot */ = {isa = PBXFileReference; lastKnownFileType = text; path = Jamroot; sourceTree = "<group>"; };
@@ -47,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42441B2915862C44009863BE /* libea.a in Frameworks */,
+				3E082F6715CF0E9700097C42 /* libea.a in Frameworks */,
 				42441A9B15861785009863BE /* libboost_iostreams.dylib in Frameworks */,
 				42441A9C15861785009863BE /* libboost_program_options.dylib in Frameworks */,
 				42441A9D15861785009863BE /* libboost_regex.dylib in Frameworks */,
@@ -62,6 +63,7 @@
 		424419E815861127009863BE = {
 			isa = PBXGroup;
 			children = (
+				3E082F6615CF0E9700097C42 /* libea.a */,
 				42441A80158616AF009863BE /* Jamroot */,
 				42441A7D158616AF009863BE /* etc */,
 				42441A9515861785009863BE /* lib */,
@@ -135,6 +137,7 @@
 		424419EA15861127009863BE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Michigan State University";
 			};
 			buildConfigurationList = 424419ED15861127009863BE /* Build configuration list for PBXProject "ealife" */;
@@ -212,6 +215,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../ealib/build/Debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -224,6 +228,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../ealib/build/Debug\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
