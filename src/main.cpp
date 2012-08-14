@@ -236,7 +236,6 @@ struct gls_replication : end_of_update_event<EA> {
             if (exists<GROUP_RESOURCE_UNITS>(*i) && 
                 (get<GROUP_RESOURCE_UNITS>(*i) > get<GROUP_REP_THRESHOLD>(*i))){
                 
-                typename EA::individual_ptr_type p(new typename EA::individual_type());
                 
                 // grab a copy of the first individual: 
                 typename EA::individual_type::individual_type germ;
@@ -252,7 +251,7 @@ struct gls_replication : end_of_update_event<EA> {
                     if (get<GERM_STATUS>(org)) {
                         ++germ_count;
                         if (!germ_present){
-                            germ = **j;
+                            germ = org;
                             germ_present = true;
                         }
                     } 
@@ -269,18 +268,18 @@ struct gls_replication : end_of_update_event<EA> {
                     germ_num.pop_front();
                     germ_percent.pop_front();
                 }
-                
-//                germ_num(germ_count);       
-//                germ_percent(germ_count/i->population().size()*100);                
+                  
                 
                 // setup the population (really, an ea):
+                typename EA::individual_ptr_type p(new typename EA::individual_type());
+
                 p->md() = ea.md();
                 p->rng().reset(ea.rng()(std::numeric_limits<int>::max()));
                 p->initialize();
                 
                 // mutate it:
                 per_site_germ m; 
-                mutate(germ,m,*i);
+                mutate(germ,m,*p);
                 
                 // and fill up the offspring population with copies of the germ:
                 
@@ -306,12 +305,11 @@ struct gls_replication : end_of_update_event<EA> {
             // add the offspring to the list of survivors:
             survivors.insert(survivors.end(), offspring.begin(), offspring.end());
             
-            int x = survivors.size(); 
-            int y = ea.population().size();
-            
             // and swap 'em in for the current population:
             std::swap(ea.population(), survivors);
         }
+        
+        assert(ea.population().size() == 10); 
         
         if ((ea.current_update() % 100) == 0) {
             if (germ_num.size() > 0) {
