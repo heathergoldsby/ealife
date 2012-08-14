@@ -218,6 +218,8 @@ struct gls_replication : end_of_update_event<EA> {
         .add_field("mean_germ_num")
         .add_field("mean_germ_percent")
         .add_field("replication_count");
+        
+        num_rep = 0;
     }
     
     
@@ -227,7 +229,6 @@ struct gls_replication : end_of_update_event<EA> {
     
     //! Perform germline replication among populations.
     virtual void operator()(EA& ea) {
-        
         // See if any subpops have exceeded the resource threshold
         typename EA::population_type offspring;
         for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
@@ -260,8 +261,17 @@ struct gls_replication : end_of_update_event<EA> {
                 
                 if (!germ_present) continue;
 
-                germ_num(germ_count);       
-                germ_percent(germ_count/i->population().size()*100);                
+                germ_num.push_back(germ_count);
+                germ_percent.push_back(germ_count/i->population().size()*100); 
+                ++num_rep;
+                
+                if (germ_num.size() > 100) {
+                    germ_num.pop_front();
+                    germ_percent.pop_front();
+                }
+                
+//                germ_num(germ_count);       
+//                germ_percent(germ_count/i->population().size()*100);                
                 
                 // setup the population (really, an ea):
                 p->md() = ea.md();
@@ -296,17 +306,21 @@ struct gls_replication : end_of_update_event<EA> {
             // add the offspring to the list of survivors:
             survivors.insert(survivors.end(), offspring.begin(), offspring.end());
             
+            int x = survivors.size(); 
+            int y = ea.population().size();
+            
             // and swap 'em in for the current population:
             std::swap(ea.population(), survivors);
         }
         
         if ((ea.current_update() % 100) == 0) {
-            if (count(germ_num) > 0) {
+            if (germ_num.size() > 0) {
             _df.write(ea.current_update())
-            .write(mean(germ_num))
-            .write(mean(germ_percent))
-            .write(count(germ_num))
+            .write(std::accumulate(germ_num.begin(), germ_num.end(), 0.0)/germ_num.size())
+            .write(std::accumulate(germ_percent.begin(), germ_percent.end(), 0.0)/germ_percent.size())
+            .write(num_rep)
             .endl();
+            num_rep = 0;
             } else {
                 _df.write(ea.current_update())
                 .write(0)
@@ -318,8 +332,10 @@ struct gls_replication : end_of_update_event<EA> {
 
     }
     datafile _df;    
-    accumulator_set<double, stats<tag::mean, tag::count> > germ_num;
-    accumulator_set<double, stats<tag::mean> > germ_percent;
+    std::deque<double> germ_num; 
+    std::deque<double> germ_percent;
+    int num_rep;
+
 
 };
 
