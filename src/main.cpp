@@ -21,9 +21,8 @@
 #include <boost/accumulators/statistics/stats.hpp>
 #include <boost/accumulators/statistics/mean.hpp>
 
-
-
 #include "selfrep_not_ancestor.h"
+#include "repro_not_ancestor.h"
 #include <ea/artificial_life.h>
 #include <ea/artificial_life/hardware.h>
 #include <ea/artificial_life/isa.h>
@@ -145,7 +144,7 @@ struct gs_inherit_event : inheritance_event<EA> {
     //! Constructor.
     gs_inherit_event(EA& ea) : inheritance_event<EA>(ea) {
     }
-
+    
     //! Destructor.
     virtual ~gs_inherit_event() {
     }
@@ -259,7 +258,7 @@ struct gls_replication : end_of_update_event<EA> {
                 }
                 
                 if (!germ_present) continue;
-
+                
                 germ_num.push_back(germ_count);
                 germ_percent.push_back(germ_count/i->population().size()*100); 
                 ++num_rep;
@@ -268,11 +267,11 @@ struct gls_replication : end_of_update_event<EA> {
                     germ_num.pop_front();
                     germ_percent.pop_front();
                 }
-                  
+                
                 
                 // setup the population (really, an ea):
                 typename EA::individual_ptr_type p(new typename EA::individual_type());
-
+                
                 p->md() = ea.md();
                 p->rng().reset(ea.rng()(std::numeric_limits<int>::max()));
                 p->initialize();
@@ -294,7 +293,7 @@ struct gls_replication : end_of_update_event<EA> {
             
             
         }
-            
+        
         // select surviving parent groups
         if (offspring.size() > 0) {
             int n = get<META_POPULATION_SIZE>(ea) - offspring.size(); 
@@ -309,16 +308,16 @@ struct gls_replication : end_of_update_event<EA> {
             std::swap(ea.population(), survivors);
         }
         
-        assert(ea.population().size() == 10); 
+        //        assert(ea.population().size() == 10); 
         
         if ((ea.current_update() % 100) == 0) {
             if (germ_num.size() > 0) {
-            _df.write(ea.current_update())
-            .write(std::accumulate(germ_num.begin(), germ_num.end(), 0.0)/germ_num.size())
-            .write(std::accumulate(germ_percent.begin(), germ_percent.end(), 0.0)/germ_percent.size())
-            .write(num_rep)
-            .endl();
-            num_rep = 0;
+                _df.write(ea.current_update())
+                .write(std::accumulate(germ_num.begin(), germ_num.end(), 0.0)/germ_num.size())
+                .write(std::accumulate(germ_percent.begin(), germ_percent.end(), 0.0)/germ_percent.size())
+                .write(num_rep)
+                .endl();
+                num_rep = 0;
             } else {
                 _df.write(ea.current_update())
                 .write(0)
@@ -327,21 +326,20 @@ struct gls_replication : end_of_update_event<EA> {
                 .endl();     
             }
         }
-
     }
     datafile _df;    
     std::deque<double> germ_num; 
     std::deque<double> germ_percent;
     int num_rep;
-
-
+    
+    
 };
 
 
 //! Configuration object for an EA.
 template <typename EA>
 struct gls_configuration : public abstract_configuration<EA> {
-
+    
     typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
     typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
     
@@ -369,9 +367,10 @@ struct gls_configuration : public abstract_configuration<EA> {
         append_isa<rotate_cw>(ea);
         append_isa<rotate_ccw>(ea);
         append_isa<if_less>(ea); //20
-        append_isa<h_alloc>(ea);             
-        append_isa<h_copy>(ea);
-        append_isa<h_divide>(ea);
+//        append_isa<h_alloc>(ea);             
+//        append_isa<h_copy>(ea);
+//        append_isa<h_divide>(ea);
+        append_isa<repro>(ea);
         append_isa<input>(ea);
         append_isa<output>(ea);//25
         append_isa<become_soma>(ea);
@@ -409,7 +408,7 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_nor->consumes(resG);
         task_xor->consumes(resH);
         task_equals->consumes(resI);
-
+        
         add_event<task_mutagenesis>(this,ea);
         add_event<gs_inherit_event>(this,ea);
         add_event<task_resource_consumption>(this,ea);
@@ -418,7 +417,7 @@ struct gls_configuration : public abstract_configuration<EA> {
     
     //! Called to generate the initial EA population.
     void initial_population(EA& ea) {
-        alife_population<selfrep_not_ancestor> init;
+        alife_population<repro_not_ancestor> init;
         init(ea);
     }
 };
@@ -430,9 +429,14 @@ typedef artificial_life<
 gls_configuration, spatial, empty_neighbor, round_robin
 > al_type;
 
-
+namespace ea {
+    template < > int al_type::alife_allocated = 0;
+    template < > int al_type::alife_deallocated = 0;
+    template < > int al_type::individual_type::org_allocated = 0;
+    template < > int al_type::individual_type::org_deallocated = 0;
+}
+    
 typedef meta_population<al_type> mea_type;
-
 
 
 
@@ -462,7 +466,7 @@ public:
         add_option<CHECKPOINT_PREFIX>(this);        
         add_option<RNG_SEED>(this);
         add_option<RECORDING_PERIOD>(this);
-
+        
         // gls specific options
         add_option<TASK_MUTATION_PER_SITE_P>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
@@ -473,16 +477,16 @@ public:
     }
     
     virtual void gather_events(EA& ea) {
-       /* for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {                    
-
-            add_event<datafiles::record_reactions_event>(this,*i);
-            add_event<datafiles::generation_priority>(this,*i);
-            add_event<task_mutagenesis>(this,*i);
-            add_event<gs_inherit_event>(this,*i);
-            add_event<task_resource_consumption>(this,*i);
-        }*/
+        /* for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {                    
+         
+         add_event<datafiles::record_reactions_event>(this,*i);
+         add_event<datafiles::generation_priority>(this,*i);
+         add_event<task_mutagenesis>(this,*i);
+         add_event<gs_inherit_event>(this,*i);
+         add_event<task_resource_consumption>(this,*i);
+         }*/
         add_event<gls_replication>(this,ea);
-
+        
     };
 };
 LIBEA_CMDLINE_INSTANCE(mea_type, cli);

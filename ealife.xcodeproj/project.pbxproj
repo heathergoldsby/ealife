@@ -31,6 +31,7 @@
 /* Begin PBXFileReference section */
 		3E082F6615CF0E9700097C42 /* libea.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libea.a; path = ../ealib/build/Debug/libea.a; sourceTree = "<group>"; };
 		3E08301215D8095C00097C42 /* selfrep_not_ancestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selfrep_not_ancestor.h; sourceTree = "<group>"; };
+		3E71F5E515DBF7D1002AFEB7 /* repro_not_ancestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = repro_not_ancestor.h; sourceTree = "<group>"; };
 		42441A7E158616AF009863BE /* ealife.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ealife.xcconfig; sourceTree = "<group>"; };
 		42441A7F158616AF009863BE /* libea_defaults.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; path = libea_defaults.cfg; sourceTree = "<group>"; };
 		42441A80158616AF009863BE /* Jamroot */ = {isa = PBXFileReference; lastKnownFileType = text; path = Jamroot; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				42441A82158616AF009863BE /* main.cpp */,
+				3E71F5E515DBF7D1002AFEB7 /* repro_not_ancestor.h */,
 				3E08301215D8095C00097C42 /* selfrep_not_ancestor.h */,
 			);
 			path = src;
