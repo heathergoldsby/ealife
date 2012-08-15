@@ -253,6 +253,9 @@ struct gls_replication : end_of_update_event<EA> {
                         ++germ_count;
                         if (!germ_present){
                             germ = org;
+                            // Makes sure that we keep the size of the organism and discard its in-memory offspring
+                            germ.repr().resize(org.hw().original_size());
+                            germ.hw().initialize();
                             germ_present = true;
                         }
                     } 
