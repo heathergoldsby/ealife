@@ -215,6 +215,7 @@ struct gls_replication : end_of_update_event<EA> {
     gls_replication(EA& ea) : end_of_update_event<EA>(ea), _df("gls.dat") {
         _df.add_field("update")
         .add_field("mean_germ_num")
+        .add_field("mean_pop_num")
         .add_field("mean_germ_percent")
         .add_field("replication_count");
         
@@ -245,6 +246,7 @@ struct gls_replication : end_of_update_event<EA> {
                 std::random_shuffle(i->population().begin(), i->population().end(), ea.rng());
                 
                 int germ_count = 0;
+                int pop_count = 0;
                 for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j) {
                     typename EA::individual_type::individual_type& org=**j;
                     if (get<GERM_STATUS>(org)) {
@@ -254,11 +256,13 @@ struct gls_replication : end_of_update_event<EA> {
                             germ_present = true;
                         }
                     } 
+                    pop_count++;
                     
                 }
                 
                 if (!germ_present) continue;
                 
+                pop_num.push_back(pop_count);
                 germ_num.push_back(germ_count);
                 germ_percent.push_back(germ_count/i->population().size()*100); 
                 ++num_rep;
@@ -266,6 +270,7 @@ struct gls_replication : end_of_update_event<EA> {
                 if (germ_num.size() > 100) {
                     germ_num.pop_front();
                     germ_percent.pop_front();
+                    pop_num.pop_front();
                 }
                 
                 
@@ -314,12 +319,14 @@ struct gls_replication : end_of_update_event<EA> {
             if (germ_num.size() > 0) {
                 _df.write(ea.current_update())
                 .write(std::accumulate(germ_num.begin(), germ_num.end(), 0.0)/germ_num.size())
+                .write(std::accumulate(pop_num.begin(), pop_num.end(), 0.0)/pop_num.size())
                 .write(std::accumulate(germ_percent.begin(), germ_percent.end(), 0.0)/germ_percent.size())
                 .write(num_rep)
                 .endl();
                 num_rep = 0;
             } else {
                 _df.write(ea.current_update())
+                .write(0)
                 .write(0)
                 .write(0)
                 .write(0)
@@ -330,6 +337,8 @@ struct gls_replication : end_of_update_event<EA> {
     datafile _df;    
     std::deque<double> germ_num; 
     std::deque<double> germ_percent;
+    std::deque<double> pop_num;
+
     int num_rep;
     
     
@@ -367,9 +376,9 @@ struct gls_configuration : public abstract_configuration<EA> {
         append_isa<rotate_cw>(ea);
         append_isa<rotate_ccw>(ea);
         append_isa<if_less>(ea); //20
-//        append_isa<h_alloc>(ea);             
-//        append_isa<h_copy>(ea);
-//        append_isa<h_divide>(ea);
+        append_isa<h_alloc>(ea);             
+        append_isa<h_copy>(ea);
+        append_isa<h_divide>(ea);
         append_isa<repro>(ea);
         append_isa<input>(ea);
         append_isa<output>(ea);//25
@@ -417,7 +426,7 @@ struct gls_configuration : public abstract_configuration<EA> {
     
     //! Called to generate the initial EA population.
     void initial_population(EA& ea) {
-        alife_population<repro_not_ancestor> init;
+        alife_population<selfrep_not_ancestor> init;
         init(ea);
     }
 };
