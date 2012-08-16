@@ -39,8 +39,9 @@ using namespace boost::accumulators;
 
 
 /*
- Track results
- x-y coordinates?
+ Track results - tasks?
+ Fixed inputs?
+ 
  */
 
 LIBEA_MD_DECL(GERM_STATUS, "ea.gls.germ_status", bool);
@@ -205,8 +206,10 @@ struct task_resource_consumption : task_performed_event<EA> {
             res_amount += get<SAVED_RESOURCES>(ind); 
         }
         put<SAVED_RESOURCES>(res_amount, ind);
+    
     }
 };
+
 
 //! Performs group replication using germ lines.
 template <typename EA>
@@ -267,7 +270,7 @@ struct gls_replication : end_of_update_event<EA> {
                 
                 pop_num.push_back(pop_count);
                 germ_num.push_back(germ_count);
-                germ_percent.push_back(germ_count/i->population().size()*100); 
+                germ_percent.push_back(germ_count/((double) i->population().size())*100.0); 
                 ++num_rep;
                 
                 if (germ_num.size() > 100) {
@@ -389,6 +392,7 @@ struct gls_configuration : public abstract_configuration<EA> {
         append_isa<if_germ>(ea);
         append_isa<if_soma>(ea);
         append_isa<donate_res_to_group>(ea);
+        append_isa<get_cell_xy>(ea);
         
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
@@ -491,13 +495,15 @@ public:
     virtual void gather_events(EA& ea) {
         /* for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {                    
          
-         add_event<datafiles::record_reactions_event>(this,*i);
          add_event<datafiles::generation_priority>(this,*i);
+         add_event<datafiles::record_reactions_event>(this,ea);
+
          add_event<task_mutagenesis>(this,*i);
          add_event<gs_inherit_event>(this,*i);
          add_event<task_resource_consumption>(this,*i);
          }*/
         add_event<gls_replication>(this,ea);
+
         
     };
 };
