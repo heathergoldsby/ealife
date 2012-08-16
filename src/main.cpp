@@ -392,7 +392,7 @@ struct gls_configuration : public abstract_configuration<EA> {
         append_isa<if_germ>(ea);
         append_isa<if_soma>(ea);
         append_isa<donate_res_to_group>(ea);
-        append_isa<get_cell_xy>(ea);
+        append_isa<get_xy>(ea);
         
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
