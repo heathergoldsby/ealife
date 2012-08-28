@@ -7,11 +7,56 @@
 		<key>ealife.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+		<key>gls_control.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>gls_ramped copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>gls_ramped.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>3EB3CA8915E6F7B700B82B07</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EB3CA9F15E6F8E500B82B07</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EB3CAAB15E6F91F00B82B07</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EB3CABC15E6FA6E00B82B07</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EB3CACD15E6FBD200B82B07</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EB3CADF15E7097500B82B07</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>42441A8A15861724009863BE</key>
 		<dict>
 			<key>primary</key>

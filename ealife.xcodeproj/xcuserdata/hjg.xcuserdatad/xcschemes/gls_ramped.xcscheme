@@ -13,9 +13,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "42441A8A15861724009863BE"
-               BuildableName = "gls"
-               BlueprintName = "gls"
+               BlueprintIdentifier = "3EB3CACD15E6FBD200B82B07"
+               BuildableName = "gls_ramped"
+               BlueprintName = "gls_ramped"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,9 +31,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "42441A8A15861724009863BE"
-            BuildableName = "gls"
-            BlueprintName = "gls"
+            BlueprintIdentifier = "3EB3CACD15E6FBD200B82B07"
+            BuildableName = "gls_ramped"
+            BlueprintName = "gls_ramped"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -50,26 +50,12 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "42441A8A15861724009863BE"
-            BuildableName = "gls"
-            BlueprintName = "gls"
+            BlueprintIdentifier = "3EB3CACD15E6FBD200B82B07"
+            BuildableName = "gls_ramped"
+            BlueprintName = "gls_ramped"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "--with-time"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--ea.meta_population.size 50"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--ea.rng.seed 1"
-            isEnabled = "NO">
-         </CommandLineArgument>
-      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -82,9 +68,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "42441A8A15861724009863BE"
-            BuildableName = "gls"
-            BlueprintName = "gls"
+            BlueprintIdentifier = "3EB3CACD15E6FBD200B82B07"
+            BuildableName = "gls_ramped"
+            BlueprintName = "gls_ramped"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

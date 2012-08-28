@@ -11,7 +11,7 @@
 #ifndef _EALIFE_SELFREP_NOT_ANCESTOR_H_
 #define _EALIFE_SELFREP_NOT_ANCESTOR_H_
 
-#include <ea/artificial_life.h>
+#include <ea/digital_evolution.h>
 #include <ea/meta_data.h>
 
 
@@ -20,14 +20,10 @@ namespace ea {
      */
     struct selfrep_not_ancestor {
         template <typename EA>
-        typename EA::population_entry_type operator()(EA& ea) {
-            typedef typename EA::representation_type representation_type;
-            typename EA::individual_type ind;
-            ind.name() = next<INDIVIDUAL_COUNT>(ea);
-            
-            representation_type& repr=ind.repr();
+        typename EA::representation_type operator()(EA& ea) {
+            typename EA::representation_type repr;
             repr.resize(get<REPRESENTATION_SIZE>(ea));
-            std::fill(repr.begin(), repr.end(), 3);
+            std::fill(repr.begin(), repr.end(), ea.isa()["nop_x"]);
             
             // Must use representation size of 100.
             assert(repr.size() == 100);
@@ -59,9 +55,7 @@ namespace ea {
             repr[98] =  ea.isa()["nop_a"]; // nopa
             repr[99] =  ea.isa()["nop_b"]; // nopb
             
-            ind.hw().initialize();
-            
-            return make_population_entry(ind, ea);
+            return repr;
         }
     };
     

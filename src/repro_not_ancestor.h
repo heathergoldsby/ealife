@@ -9,7 +9,7 @@
 #ifndef _EALIFE_REPRO_NOT_ANCESTOR_H_
 #define _EALIFE_REPRO_NOT_ANCESTOR_H_
 
-#include <ea/artificial_life.h>
+#include <ea/digital_evolution.h>
 #include <ea/meta_data.h>
 
 
@@ -18,14 +18,10 @@ namespace ea {
      */
     struct repro_not_ancestor {
         template <typename EA>
-        typename EA::population_entry_type operator()(EA& ea) {
-            typedef typename EA::representation_type representation_type;
-            typename EA::individual_type ind;
-            ind.name() = next<INDIVIDUAL_COUNT>(ea);
-            
-            representation_type& repr=ind.repr();
+        typename EA::representation_type operator()(EA& ea) {
+            typename EA::representation_type repr;
             repr.resize(get<REPRESENTATION_SIZE>(ea));
-            std::fill(repr.begin(), repr.end(), 3);
+            std::fill(repr.begin(), repr.end(), ea.isa()["nop_x"]);
             
             // Must use representation size of 100.
             assert(repr.size() == 100);
@@ -38,13 +34,10 @@ namespace ea {
             repr[28] = ea.isa()["pop"]; // pop
             repr[29] = ea.isa()["nand"]; // nand
             repr[30] = ea.isa()["output"]; //output
-            repr[31] = ea.isa()["donate_res_to_group"]; // donate_res_to_group
-            
+            repr[31] = ea.isa()["donate_res_to_group"]; // donate_res_to_group            
             repr[99] =  ea.isa()["repro"]; // repro
             
-            ind.hw().initialize();
-            
-            return make_population_entry(ind, ea);
+            return repr;
         }
     };
     

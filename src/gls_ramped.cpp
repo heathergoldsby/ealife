@@ -1,4 +1,4 @@
-/* main.cpp
+/* gls_ramped.cpp
  * 
  * This file is part of EALife.
  * 
@@ -74,16 +74,18 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_ptr_type task_nor = make_task<tasks::task_nor,catalysts::additive<0> >("nor", ea);
         task_ptr_type task_xor = make_task<tasks::task_xor,catalysts::additive<0> >("xor", ea);
         task_ptr_type task_equals = make_task<tasks::task_equals,catalysts::additive<0> >("equals", ea);
+     
         
         put<TASK_MUTATION_MULT>(0, *task_not);
-        put<TASK_MUTATION_MULT>(1, *task_nand);
-        put<TASK_MUTATION_MULT>(1, *task_and);
-        put<TASK_MUTATION_MULT>(1, *task_ornot);
-        put<TASK_MUTATION_MULT>(1, *task_or);
-        put<TASK_MUTATION_MULT>(1, *task_andnot);
-        put<TASK_MUTATION_MULT>(1, *task_nor);
-        put<TASK_MUTATION_MULT>(1, *task_xor);
-        put<TASK_MUTATION_MULT>(1, *task_equals);
+        put<TASK_MUTATION_MULT>(2, *task_nand);
+        put<TASK_MUTATION_MULT>(4, *task_and);
+        put<TASK_MUTATION_MULT>(6, *task_ornot);
+        put<TASK_MUTATION_MULT>(8, *task_or);
+        put<TASK_MUTATION_MULT>(10, *task_andnot);
+        put<TASK_MUTATION_MULT>(12, *task_nor);
+        put<TASK_MUTATION_MULT>(14, *task_xor);
+        put<TASK_MUTATION_MULT>(16, *task_equals);
+
         
         resource_ptr_type resA = make_resource("resA", 100.0, 1.0, 0.01, 0.05, ea);
         resource_ptr_type resB = make_resource("resB", 100.0, 1.0, 0.01, 0.05, ea);
@@ -123,7 +125,7 @@ struct gls_configuration : public abstract_configuration<EA> {
 typedef digital_evolution<
 gls_configuration, spatial, empty_neighbor, round_robin
 > ea_type;
-  
+
 template <typename EA>
 struct mp_configuration : public abstract_configuration<EA> {
 };
@@ -165,16 +167,15 @@ public:
         add_option<TASK_MUTATION_PER_SITE_P>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
         add_option<GROUP_REP_THRESHOLD>(this);
-
     }
     
     virtual void gather_tools() {
     }
     
     virtual void gather_events(EA& ea) {
-
+        
         add_event<gls_replication>(this,ea);
-
+        
         
     };
 };

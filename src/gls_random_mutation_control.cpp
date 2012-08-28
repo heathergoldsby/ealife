@@ -105,7 +105,7 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_xor->consumes(resH);
         task_equals->consumes(resI);
         
-        add_event<task_mutagenesis>(this,ea);
+        add_event<task_mutagenesis_group>(this,ea);
         add_event<gs_inherit_event>(this,ea);
         add_event<task_resource_consumption>(this,ea);
         
@@ -123,7 +123,7 @@ struct gls_configuration : public abstract_configuration<EA> {
 typedef digital_evolution<
 gls_configuration, spatial, empty_neighbor, round_robin
 > ea_type;
-  
+
 template <typename EA>
 struct mp_configuration : public abstract_configuration<EA> {
 };
@@ -165,15 +165,16 @@ public:
         add_option<TASK_MUTATION_PER_SITE_P>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
         add_option<GROUP_REP_THRESHOLD>(this);
-
+        
     }
     
     virtual void gather_tools() {
     }
     
     virtual void gather_events(EA& ea) {
-
+        
         add_event<gls_replication>(this,ea);
+        add_event<task_performed_tracking>(this,ea);
 
         
     };
