@@ -270,7 +270,6 @@ struct task_performed_tracking : end_of_update_event<EA> {
             int t_xor = 0;
             int t_equals = 0;
             
-            typename EA::population_type;
             for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
                 t_not += get<TASK_NOT>(*i, 0.0);
                 t_nand += get<TASK_NAND>(*i, 0.0);
