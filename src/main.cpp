@@ -174,6 +174,7 @@ public:
     virtual void gather_events(EA& ea) {
 
         add_event<gls_replication>(this,ea);
+        add_event<task_performed_tracking>(this,ea);
 
         
     };
