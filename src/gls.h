@@ -329,9 +329,11 @@ struct gls_replication : end_of_update_event<EA> {
         typename EA::population_type offspring;
         for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
             
+            // Do not replicate if the 'founding org' is sterile.
+            if (i->population().size() < 2) continue; 
+            
             if (exists<GROUP_RESOURCE_UNITS>(*i) && 
                 (get<GROUP_RESOURCE_UNITS>(*i) > get<GROUP_REP_THRESHOLD>(*i))){
-                
                 
                 // grab a copy of the first individual: 
                 typename EA::individual_type::individual_type germ;
