@@ -22,6 +22,77 @@
 
 
 
+/*! Triggers a task having a mutagenic effect on a *GROUP*.
+ This is a control, since it eliminates the ability of organism's to
+ create pseudo-soma. 
+ */
+
+template <typename EA>
+struct task_mutagenesis_group : task_performed_event<EA> {
+    
+    task_mutagenesis_group(EA& ea) : task_performed_event<EA>(ea) {
+    }
+    
+    virtual ~task_mutagenesis_group() { }
+    virtual void operator()(typename EA::individual_type& ind, // individual
+                            typename EA::tasklib_type::task_ptr_type task, // task pointer   
+                            double r, // amount of resource consumed
+                            EA& ea) {
+        
+        double mult = get<TASK_MUTATION_MULT>(*task);
+        double prob = get<TASK_MUTATION_PER_SITE_P>(ea) * mult;
+        if (prob > 0) {
+            configurable_per_site m(prob); 
+            // grab a random individual from the population... (sacrificial lamb)
+            typename EA::individual_type& ind_mut = **ea.rng().choice(ea.population().begin(), ea.population().end());
+            mutate(ind_mut,m,ea);
+            get<WORKLOAD>(ind_mut,0.0) += 1.0;
+        }
+    }
+};
+
+
+/*! Triggers a task having a mutagenic effect on a given category (germ/soma)
+ within a group. This is a control, since it eliminates the ability of 
+ organism's to create pseudo-soma. 
+ */
+
+template <typename EA>
+struct task_mutagenesis_category : task_performed_event<EA> {
+    
+    task_mutagenesis_category(EA& ea) : task_performed_event<EA>(ea) {
+    }
+    
+    virtual ~task_mutagenesis_category() { }
+    virtual void operator()(typename EA::individual_type& ind, // individual
+                            typename EA::tasklib_type::task_ptr_type task, // task pointer   
+                            double r, // amount of resource consumed
+                            EA& ea) {
+        
+        double mult = get<TASK_MUTATION_MULT>(*task);
+        double prob = get<TASK_MUTATION_PER_SITE_P>(ea) * mult;
+        std::random_shuffle(ea.population().begin(), ea.population().end(), ea.rng());
+        bool gs = get<GERM_STATUS>(ind, true);
+
+        if (prob > 0) {
+            configurable_per_site m(prob); 
+            
+            for(typename EA::population_type::iterator j=ea.population().begin(); j!=ea.population().end(); ++j) {
+                typename EA::individual_type& org=**j;
+                if (get<GERM_STATUS>(org, true) == gs) {            
+                    // grab a random individual of the same category from the population... (sacrificial lamb)
+                    mutate(org,m,ea);
+                    get<WORKLOAD>(org,0.0) += 1.0;
+                    return;
+                }
+            }
+        }
+    }
+};
+
+
+
+
 //! Configuration object for an EA.
 template <typename EA>
 struct gls_configuration : public abstract_configuration<EA> {
@@ -105,7 +176,7 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_xor->consumes(resH);
         task_equals->consumes(resI);
         
-        add_event<task_mutagenesis_group>(this,ea);
+        add_event<task_mutagenesis_category>(this,ea);
         add_event<gs_inherit_event>(this,ea);
         add_event<task_resource_consumption>(this,ea);
         

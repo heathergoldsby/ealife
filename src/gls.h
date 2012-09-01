@@ -175,37 +175,6 @@ struct task_mutagenesis : task_performed_event<EA> {
 };
 
 
-
-/*! Triggers a task having a mutagenic effect on a *GROUP*.
- This is a control, since it eliminates the ability of organism's to
- create pseudo-soma. There is one mutagenic rate for all tasks other 
- than NOT.
- */
-
-template <typename EA>
-struct task_mutagenesis_group : task_performed_event<EA> {
-    
-    task_mutagenesis_group(EA& ea) : task_performed_event<EA>(ea) {
-    }
-    
-    virtual ~task_mutagenesis_group() { }
-    virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer   
-                            double r, // amount of resource consumed
-                            EA& ea) {
-        
-        double mult = get<TASK_MUTATION_MULT>(*task);
-        double prob = get<TASK_MUTATION_PER_SITE_P>(ea) * mult;
-        if (prob > 0) {
-            configurable_per_site m(prob); 
-            // grab a random individual from the population... (sacrificial lamb)
-            typename EA::individual_type& ind_mut = **ea.rng().choice(ea.population().begin(), ea.population().end());
-            mutate(ind_mut,m,ea);
-            get<WORKLOAD>(ind_mut,0.0) += 1.0;
-        }
-    }
-};
-
 /*! Tracks an organism's resources and tasks. 
  */
 
