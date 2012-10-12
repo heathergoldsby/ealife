@@ -1,4 +1,4 @@
-/* main.cpp
+/* ts.cpp
  * 
  * This file is part of EALife.
  * 
@@ -18,14 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "gls.h"
+#include "ts.h"
 #include "subpopulation_founder.h"
+
 #include <ea/line_of_descent.h>
 
 
 //! Configuration object for an EA.
 template <typename EA>
-struct gls_configuration : public abstract_configuration<EA> {
+struct ts_configuration : public abstract_configuration<EA> {
     
     typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
     typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
@@ -34,34 +35,33 @@ struct gls_configuration : public abstract_configuration<EA> {
     //! Called as the final step of EA construction.
     void construct(EA& ea) {
         using namespace ea::instructions;
-        append_isa<nop_a>(0,ea); // 0
+        append_isa<nop_a>(0,ea); 
         append_isa<nop_b>(0,ea);
         append_isa<nop_c>(0,ea);
         append_isa<nop_x>(ea);
         append_isa<mov_head>(ea);
-        append_isa<if_label>(ea); //5
+        append_isa<if_label>(ea); 
         append_isa<h_search>(ea);
         append_isa<nand>(ea);
         append_isa<push>(ea);
         append_isa<pop>(ea);
-        append_isa<swap>(ea);//10
+        append_isa<swap>(ea);
         append_isa<inc>(ea);
         append_isa<dec>(ea);
+        append_isa<tx_msg_check_task>(ea); 
         append_isa<tx_msg>(ea); 
-        append_isa<rx_msg>(ea); //15
+        append_isa<rx_msg>(ea); 
         append_isa<bc_msg>(ea);
         append_isa<rotate>(ea);
         append_isa<rotate_cw>(ea);
         append_isa<rotate_ccw>(ea);
-        append_isa<if_less>(ea); //20
+        append_isa<if_less>(ea); 
         append_isa<h_alloc>(ea);             
         append_isa<h_copy>(ea);
         append_isa<h_divide>(ea);
-        append_isa<input>(ea);
-        append_isa<output>(ea);//25
-        append_isa<become_soma>(ea);
-        append_isa<if_germ>(ea);
-        append_isa<if_soma>(ea);
+        append_isa<fixed_input>(ea);
+        append_isa<fixed_input>(ea);
+        append_isa<output>(ea);
         append_isa<donate_res_to_group>(ea);
         append_isa<get_xy>(ea);
         
@@ -75,16 +75,6 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_ptr_type task_nor = make_task<tasks::task_nor,catalysts::additive<0> >("nor", ea);
         task_ptr_type task_xor = make_task<tasks::task_xor,catalysts::additive<0> >("xor", ea);
         task_ptr_type task_equals = make_task<tasks::task_equals,catalysts::additive<0> >("equals", ea);
-        
-        put<TASK_MUTATION_MULT>(0, *task_not);
-        put<TASK_MUTATION_MULT>(1, *task_nand);
-        put<TASK_MUTATION_MULT>(1, *task_and);
-        put<TASK_MUTATION_MULT>(1, *task_ornot);
-        put<TASK_MUTATION_MULT>(1, *task_or);
-        put<TASK_MUTATION_MULT>(1, *task_andnot);
-        put<TASK_MUTATION_MULT>(1, *task_nor);
-        put<TASK_MUTATION_MULT>(1, *task_xor);
-        put<TASK_MUTATION_MULT>(1, *task_equals);
         
         resource_ptr_type resA = make_resource("resA", 100.0, 1.0, 0.01, 0.05, ea);
         resource_ptr_type resB = make_resource("resB", 100.0, 1.0, 0.01, 0.05, ea);
@@ -106,10 +96,9 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_xor->consumes(resH);
         task_equals->consumes(resI);
         
-        add_event<task_mutagenesis>(this,ea);
-        add_event<gs_inherit_event>(this,ea);
         add_event<task_resource_consumption>(this,ea);
-        
+        add_event<task_switching_cost>(this, ea);
+
     }
     
     //! Called to generate the initial EA population.
@@ -122,18 +111,22 @@ struct gls_configuration : public abstract_configuration<EA> {
 /*! Artificial life simulation definition.
  */
 typedef digital_evolution<
-gls_configuration, spatial, empty_neighbor, round_robin
+ts_configuration, spatial, empty_neighbor, round_robin
 > ea_type;
-  
+
 template <typename EA>
 struct mp_configuration : public abstract_configuration<EA> {
+    void initial_population(EA& ea) {
+        for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+            (*i).founder() = (**(*i).population().begin());
+        }
+    }
 };
-
 
 
 //! Meta-population definition.
 typedef meta_population<
-subpopulation_founder<lod_individual<ea_type> >
+subpopulation_founder <ea_type> 
 , mp_configuration> mea_type;
 
 
@@ -163,20 +156,21 @@ public:
         add_option<RNG_SEED>(this);
         add_option<RECORDING_PERIOD>(this);
         
-        // gls specific options
-        add_option<TASK_MUTATION_PER_SITE_P>(this);
-        add_option<GERM_MUTATION_PER_SITE_P>(this);
+        // ts specific options
         add_option<GROUP_REP_THRESHOLD>(this);
-
+        add_option<TASK_SWITCHING_COST>(this);
+        add_option<LAST_TASK>(this);
+        add_option<NUM_SWITCHES>(this);
+        add_option<GERM_MUTATION_PER_SITE_P>(this);
     }
     
     virtual void gather_tools() {
     }
     
     virtual void gather_events(EA& ea) {
-        add_event<gls_replication>(this,ea);
+        add_event<ts_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
-        add_event<lod_event>(this,ea);
+        add_event<task_switch_tracking>(this,ea);
         add_event<founder_event>(this,ea);
     };
 };

@@ -13,9 +13,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3EB3CADF15E7097500B82B07"
-               BuildableName = "gls_control"
-               BlueprintName = "gls_control"
+               BlueprintIdentifier = "42441A8A15861724009863BE"
+               BuildableName = "gls"
+               BlueprintName = "gls"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,9 +31,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3EB3CADF15E7097500B82B07"
-            BuildableName = "gls_control"
-            BlueprintName = "gls_control"
+            BlueprintIdentifier = "42441A8A15861724009863BE"
+            BuildableName = "gls"
+            BlueprintName = "gls"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -42,19 +42,26 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
       launchStyle = "0"
-      useCustomWorkingDirectory = "NO"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "/Users/hjg/Desktop/research/projects/ea/temp"
       buildConfiguration = "Debug"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3EB3CADF15E7097500B82B07"
-            BuildableName = "gls_control"
-            BlueprintName = "gls_control"
+            BlueprintIdentifier = "42441A8A15861724009863BE"
+            BuildableName = "gls"
+            BlueprintName = "gls"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "--with-time"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -67,9 +74,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3EB3CADF15E7097500B82B07"
-            BuildableName = "gls_control"
-            BlueprintName = "gls_control"
+            BlueprintIdentifier = "42441A8A15861724009863BE"
+            BuildableName = "gls"
+            BlueprintName = "gls"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

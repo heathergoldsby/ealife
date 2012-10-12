@@ -36,8 +36,8 @@ namespace ea {
             repr[5] =  ea.isa()["mov_head"]; // movhead
             
             // not
-            repr[24] = ea.isa()["input"]; // input
-            repr[25] = ea.isa()["input"]; // input
+            repr[24] = ea.isa()["fixed_input"]; // input
+            repr[25] = ea.isa()["fixed_input"]; // input
             repr[26] = ea.isa()["push"]; // push
             repr[27] = ea.isa()["nop_c"]; // nopc
             repr[28] = ea.isa()["pop"]; // pop

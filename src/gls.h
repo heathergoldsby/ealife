@@ -18,6 +18,9 @@
 
 #include "selfrep_not_ancestor.h"
 #include "repro_not_ancestor.h"
+#include "resource_consumption.h"
+#include "configurable_mutation.h"
+
 #include <ea/digital_evolution.h>
 #include <ea/digital_evolution/hardware.h>
 #include <ea/digital_evolution/isa.h>
@@ -40,23 +43,13 @@ using namespace boost::accumulators;
  */
 
 LIBEA_MD_DECL(GERM_STATUS, "ea.gls.germ_status", bool);
-LIBEA_MD_DECL(GROUP_RESOURCE_UNITS, "ea.gls.group_resource_units", double);
-LIBEA_MD_DECL(SAVED_RESOURCES, "ea.gls.organism_saved_resources", double);
 LIBEA_MD_DECL(TASK_MUTATION_PER_SITE_P, "ea.gls.task_mutation_per_site_p", double);
 LIBEA_MD_DECL(GERM_MUTATION_PER_SITE_P, "ea.gls.germ_mutation_per_site_p", double);
-LIBEA_MD_DECL(GROUP_REP_THRESHOLD, "ea.gls.group_rep_threshold", double);
 LIBEA_MD_DECL(WORKLOAD, "ea.gls.workload", double);
 LIBEA_MD_DECL(TASK_MUTATION_MULT, "ea.gls.task_mutation_mult", double);
 
-LIBEA_MD_DECL(TASK_NOT, "ea.not", double);
-LIBEA_MD_DECL(TASK_NAND, "ea.nand", double);
-LIBEA_MD_DECL(TASK_AND, "ea.and", double);
-LIBEA_MD_DECL(TASK_ORNOT, "ea.ornot", double);
-LIBEA_MD_DECL(TASK_OR, "ea.or", double);
-LIBEA_MD_DECL(TASK_ANDNOT, "ea.andnot", double);
-LIBEA_MD_DECL(TASK_NOR, "ea.nor", double);
-LIBEA_MD_DECL(TASK_XOR, "ea.xor", double);
-LIBEA_MD_DECL(TASK_EQUALS, "ea.equals", double);
+
+
 
 
 // Germ instructions!
@@ -87,37 +80,6 @@ DIGEVO_INSTRUCTION_DECL(if_soma){
     }
 }
 
-/*! Donate an organism's resources to the group. 
- */
-
-DIGEVO_INSTRUCTION_DECL(donate_res_to_group){
-    
-    get<GROUP_RESOURCE_UNITS>(ea, 0.0) += get<SAVED_RESOURCES>(*p,0.0);
-    put<SAVED_RESOURCES>(0,*p);
-}
-
-
-/*! Mutation - Per-site mutation at a configurable rate
- */
-struct configurable_per_site {            
-    typedef mutation::uniform_integer mutation_type;
-    
-    configurable_per_site(double prob) : _mp(prob) {
-    }
-    
-    //! Iterate through all elements in the given representation, possibly mutating them.
-    template <typename Representation, typename EA>
-    void operator()(Representation& repr, EA& ea) {
-        for(typename Representation::iterator i=repr.begin(); i!=repr.end(); ++i){
-            if(ea.rng().p(_mp)) {
-                _mt(repr, i, ea);
-            }
-        }
-    }
-    
-    mutation_type _mt;
-    double _mp; //! Mutation probability
-};
 
 // Events!
 
@@ -172,101 +134,6 @@ struct task_mutagenesis : task_performed_event<EA> {
             get<WORKLOAD>(ind,0.0) += mult;
         }
     }
-};
-
-
-/*! Tracks an organism's resources and tasks. 
- */
-
-template <typename EA>
-struct task_resource_consumption : task_performed_event<EA> {
-    task_resource_consumption(EA& ea) : task_performed_event<EA>(ea) {
-    }
-    
-    virtual ~task_resource_consumption() { }
-    virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer   
-                            double r,
-                            EA& ea) {
-        get<SAVED_RESOURCES>(ind, 0.0) += r;
-        std::string t = task->name();
-        if (t == "not") { get<TASK_NOT>(ea,0.0) += 1.0; }
-        else if (t == "nand") {get<TASK_NAND>(ea,0.0) += 1.0;}
-        else if (t == "and") {get<TASK_AND>(ea,0.0) += 1.0;}
-        else if (t == "ornot") {get<TASK_ORNOT>(ea,0.0) += 1.0;}
-        else if (t == "or") {get<TASK_OR>(ea,0.0) += 1.0;}
-        else if (t == "andnot") {get<TASK_ANDNOT>(ea,0.0) += 1.0;}
-        else if (t == "nor") {get<TASK_NOR>(ea,0.0) += 1.0;}
-        else if (t == "xor") {get<TASK_XOR>(ea,0.0) += 1.0;}
-        else if (t == "equals") {get<TASK_EQUALS>(ea,0.0) += 1.0;}
-        
-    }
-};
-
-/*! Prints information about the aggregate task performance of the group.
- */
-
-
-template <typename EA>
-struct task_performed_tracking : end_of_update_event<EA> {
-    task_performed_tracking(EA& ea) : end_of_update_event<EA>(ea), _df("tasks.dat") { 
-        _df.add_field("update")
-        .add_field("not")
-        .add_field("nand")
-        .add_field("and")
-        .add_field("ornot")
-        .add_field("or")
-        .add_field("andnot")
-        .add_field("nor")
-        .add_field("xor")
-        .add_field("equals");
-    }
-    
-    //! Destructor.
-    virtual ~task_performed_tracking() {
-    }
-    
-    //! Track resources!
-    virtual void operator()(EA& ea) {
-        if ((ea.current_update() % 100) == 0) {
-            int t_not = 0;
-            int t_nand = 0;
-            int t_and = 0;
-            int t_ornot = 0; 
-            int t_or = 0;
-            int t_andnot = 0;
-            int t_nor = 0;
-            int t_xor = 0;
-            int t_equals = 0;
-            
-            for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
-                t_not += get<TASK_NOT>(*i, 0.0);
-                t_nand += get<TASK_NAND>(*i, 0.0);
-                t_and += get<TASK_AND>(*i, 0.0);
-                t_ornot += get<TASK_ORNOT>(*i, 0.0);
-                t_or += get<TASK_OR>(*i, 0.0);
-                t_andnot += get<TASK_ANDNOT>(*i, 0.0);
-                t_nor += get<TASK_NOR>(*i, 0.0);
-                t_xor += get<TASK_XOR>(*i, 0.0);
-                t_equals += get<TASK_EQUALS>(*i, 0.0);
-            }
-            
-            _df.write(ea.current_update())
-            .write(t_not)
-            .write(t_nand)
-            .write(t_and)
-            .write(t_ornot)
-            .write(t_or)
-            .write(t_andnot)
-            .write(t_nor)
-            .write(t_xor)
-            .write(t_equals)
-            .endl();
-        }
-    
-    }
-    datafile _df;    
-
 };
 
 //! Performs group replication using germ lines.
@@ -368,11 +235,7 @@ struct gls_replication : end_of_update_event<EA> {
                 
                 
                 // setup the population (really, an ea):
-                typename EA::individual_ptr_type p(new typename EA::individual_type());
-                
-                p->md() = ea.md();
-                p->rng().reset(ea.rng()(std::numeric_limits<int>::max()));
-                p->initialize();
+                typename EA::individual_ptr_type p = ea.make_individual();
                 
                 // mutate it:
                 configurable_per_site m(get<GERM_MUTATION_PER_SITE_P>(ea)); 
@@ -386,10 +249,15 @@ struct gls_replication : end_of_update_event<EA> {
                 // reset resource units
                 i->env().reset_resources();
                 put<GROUP_RESOURCE_UNITS>(0,*i);
+                
+                // i == parent individual;
+                typename EA::population_type parent_pop, offspring_pop;
+                parent_pop.push_back(*i.base());
+                offspring_pop.push_back(p);
+                inherits(parent_pop, offspring_pop, ea);
             }
-            
-            
         }
+        
         
         // select surviving parent groups
         if (offspring.size() > 0) {
