@@ -29,3 +29,13 @@ exe gls_control :
     ;
 
 install dist : gls_control : <location>$(HOME)/bin ;
+
+
+exe ts :
+    src/ts.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : ts : <location>$(HOME)/bin ;

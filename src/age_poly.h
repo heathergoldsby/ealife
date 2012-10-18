@@ -17,8 +17,7 @@
 #include <boost/accumulators/statistics/variance.hpp>
 #include <boost/algorithm/string.hpp>
 
-#include "selfrep_not_ancestor.h"
-#include "repro_not_ancestor.h"
+#include "multi_birth_selfrep_not_nand_ancestor.h"
 #include "resource_consumption.h"
 #include "configurable_mutation.h"
 
@@ -42,6 +41,9 @@ LIBEA_MD_DECL(LAST_TASK, "ea.ape.last_task", std::string);
 LIBEA_MD_DECL(GERM_MUTATION_PER_SITE_P, "ea.ape.germ_mutation_per_site_p", double);
 LIBEA_MD_DECL(TASK_LETHALITY_PROB, "ea.ape.task_lethality_prob", double);
 LIBEA_MD_DECL(EACH_TASK_THRESH, "ea.ape.each_task_thresh", double);
+LIBEA_MD_DECL(NOT_LETHALITY_PROB, "ea.ape.not_lethality_prob", double);
+LIBEA_MD_DECL(NAND_LETHALITY_PROB, "ea.ape.nand_lethality_prob", double);
+LIBEA_MD_DECL(ORNOT_LETHALITY_PROB, "ea.ape.ornot_lethality_prob", double);
 
 
 /*! Divide this organism's memory between parent and offspring.
@@ -146,7 +148,7 @@ struct ape_two_task_replication : end_of_update_event<EA> {
                 (t_nand > get<EACH_TASK_THRESH>(*i))){
                 
                 // grab a copy of the founder!
-                typename EA::individual_type::individual_type prop = (*i).founder_copy();
+                typename EA::individual_type::individual_type prop = (*i).founder();
                 
                 // setup the population (really, an ea):
                 typename EA::individual_ptr_type p = ea.make_individual();

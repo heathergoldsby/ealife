@@ -38,6 +38,7 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<h_alloc>(ea);             
         append_isa<h_copy>(ea);
         append_isa<h_divide_soft_parent_reset>(ea);
+        append_isa<h_divide>(ea);
         append_isa<fixed_input>(ea);
         append_isa<output>(ea);
         append_isa<donate_res_to_group>(ea);
@@ -46,19 +47,31 @@ struct ts_configuration : public abstract_configuration<EA> {
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
         task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
+       
+        resource_ptr_type resA = make_resource("resA", 100.0, 1.0, 0.01, 0.05, ea);
+        resource_ptr_type resB = make_resource("resB", 100.0, 1.0, 0.01, 0.05, ea);
+
+        task_not->consumes(resA);
+        task_nand->consumes(resB);
 
         
         put<TASK_LETHALITY_PROB>(0, *task_not);
         put<TASK_LETHALITY_PROB>(0.25, *task_nand);
+        
+        double b = get<NOT_LETHALITY_PROB>(ea); 
+        //put<TASK_LETHALITY_PROB>(get<NOT_LETHALITY_PROB>(ea), *task_not);
+        //put<TASK_LETHALITY_PROB>(get<NAND_LETHALITY_PROB>(ea), *task_nand);
      
         
         add_event<task_resource_consumption>(this,ea);
+        add_event<task_lethality>(this,ea);
+
         
     }
     
     //! Called to generate the initial EA population.
     void initial_population(EA& ea) {
-        generate_ancestors(selfrep_not_ancestor(), 1, ea);
+        generate_ancestors(multibirth_selfrep_not_nand_ancestor(), 1, ea);
     }
 };
 
@@ -71,6 +84,12 @@ ts_configuration, spatial, empty_neighbor, round_robin
 
 template <typename EA>
 struct mp_configuration : public abstract_configuration<EA> {
+    void initial_population(EA& ea) {
+        for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+            (*i).founder() = (**(*i).population().begin());
+        }
+    }
+
 };
 
 
@@ -112,6 +131,9 @@ public:
         add_option<GERM_MUTATION_PER_SITE_P>(this);
         add_option<EACH_TASK_THRESH>(this);
         
+        add_option<NOT_LETHALITY_PROB>(this);
+        add_option<NAND_LETHALITY_PROB>(this);
+        
     }
     
     virtual void gather_tools() {
@@ -120,7 +142,6 @@ public:
     virtual void gather_events(EA& ea) {
         add_event<ape_two_task_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
-        add_event<task_lethality>(this,ea);
         add_event<founder_event>(this,ea);
     };
 };
