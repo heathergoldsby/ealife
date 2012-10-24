@@ -12,7 +12,9 @@ struct ts_configuration : public abstract_configuration<EA> {
     typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
     
     
-    //! Called as the final step of EA construction.
+    //! Called as the final step of EA construction. All code. No data. Never use 
+    // parameters, depend on input, read a file, etc. It is done *BEFORE* initialize. 
+    // If you depend on metadata, you MUST go into intialize. 
     void construct(EA& ea) {
         using namespace ea::instructions;
         append_isa<nop_a>(0,ea); 
@@ -44,30 +46,30 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<donate_res_to_group>(ea);
         append_isa<get_xy>(ea);
         
-        // Add tasks
-        task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
-        task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
-       
-        resource_ptr_type resA = make_resource("resA", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resB = make_resource("resB", 100.0, 1.0, 0.01, 0.05, ea);
-
-        task_not->consumes(resA);
-        task_nand->consumes(resB);
-
-        
-        put<TASK_LETHALITY_PROB>(0, *task_not);
-        put<TASK_LETHALITY_PROB>(0.25, *task_nand);
-        
-        double b = get<NOT_LETHALITY_PROB>(ea); 
-        //put<TASK_LETHALITY_PROB>(get<NOT_LETHALITY_PROB>(ea), *task_not);
-        //put<TASK_LETHALITY_PROB>(get<NAND_LETHALITY_PROB>(ea), *task_nand);
-     
         
         add_event<task_resource_consumption>(this,ea);
         add_event<task_lethality>(this,ea);
 
         
     }
+
+    //! Initialize! Things are live and are mostly setup. All the objects are there, but they
+    // may not have the parameters that they need. 
+    void initialize(EA& ea) {
+        // Add tasks
+        task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
+        task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
+        
+        resource_ptr_type resA = make_resource("resA", ea);
+        resource_ptr_type resB = make_resource("resB", ea);
+        
+        task_not->consumes(resA);
+        task_nand->consumes(resB);
+
+        put<TASK_LETHALITY_PROB>(get<NOT_LETHALITY_PROB>(ea), *task_not);
+        put<TASK_LETHALITY_PROB>(get<NAND_LETHALITY_PROB>(ea), *task_nand);
+    }
+
     
     //! Called to generate the initial EA population.
     void initial_population(EA& ea) {

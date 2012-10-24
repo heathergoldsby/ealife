@@ -20,6 +20,7 @@
 
 #include "gls.h"
 #include "subpopulation_founder.h"
+#include "subpopulation_lod_analysis.h"
 #include <ea/line_of_descent.h>
 
 
@@ -57,7 +58,7 @@ struct gls_configuration : public abstract_configuration<EA> {
         append_isa<h_alloc>(ea);             
         append_isa<h_copy>(ea);
         append_isa<h_divide>(ea);
-        append_isa<input>(ea);
+        append_isa<fixed_input>(ea);
         append_isa<output>(ea);//25
         append_isa<become_soma>(ea);
         append_isa<if_germ>(ea);
@@ -133,7 +134,7 @@ struct mp_configuration : public abstract_configuration<EA> {
 
 //! Meta-population definition.
 typedef meta_population<
-subpopulation_founder<lod_individual<ea_type> >
+lod_individual<subpopulation_founder<ea_type> >
 , mp_configuration> mea_type;
 
 
@@ -162,7 +163,7 @@ public:
         add_option<CHECKPOINT_PREFIX>(this);        
         add_option<RNG_SEED>(this);
         add_option<RECORDING_PERIOD>(this);
-        
+
         // gls specific options
         add_option<TASK_MUTATION_PER_SITE_P>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
@@ -171,12 +172,13 @@ public:
     }
     
     virtual void gather_tools() {
+        add_tool<ea::analysis::lod_gls_aging>(this);
     }
     
     virtual void gather_events(EA& ea) {
         add_event<gls_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
-        add_event<lod_event>(this,ea);
+        add_event<mrca_lineage_datafile>(this,ea);
         add_event<founder_event>(this,ea);
     };
 };

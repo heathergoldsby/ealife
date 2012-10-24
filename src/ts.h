@@ -73,8 +73,7 @@ struct task_switching_cost : task_performed_event<EA> {
 };
 
 
-//! Prints information about the mean number of task-switches
-/*! Prints information about the aggregate task performance of the group.
+/*! Prints information about the mean number of task-switches
  */
 
 

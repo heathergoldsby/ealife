@@ -97,6 +97,7 @@
 		3E08301215D8095C00097C42 /* selfrep_not_ancestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selfrep_not_ancestor.h; sourceTree = "<group>"; };
 		3E1DA777162D831300AA622A /* multi_birth_selfrep_not_nand_ancestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multi_birth_selfrep_not_nand_ancestor.h; sourceTree = "<group>"; };
 		3E1DA787162D850400AA622A /* age_poly */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = age_poly; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E1DA7BA1630631900AA622A /* subpopulation_lod_analysis.h */ = {isa = PBXFileReference; path = subpopulation_lod_analysis.h; sourceTree = "<group>"; };
 		3E22CF4D161E276300EB4D27 /* ts */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ts; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E22CF51161E27E400EB4D27 /* resource_consumption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource_consumption.h; sourceTree = "<group>"; };
 		3E22CF52161E2ED600EB4D27 /* subpopulation_founder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subpopulation_founder.h; sourceTree = "<group>"; };
@@ -237,6 +238,7 @@
 				3E22CF51161E27E400EB4D27 /* resource_consumption.h */,
 				3E22CF52161E2ED600EB4D27 /* subpopulation_founder.h */,
 				3E22CF62161E31A800EB4D27 /* configurable_mutation.h */,
+				3E1DA7BA1630631900AA622A /* subpopulation_lod_analysis.h */,
 				3EBF2BFE1625CF2900161D9B /* age_poly.h */,
 				42441A82158616AF009863BE /* main.cpp */,
 				3EB3CA8715E6F6CB00B82B07 /* gls_ramped.cpp */,
