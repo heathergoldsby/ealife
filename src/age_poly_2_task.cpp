@@ -49,6 +49,7 @@ struct ts_configuration : public abstract_configuration<EA> {
         
         add_event<task_resource_consumption>(this,ea);
         add_event<task_lethality>(this,ea);
+        add_event<task_first_age>(this,ea);
 
         
     }
@@ -145,6 +146,7 @@ public:
         add_event<ape_two_task_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<founder_event>(this,ea);
+        add_event<task_first_age_tracking>(this,ea);
     };
 };
 LIBEA_CMDLINE_INSTANCE(mea_type, cli);

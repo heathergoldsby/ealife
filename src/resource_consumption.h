@@ -14,7 +14,6 @@
 #include <ea/digital_evolution/isa.h>
 #include <ea/digital_evolution/spatial.h>
 #include <ea/datafiles/reactions.h>
-#include <ea/datafiles/generation_priority.h>
 #include <ea/cmdline_interface.h>
 #include <ea/meta_population.h>
 #include <ea/selection/random.h>
@@ -41,7 +40,7 @@ LIBEA_MD_DECL(TASK_EQUALS, "ea.equals", double);
  */
 
 DIGEVO_INSTRUCTION_DECL(donate_res_to_group){
-    
+    double s = get<SAVED_RESOURCES>(*p,0.0);
     get<GROUP_RESOURCE_UNITS>(ea, 0.0) += get<SAVED_RESOURCES>(*p,0.0);
     put<SAVED_RESOURCES>(0,*p);
 }

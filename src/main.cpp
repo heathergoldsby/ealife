@@ -128,6 +128,11 @@ gls_configuration, spatial, empty_neighbor, round_robin
   
 template <typename EA>
 struct mp_configuration : public abstract_configuration<EA> {
+    void initial_population(EA& ea) {
+        for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+            (*i).founder() = (**(*i).population().begin());
+        }
+    }
 };
 
 
@@ -164,6 +169,8 @@ public:
         add_option<RNG_SEED>(this);
         add_option<RECORDING_PERIOD>(this);
 
+        add_option<ANALYSIS_INPUT>(this);
+        
         // gls specific options
         add_option<TASK_MUTATION_PER_SITE_P>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);

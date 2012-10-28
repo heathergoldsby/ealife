@@ -45,6 +45,7 @@
       useCustomWorkingDirectory = "YES"
       customWorkingDirectory = "/Users/hjg/Desktop/research/projects/ea/temp"
       buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>
@@ -59,6 +60,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--with-time"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = " -l checkpoint-10000.xml --analyze lod_gls_aging --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

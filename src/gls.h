@@ -26,7 +26,6 @@
 #include <ea/digital_evolution/isa.h>
 #include <ea/digital_evolution/spatial.h>
 #include <ea/datafiles/reactions.h>
-#include <ea/datafiles/generation_priority.h>
 #include <ea/cmdline_interface.h>
 #include <ea/meta_population.h>
 #include <ea/selection/random.h>

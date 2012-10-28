@@ -45,6 +45,7 @@
       useCustomWorkingDirectory = "YES"
       customWorkingDirectory = "/Users/hjg/Desktop/research/projects/ea/temp-ap"
       buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable>

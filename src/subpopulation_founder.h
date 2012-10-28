@@ -22,6 +22,8 @@ class subpopulation_founder : public Individual {
 public:
     typedef Individual base_type;
     typedef typename Individual::individual_type founder_type;
+    typedef typename Individual::individual_ptr_type founder_ptr_type;
+
     
     //! Constructor.
     subpopulation_founder() : base_type() {
@@ -29,11 +31,12 @@ public:
     
     //! Copy constructor.
     subpopulation_founder(const subpopulation_founder& that) : base_type(that) {
+        _founder = that._founder;
     }
     
     //! Assignment operator.
     subpopulation_founder& operator=(const subpopulation_founder& that) {
-        if(this != & that) {
+        if(this != &that) {
             base_type::operator=(that);
             _founder = that._founder;
         }
@@ -45,11 +48,18 @@ public:
     }
     
     founder_type& founder() { return _founder; }
-
-
     
 protected:
     founder_type _founder;
+    
+private:
+    friend class boost::serialization::access;
+    
+    template<class Archive>
+    void serialize(Archive & ar, const unsigned int version) {
+        ar & boost::serialization::make_nvp("founder", _founder);
+        ar & boost::serialization::make_nvp("individual", boost::serialization::base_object<base_type>(*this));
+    }
 };
 
 
@@ -73,6 +83,7 @@ struct founder_event : inheritance_event<EA> {
         offspring.founder() = *offspring.population().front();
     }
 };
+
 
 
 #endif

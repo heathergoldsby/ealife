@@ -97,7 +97,7 @@
 		3E08301215D8095C00097C42 /* selfrep_not_ancestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selfrep_not_ancestor.h; sourceTree = "<group>"; };
 		3E1DA777162D831300AA622A /* multi_birth_selfrep_not_nand_ancestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multi_birth_selfrep_not_nand_ancestor.h; sourceTree = "<group>"; };
 		3E1DA787162D850400AA622A /* age_poly */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = age_poly; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E1DA7BA1630631900AA622A /* subpopulation_lod_analysis.h */ = {isa = PBXFileReference; path = subpopulation_lod_analysis.h; sourceTree = "<group>"; };
+		3E1DA7BA1630631900AA622A /* subpopulation_lod_analysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subpopulation_lod_analysis.h; sourceTree = "<group>"; };
 		3E22CF4D161E276300EB4D27 /* ts */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ts; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E22CF51161E27E400EB4D27 /* resource_consumption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource_consumption.h; sourceTree = "<group>"; };
 		3E22CF52161E2ED600EB4D27 /* subpopulation_founder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subpopulation_founder.h; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 		42441A7F158616AF009863BE /* libea_defaults.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; path = libea_defaults.cfg; sourceTree = "<group>"; };
 		42441A80158616AF009863BE /* Jamroot */ = {isa = PBXFileReference; lastKnownFileType = text; path = Jamroot; sourceTree = "<group>"; };
 		42441A82158616AF009863BE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		42441A8B15861724009863BE /* ealife */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = ealife; path = gls; sourceTree = BUILT_PRODUCTS_DIR; };
+		42441A8B15861724009863BE /* gls */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gls; sourceTree = BUILT_PRODUCTS_DIR; };
 		42441A9615861785009863BE /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = /usr/local/lib/libboost_iostreams.dylib; sourceTree = "<absolute>"; };
 		42441A9715861785009863BE /* libboost_program_options.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_program_options.dylib; path = /usr/local/lib/libboost_program_options.dylib; sourceTree = "<absolute>"; };
 		42441A9815861785009863BE /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = /usr/local/lib/libboost_regex.dylib; sourceTree = "<absolute>"; };
@@ -209,7 +209,7 @@
 		424419F415861127009863BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				42441A8B15861724009863BE /* ealife */,
+				42441A8B15861724009863BE /* gls */,
 				3EB3CADB15E6FBD200B82B07 /* gls_ramped */,
 				3EB3CAED15E7097500B82B07 /* gls_control */,
 				3E22CF4D161E276300EB4D27 /* ts */,
@@ -348,7 +348,7 @@
 			);
 			name = gls;
 			productName = ealife;
-			productReference = 42441A8B15861724009863BE /* ealife */;
+			productReference = 42441A8B15861724009863BE /* gls */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
