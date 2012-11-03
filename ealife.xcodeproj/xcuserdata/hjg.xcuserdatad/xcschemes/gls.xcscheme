@@ -63,8 +63,16 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = " -l checkpoint-10000.xml --analyze lod_gls_aging --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
+            argument = " -l checkpoint-10000.xml --analyze lod_gls_rerun --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = " -l checkpoint-10000.xml --analyze lod_gls_aging --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = " -l checkpoint-10000.xml --analyze lod_knockouts --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

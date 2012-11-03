@@ -40,7 +40,6 @@ LIBEA_MD_DECL(TASK_EQUALS, "ea.equals", double);
  */
 
 DIGEVO_INSTRUCTION_DECL(donate_res_to_group){
-    double s = get<SAVED_RESOURCES>(*p,0.0);
     get<GROUP_RESOURCE_UNITS>(ea, 0.0) += get<SAVED_RESOURCES>(*p,0.0);
     put<SAVED_RESOURCES>(0,*p);
 }

@@ -180,6 +180,8 @@ public:
     
     virtual void gather_tools() {
         add_tool<ea::analysis::lod_gls_aging>(this);
+        add_tool<ea::analysis::lod_knockouts>(this);
+        add_tool<ea::analysis::lod_gls_rerun>(this);
     }
     
     virtual void gather_events(EA& ea) {
