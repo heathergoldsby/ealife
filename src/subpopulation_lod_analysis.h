@@ -73,7 +73,6 @@ namespace ea {
                     // and run till the group amasses the right amount of resources
                     while ((get<GROUP_RESOURCE_UNITS>(*p,0) < 5000) &&
                            (cur_update < 10000)){
-                        double blah = get<GROUP_RESOURCE_UNITS>(*p);
                         p->update();
                         ++cur_update;
                         if (get<GROUP_RESOURCE_UNITS>(*p,0) > res_resource_thresh) {
@@ -201,8 +200,8 @@ namespace ea {
         /*! lod_knockouts reruns each subpopulation along a line of descent - setup for circle / square plot
          */
         template <typename EA>
-        struct lod_gls_rerun : public ea::analysis::unary_function<EA> {
-            static const char* name() { return "lod_gls_rerun"; }
+        struct lod_gls_circle_square_plot : public ea::analysis::unary_function<EA> {
+            static const char* name() { return "lod_gls_circle_square_plot"; }
             
             virtual void operator()(EA& ea) {
                 using namespace ea;
@@ -212,7 +211,7 @@ namespace ea {
                 
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
                 
-                datafile df("lod_gls_rerun.dat");
+                datafile df("lod_gls_circle_square_plot.dat");
                 df.add_field("lod depth [depth]");
                 
                 
@@ -270,6 +269,101 @@ namespace ea {
             
         };
 
+        
+        /*! lod_knockouts reruns each subpopulation along a line of descent - setup for circle / square plot
+         */
+        template <typename EA>
+        struct lod_gls_germ_soma_mean_var : public ea::analysis::unary_function<EA> {
+            static const char* name() { return "lod_gls_germ_soma_mean_var"; }
+            
+            virtual void operator()(EA& ea) {
+                using namespace ea;
+                using namespace ea::analysis;
+                
+                line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
+                
+                typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
+                
+                datafile df("lod_gls_germ_soma_mean_var.dat");
+                df.add_field("lod depth [depth]")
+                .add_field("mean_germ_num")
+                .add_field("mean_pop_num")
+                .add_field("mean_germ_percent")
+                .add_field("mean_germ_workload")
+                .add_field("mean_germ_workload_var")
+                .add_field("mean_soma_workload")
+                .add_field("mean_soma_workload_var");
+                
+                int lod_depth = 0;
+                // skip def ancestor (that's what the +1 does)
+                for( ; i!=lod.end(); ++i) {
+                    
+                    df.write(lod_depth);
+                    
+                    // **i is the EA, AS OF THE TIME THAT IT DIED!
+                    
+                    // To replay, need to create new eas for each knockout exper.
+                    // setup the population (really, an ea):
+                    typename EA::individual_ptr_type control_ea = ea.make_individual();
+                    control_ea->rng().reset(get<RNG_SEED>(**i));
+                    
+                    // setup the founder
+                    typename EA::individual_type::individual_ptr_type o= (*i)->make_individual((*i)->founder().repr());
+                    o->hw().initialize();
+                    control_ea->append(o);
+                    
+                    // replay! till the group amasses the right amount of resources
+                    // or exceeds its window...
+                    int cur_update = 0;
+                    int update_max = 10000;
+                    // and run till the group amasses the right amount of resources
+                    while ((get<GROUP_RESOURCE_UNITS>(*control_ea,0) < get<GROUP_REP_THRESHOLD>(*control_ea)) &&
+                           (cur_update < update_max)){
+                        control_ea->update();
+                        ++cur_update;
+                    }
+                    df.write(cur_update);
+                    
+                    double germ_count = 0;
+                    double pop_count = 0;
+                    accumulator_set<double, stats<tag::mean, tag::variance> > germ_workload_acc;
+                    accumulator_set<double, stats<tag::mean, tag::variance> > soma_workload_acc;
+                    
+                    for(typename EA::individual_type::population_type::iterator j=control_ea->population().begin(); j!=control_ea->population().end(); ++j) {
+                        typename EA::individual_type::individual_type& org=**j;
+                        if (get<GERM_STATUS>(org, true)) {
+                            ++germ_count;
+                            germ_workload_acc(get<WORKLOAD>(org, 0.0));
+                        } else {
+                            soma_workload_acc(get<WORKLOAD>(org, 0.0));
+                        }
+                        ++pop_count;
+                    }
+                    
+                    double germ_percent = (germ_count/pop_count);
+                    
+                    df.write(pop_count)
+                    .write(germ_count)
+                    .write(germ_percent)
+                    .write(mean(germ_workload_acc))
+                    .write(variance(germ_workload_acc));
+                    
+                    if (germ_count != pop_count){
+                        df.write(mean(soma_workload_acc))
+                        .write(variance(soma_workload_acc));
+                    } else {
+                        df.write(0)
+                        .write(0); 
+                    }
+                    
+                    
+                    df.endl();
+                    
+                    ++lod_depth;
+                }
+            }
+            
+        };
     }
     
 }
