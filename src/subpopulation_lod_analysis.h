@@ -45,7 +45,17 @@ namespace ea {
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
                 
                 datafile df("gls_aging.dat");
-                df.add_field("lod depth [depth]");
+                df.add_field("lod_depth")
+                .add_field("g1")
+                .add_field("g2")
+                .add_field("g3")
+                .add_field("g4")
+                .add_field("g5")
+                .add_field("g6")
+                .add_field("g7")
+                .add_field("g8")
+                .add_field("g9")
+                .add_field("g10");
                 
                 int lod_depth = 0;
                 // skip def ancestor (that's what the +1 does)
@@ -116,10 +126,10 @@ namespace ea {
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
                 
                 datafile df("lod_knockouts.dat");
-                df.add_field("lod depth [depth]")
-                .add_field("no knockouts")
-                .add_field("rx knockedout")
-                .add_field("location knockedout");
+                df.add_field("lod_depth")
+                .add_field("no_knockouts")
+                .add_field("rx_knockedout")
+                .add_field("location_knockedout");
                 
                 
                 int lod_depth = 0;
@@ -212,7 +222,7 @@ namespace ea {
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
                 
                 datafile df("lod_gls_circle_square_plot.dat");
-                df.add_field("lod depth [depth]");
+                df.add_field("lod_depth");
                 
                 
                 int lod_depth = 0;
@@ -250,7 +260,6 @@ namespace ea {
                         for (int y=0; y<get<SPATIAL_Y>(ea); ++y){
                             typename EA::individual_type::environment_type::location_type l = control_ea->env().location(x,y);
                             if (l.occupied()) {
-                                bool gs_status = get<GERM_STATUS>(*l.inhabitant());
                                 df.write(get<GERM_STATUS>(*l.inhabitant(), 0))
                                 .write(get<WORKLOAD>(*l.inhabitant(),0));
                             } else {
@@ -285,7 +294,7 @@ namespace ea {
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
                 
                 datafile df("lod_gls_germ_soma_mean_var.dat");
-                df.add_field("lod depth [depth]")
+                df.add_field("lod_depth")
                 .add_field("mean_germ_num")
                 .add_field("mean_pop_num")
                 .add_field("mean_germ_percent")
