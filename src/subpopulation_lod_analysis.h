@@ -162,7 +162,7 @@ namespace ea {
                     // replay! till the group amasses the right amount of resources
                     // or exceeds its window...
                     int cur_update = 0;
-                    int update_max = 10000;
+                    int update_max = 1000;
                     // and run till the group amasses the right amount of resources
                     while ((get<GROUP_RESOURCE_UNITS>(*control_ea,0) < get<GROUP_REP_THRESHOLD>(*control_ea)) &&
                            (cur_update < update_max)){
@@ -342,8 +342,8 @@ namespace ea {
                     
                     double germ_percent = (germ_count/pop_count);
                     
-                    df.write(pop_count)
-                    .write(germ_count)
+                    df.write(germ_count)
+                    .write(pop_count)
                     .write(germ_percent)
                     .write(mean(germ_workload_acc))
                     .write(variance(germ_workload_acc));
