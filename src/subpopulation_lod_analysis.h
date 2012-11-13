@@ -44,7 +44,8 @@ namespace ea {
                 
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
                 
-                datafile df("gls_aging.dat");
+                
+                datafile df("lod_gls_aging.dat");
                 df.add_field("lod_depth")
                 .add_field("g1")
                 .add_field("g2")
@@ -60,6 +61,14 @@ namespace ea {
                 int lod_depth = 0;
                 // skip def ancestor (that's what the +1 does)
                 for( ; i!=lod.end(); ++i) {
+                    
+                    if (lod_depth == 260) {
+                        int z = 2;
+                    } else {
+                        lod_depth++;
+                        continue;
+                    }
+                    
                     
                     df.write(lod_depth);
                     
@@ -85,11 +94,23 @@ namespace ea {
                            (cur_update < 10000)){
                         p->update();
                         ++cur_update;
-                        if (get<GROUP_RESOURCE_UNITS>(*p,0) > res_resource_thresh) {
+                        int cur_res = get<GROUP_RESOURCE_UNITS>(*p);
+                        
+                        if (get<GROUP_RESOURCE_UNITS>(*p,0) >= res_resource_thresh) {
                             df.write(cur_update);
                             p->env().reset_resources();
                             
                             res_resource_thresh += res_reset_inc;
+                            
+                            // To catch the corner case where they go 'over' two
+                            // resource thresholds at the same time...
+                            if (get<GROUP_RESOURCE_UNITS>(*p) >= res_resource_thresh) {
+                                df.write(cur_update);
+                                p->env().reset_resources();
+                                
+                                res_resource_thresh += res_reset_inc;
+                                
+                            }
                         }
                     }
                     
