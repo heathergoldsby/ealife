@@ -122,7 +122,99 @@ namespace ea {
             
         };
         
+        /* Rerun a LoD, where a LoD is the sequential list of eas that contributed to a final dominant
+         ea. Each ea is tagged with a founder, which is used for the rerun.*/
         
+        /*! lod_gls_aging is designed to work for the gls project. It reruns each subpopulation along a
+         line of descent and records how the subpopulation 'ages' as measured by how rapidly it
+         accumulates enough resources to produce a new group.
+         */
+        template <typename EA>
+        struct lod_gls_long_aging : public ea::analysis::unary_function<EA> {
+            static const char* name() { return "lod_gls_long_aging"; }
+            
+            virtual void operator()(EA& ea) {
+                using namespace ea;
+                using namespace ea::analysis;
+                
+                line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
+                
+                typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
+                
+                
+                datafile df("lod_gls_long_aging.dat");
+                                
+                int lod_depth = 0;
+                // skip def ancestor (that's what the +1 does)
+                for( ; i!=lod.end(); ++i) {
+                    
+                    if (lod_depth != 4062) {
+                        lod_depth ++;
+                        continue;
+                    }
+                    
+                    df.write(lod_depth);
+                    
+                    // **i is the EA, AS OF THE TIME THAT IT DIED!
+                    
+                    // To replay, need to create a new ea
+                    // setup the population (really, an ea):
+                    typename EA::individual_ptr_type p = ea.make_individual();
+                    p->rng().reset(get<RNG_SEED>(**i));
+                    
+                    // setup the founder
+                    typename EA::individual_type::individual_ptr_type o= (*i)->make_individual((*i)->founder().repr());
+                    o->hw().initialize();
+                    p->append(o);
+                    
+                    // replay!
+                    int res_reset_inc = 500;
+                    int res_resource_thresh = 500;
+                    int cur_update = 0;
+                    int max_res = 50000;
+                    int max_update = 100000;
+                    // and run till the group amasses the right amount of resources
+                    while ((get<GROUP_RESOURCE_UNITS>(*p,0) < max_res) &&
+                           (cur_update < max_update)){
+                        p->update();
+                        ++cur_update;
+                        int cur_res = get<GROUP_RESOURCE_UNITS>(*p);
+                        
+                        if (get<GROUP_RESOURCE_UNITS>(*p,0) >= res_resource_thresh) {
+                            df.write(cur_update);
+                            p->env().reset_resources();
+                            
+                            res_resource_thresh += res_reset_inc;
+                            
+                            // To catch the corner case where they go 'over' two
+                            // resource thresholds at the same time...
+                            if ((get<GROUP_RESOURCE_UNITS>(*p) >= res_resource_thresh) &&
+                                (res_resource_thresh <= max_res)){
+                                df.write(cur_update);
+                                p->env().reset_resources();
+                                
+                                res_resource_thresh += res_reset_inc;
+                                
+                            }
+                        }
+                    }
+                    
+                    
+                    // catch missing data
+                    int cur_res = get<GROUP_RESOURCE_UNITS>(*p);
+                    while (cur_res < max_res) {
+                        df.write(max_update);
+                        cur_res += res_reset_inc;
+                    }
+                    
+                    df.endl();
+                    
+                    ++lod_depth;
+                }
+            }
+            
+        };
+
         /*! lod_knockouts reruns each subpopulation along a line of descent and records how the subpopulation
          fares with key coordination instructions removed.
          */

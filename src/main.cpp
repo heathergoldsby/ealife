@@ -180,6 +180,7 @@ public:
     
     virtual void gather_tools() {
         add_tool<ea::analysis::lod_gls_aging>(this);
+        add_tool<ea::analysis::lod_gls_long_aging>(this);
         add_tool<ea::analysis::lod_knockouts>(this);
         add_tool<ea::analysis::lod_gls_circle_square_plot>(this);
         add_tool<ea::analysis::lod_gls_germ_soma_mean_var>(this);
