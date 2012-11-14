@@ -150,6 +150,11 @@ namespace ea {
                     
                     df.write(lod_depth);
                     
+                    if ((lod_depth % 100) != 0) {
+                        lod_depth++;
+                        continue;
+                    }
+                    
                     // **i is the EA, AS OF THE TIME THAT IT DIED!
                     
                     // To replay, need to create a new ea
