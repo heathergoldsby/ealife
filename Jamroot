@@ -39,3 +39,12 @@ exe ts :
     ;
 
 install dist : ts : <location>$(HOME)/bin ;
+
+exe ape :
+    src/age_poly_2_task.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : ape : <location>$(HOME)/bin ;
