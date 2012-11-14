@@ -148,11 +148,6 @@ namespace ea {
                 // skip def ancestor (that's what the +1 does)
                 for( ; i!=lod.end(); ++i) {
                     
-                    if (lod_depth != 4062) {
-                        lod_depth ++;
-                        continue;
-                    }
-                    
                     df.write(lod_depth);
                     
                     // **i is the EA, AS OF THE TIME THAT IT DIED!
