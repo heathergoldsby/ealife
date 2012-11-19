@@ -222,7 +222,7 @@ namespace ea {
          in a number of updates*/
         template <typename EA>
         struct lod_gls_rep_in_time : public ea::analysis::unary_function<EA> {
-            static const char* name() { return "lod_gls_long_aging"; }
+            static const char* name() { return "lod_gls_rep_in_time"; }
             
             virtual void operator()(EA& ea) {
                 using namespace ea;
