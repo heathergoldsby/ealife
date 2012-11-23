@@ -40,11 +40,14 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<h_alloc>(ea);             
         append_isa<h_copy>(ea);
         append_isa<h_divide_soft_parent_reset>(ea);
-        append_isa<h_divide>(ea);
         append_isa<fixed_input>(ea);
         append_isa<output>(ea);
         append_isa<donate_res_to_group>(ea);
         append_isa<get_xy>(ea);
+        append_isa<if_equal>(ea);
+        append_isa<if_not_equal>(ea);
+        append_isa<jump_head>(ea);
+        append_isa<get_age>(ea);
         
         
         add_event<task_resource_consumption>(this,ea);

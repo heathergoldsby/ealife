@@ -60,10 +60,12 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<h_copy>(ea);
         append_isa<h_divide>(ea);
         append_isa<fixed_input>(ea);
-        append_isa<fixed_input>(ea);
         append_isa<output>(ea);
         append_isa<donate_res_to_group>(ea);
         append_isa<get_xy>(ea);
+        append_isa<if_equal>(ea);
+        append_isa<if_not_equal>(ea);
+        append_isa<jump_head>(ea);
         
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
