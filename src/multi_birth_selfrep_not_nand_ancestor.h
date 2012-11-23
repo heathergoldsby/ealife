@@ -57,7 +57,7 @@ namespace ea {
             repr[93] =  ea.isa()["nop_c"]; // nopc
             repr[94] =  ea.isa()["nop_a"]; // nopa
             repr[95] =  ea.isa()["if_label"]; // iflabel
-            repr[96] =  ea.isa()["h_divide"]; // hdivide
+            repr[96] =  ea.isa()["h_divide_soft_parent_reset"]; // hdivide
             repr[97] =  ea.isa()["mov_head"]; // movhead
             repr[98] =  ea.isa()["nop_a"]; // nopa
             repr[99] =  ea.isa()["nop_b"]; // nopb
