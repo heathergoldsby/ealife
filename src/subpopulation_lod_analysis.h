@@ -349,7 +349,6 @@ namespace ea {
                     while ((num_rep < max_reps) & (done == 0)){
                         p->update();
                         ++cur_update;
-                        int cur_res = get<GROUP_RESOURCE_UNITS>(*p);
                         
                         if (get<GROUP_RESOURCE_UNITS>(*p,0) >= res_resource_thresh) {
                             p->env().reset_resources();
@@ -360,7 +359,7 @@ namespace ea {
                             if (first_update_length == -1) {
                                 first_update_length = cur_update;
                             } else {
-                                if ((cur_update * 2) > first_update_length) {
+                                if ((cur_update) > (first_update_length *2 )) {
                                     done = 1;
                                 }
                             }

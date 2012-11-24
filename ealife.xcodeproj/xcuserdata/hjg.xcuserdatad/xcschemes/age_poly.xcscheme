@@ -57,6 +57,12 @@
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "--with-time --ea.ape.not_lethality_prob=0.25 --ea.ape.nand_lethality_prob=0.0"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

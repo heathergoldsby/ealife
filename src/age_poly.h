@@ -17,7 +17,6 @@
 #include <boost/accumulators/statistics/variance.hpp>
 #include <boost/algorithm/string.hpp>
 
-#include "multi_birth_selfrep_not_nand_ancestor.h"
 #include "resource_consumption.h"
 #include "configurable_mutation.h"
 

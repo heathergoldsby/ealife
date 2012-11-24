@@ -1,5 +1,8 @@
 #include "age_poly.h"
 #include "subpopulation_founder.h"
+#include "multi_birth_selfrep_not_nand_ancestor.h"
+#include "selfrep_not_ancestor.h"
+
 
 #include <ea/line_of_descent.h>
 
@@ -39,6 +42,7 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<if_less>(ea); 
         append_isa<h_alloc>(ea);             
         append_isa<h_copy>(ea);
+        append_isa<h_divide>(ea);
         append_isa<h_divide_soft_parent_reset>(ea);
         append_isa<fixed_input>(ea);
         append_isa<output>(ea);
@@ -78,6 +82,7 @@ struct ts_configuration : public abstract_configuration<EA> {
     //! Called to generate the initial EA population.
     void initial_population(EA& ea) {
         generate_ancestors(multibirth_selfrep_not_nand_ancestor(), 1, ea);
+
     }
 };
 
