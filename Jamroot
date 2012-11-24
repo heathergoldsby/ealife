@@ -12,23 +12,15 @@ exe gls :
 
 install dist : gls : <location>$(HOME)/bin ;
 
-exe gls_ramped :
-    src/gls_ramped.cpp
+
+exe gls_no_soma :
+    src/gls_no_soma.cpp
     /libea//libea
     /libea//libea_runner
     : <include>./include <link>static
     ;
 
-install dist : gls_ramped : <location>$(HOME)/bin ;
-
-exe gls_control :
-    src/gls_random_mutation_control.cpp
-    /libea//libea
-    /libea//libea_runner
-    : <include>./include <link>static
-    ;
-
-install dist : gls_control : <location>$(HOME)/bin ;
+install dist : gls_no_soma : <location>$(HOME)/bin ;
 
 
 exe ts :

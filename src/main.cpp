@@ -66,6 +66,15 @@ struct gls_configuration : public abstract_configuration<EA> {
         append_isa<donate_res_to_group>(ea);
         append_isa<get_xy>(ea);
         
+
+        
+        add_event<task_mutagenesis>(this,ea);
+        add_event<gs_inherit_event>(this,ea);
+        add_event<task_resource_consumption>(this,ea);
+        
+    }
+    
+    void initialize(EA& ea) {
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
         task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
@@ -77,15 +86,15 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_ptr_type task_xor = make_task<tasks::task_xor,catalysts::additive<0> >("xor", ea);
         task_ptr_type task_equals = make_task<tasks::task_equals,catalysts::additive<0> >("equals", ea);
         
-        put<TASK_MUTATION_MULT>(0, *task_not);
-        put<TASK_MUTATION_MULT>(1, *task_nand);
-        put<TASK_MUTATION_MULT>(1, *task_and);
-        put<TASK_MUTATION_MULT>(1, *task_ornot);
-        put<TASK_MUTATION_MULT>(1, *task_or);
-        put<TASK_MUTATION_MULT>(1, *task_andnot);
-        put<TASK_MUTATION_MULT>(1, *task_nor);
-        put<TASK_MUTATION_MULT>(1, *task_xor);
-        put<TASK_MUTATION_MULT>(1, *task_equals);
+        put<TASK_MUTATION_MULT>(get<NOT_MUTATION_MULT>(ea), *task_not);
+        put<TASK_MUTATION_MULT>(get<NAND_MUTATION_MULT>(ea), *task_nand);
+        put<TASK_MUTATION_MULT>(get<AND_MUTATION_MULT>(ea), *task_and);
+        put<TASK_MUTATION_MULT>(get<ORNOT_MUTATION_MULT>(ea), *task_ornot);
+        put<TASK_MUTATION_MULT>(get<OR_MUTATION_MULT>(ea), *task_or);
+        put<TASK_MUTATION_MULT>(get<ANDNOT_MUTATION_MULT>(ea), *task_andnot);
+        put<TASK_MUTATION_MULT>(get<NOR_MUTATION_MULT>(ea), *task_nor);
+        put<TASK_MUTATION_MULT>(get<XOR_MUTATION_MULT>(ea), *task_xor);
+        put<TASK_MUTATION_MULT>(get<EQUALS_MUTATION_MULT>(ea), *task_equals);
         
         resource_ptr_type resA = make_resource("resA", 100.0, 1.0, 0.01, 0.05, ea);
         resource_ptr_type resB = make_resource("resB", 100.0, 1.0, 0.01, 0.05, ea);
@@ -106,11 +115,6 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_nor->consumes(resG);
         task_xor->consumes(resH);
         task_equals->consumes(resI);
-        
-        add_event<task_mutagenesis>(this,ea);
-        add_event<gs_inherit_event>(this,ea);
-        add_event<task_resource_consumption>(this,ea);
-        
     }
     
     //! Called to generate the initial EA population.
@@ -175,16 +179,28 @@ public:
         add_option<TASK_MUTATION_PER_SITE_P>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
         add_option<GROUP_REP_THRESHOLD>(this);
-
+        
+        // gls mutation multipliers
+        add_option<NOT_MUTATION_MULT>(this);
+        add_option<NAND_MUTATION_MULT>(this);
+        add_option<AND_MUTATION_MULT>(this);
+        add_option<ORNOT_MUTATION_MULT>(this);
+        add_option<OR_MUTATION_MULT>(this);
+        add_option<ANDNOT_MUTATION_MULT>(this);
+        add_option<NOR_MUTATION_MULT>(this);
+        add_option<XOR_MUTATION_MULT>(this);
+        add_option<EQUALS_MUTATION_MULT>(this);
+        
     }
     
     virtual void gather_tools() {
 //        add_tool<ea::analysis::lod_gls_aging>(this);
 //        add_tool<ea::analysis::lod_gls_long_aging>(this);
+//        add_tool<ea::analysis::lod_gls_rep_in_time>(this);
+
         add_tool<ea::analysis::lod_knockouts>(this);
         add_tool<ea::analysis::lod_gls_circle_square_plot>(this);
         add_tool<ea::analysis::lod_gls_germ_soma_mean_var>(this);
-//        add_tool<ea::analysis::lod_gls_rep_in_time>(this);
         add_tool<ea::analysis::lod_gls_double_rep>(this);
 
         

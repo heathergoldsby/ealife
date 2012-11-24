@@ -43,7 +43,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/hjg/Desktop/research/dol/var/gls-ealife/002-500-rerun/d_6"
+      customWorkingDirectory = "/Users/hjg/Desktop/research/projects/ea/temp"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -60,7 +60,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--with-time"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = " -l checkpoint-10000.xml --analyze lod_gls_rerun --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
@@ -68,7 +68,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = " -l checkpoint-500000.xml.gz --analyze lod_gls_double_rep --ea.analysis.input.filename lod-500000.xml.gz"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = " -l checkpoint-10000.xml --analyze lod_gls_aging --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"

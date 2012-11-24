@@ -28,14 +28,12 @@
 		3EB3CAD415E6FBD200B82B07 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
 		3EB3CAD515E6FBD200B82B07 /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
 		3EB3CAD615E6FBD200B82B07 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
-		3EB3CADD15E6FBDF00B82B07 /* gls_ramped.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3CA8715E6F6CB00B82B07 /* gls_ramped.cpp */; };
 		3EB3CAE315E7097500B82B07 /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E082F6615CF0E9700097C42 /* libea.a */; };
 		3EB3CAE415E7097500B82B07 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
 		3EB3CAE515E7097500B82B07 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
 		3EB3CAE615E7097500B82B07 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
 		3EB3CAE715E7097500B82B07 /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
 		3EB3CAE815E7097500B82B07 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
-		3EB3CAEF15E709A700B82B07 /* gls_random_mutation_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EB3CADE15E7092B00B82B07 /* gls_random_mutation_control.cpp */; };
 		42441A9B15861785009863BE /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
 		42441A9C15861785009863BE /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
 		42441A9D15861785009863BE /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
@@ -103,10 +101,9 @@
 		3E22CF52161E2ED600EB4D27 /* subpopulation_founder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = subpopulation_founder.h; sourceTree = "<group>"; };
 		3E22CF62161E31A800EB4D27 /* configurable_mutation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configurable_mutation.h; sourceTree = "<group>"; };
 		3E71F5E515DBF7D1002AFEB7 /* repro_not_ancestor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = repro_not_ancestor.h; sourceTree = "<group>"; };
+		3EA8CBF616612CC1003DC87E /* gls_no_soma.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gls_no_soma.cpp; sourceTree = "<group>"; };
 		3EB3CA8515E6F62E00B82B07 /* gls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gls.h; sourceTree = "<group>"; };
-		3EB3CA8715E6F6CB00B82B07 /* gls_ramped.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gls_ramped.cpp; sourceTree = "<group>"; };
 		3EB3CADB15E6FBD200B82B07 /* gls_ramped */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gls_ramped; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EB3CADE15E7092B00B82B07 /* gls_random_mutation_control.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gls_random_mutation_control.cpp; sourceTree = "<group>"; };
 		3EB3CAED15E7097500B82B07 /* gls_control */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gls_control; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EBF2BFE1625CF2900161D9B /* age_poly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = age_poly.h; sourceTree = "<group>"; };
 		3EBF2BFF16273CD400161D9B /* age_poly_2_task.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = age_poly_2_task.cpp; sourceTree = "<group>"; };
@@ -241,10 +238,9 @@
 				3E1DA7BA1630631900AA622A /* subpopulation_lod_analysis.h */,
 				3EBF2BFE1625CF2900161D9B /* age_poly.h */,
 				42441A82158616AF009863BE /* main.cpp */,
-				3EB3CA8715E6F6CB00B82B07 /* gls_ramped.cpp */,
-				3EB3CADE15E7092B00B82B07 /* gls_random_mutation_control.cpp */,
 				3ED5CED2161B42B900128910 /* ts.cpp */,
 				3EBF2BFF16273CD400161D9B /* age_poly_2_task.cpp */,
+				3EA8CBF616612CC1003DC87E /* gls_no_soma.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -402,7 +398,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EB3CADD15E6FBDF00B82B07 /* gls_ramped.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +405,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EB3CAEF15E709A700B82B07 /* gls_random_mutation_control.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -46,9 +46,15 @@ LIBEA_MD_DECL(TASK_MUTATION_PER_SITE_P, "ea.gls.task_mutation_per_site_p", doubl
 LIBEA_MD_DECL(GERM_MUTATION_PER_SITE_P, "ea.gls.germ_mutation_per_site_p", double);
 LIBEA_MD_DECL(WORKLOAD, "ea.gls.workload", double);
 LIBEA_MD_DECL(TASK_MUTATION_MULT, "ea.gls.task_mutation_mult", double);
-
-
-
+LIBEA_MD_DECL(NOT_MUTATION_MULT, "ea.gls.not_mutation_mult", double);
+LIBEA_MD_DECL(NAND_MUTATION_MULT, "ea.gls.nand_mutation_mult", double);
+LIBEA_MD_DECL(AND_MUTATION_MULT, "ea.gls.and_mutation_mult", double);
+LIBEA_MD_DECL(ORNOT_MUTATION_MULT, "ea.gls.ornot_mutation_mult", double);
+LIBEA_MD_DECL(OR_MUTATION_MULT, "ea.gls.or_mutation_mult", double);
+LIBEA_MD_DECL(ANDNOT_MUTATION_MULT, "ea.gls.andnot_mutation_mult", double);
+LIBEA_MD_DECL(NOR_MUTATION_MULT, "ea.gls.nor_mutation_mult", double);
+LIBEA_MD_DECL(XOR_MUTATION_MULT, "ea.gls.xor_mutation_mult", double);
+LIBEA_MD_DECL(EQUALS_MUTATION_MULT, "ea.gls.equals_mutation_mult", double);
 
 
 // Germ instructions!
