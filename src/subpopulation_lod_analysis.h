@@ -358,12 +358,13 @@ namespace ea {
                             
                             if (first_update_length == -1) {
                                 first_update_length = cur_update;
-                            } else {
-                                if ((cur_update) > (first_update_length *2 )) {
-                                    done = 1;
-                                }
                             }
                             cur_update = 0;
+                        }
+                        
+                        
+                        if ((first_update_length != -1) && (cur_update > (first_update_length * 2 ))) {
+                                done = 1;
                         }
                     }
                     
