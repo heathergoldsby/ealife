@@ -547,7 +547,7 @@ namespace ea {
         };
 
         
-        /*! lod_knockouts reruns each subpopulation along a line of descent - setup for circle / square plot
+        /*! lod_gls_germ_soma_mean_var reruns each subpopulation along a line of descent - setup for circle / square plot
          */
         template <typename EA>
         struct lod_gls_germ_soma_mean_var : public ea::analysis::unary_function<EA> {
@@ -563,9 +563,11 @@ namespace ea {
                 
                 datafile df("lod_gls_germ_soma_mean_var.dat");
                 df.add_field("lod_depth")
-                .add_field("mean_germ_num")
-                .add_field("mean_pop_num")
-                .add_field("mean_germ_percent")
+                .add_field("time_to_first_rep")
+                .add_field("num_types_of_tasks")
+                .add_field("num_germ")
+                .add_field("num_pop")
+                .add_field("germ_percent")
                 .add_field("mean_germ_workload")
                 .add_field("mean_germ_workload_var")
                 .add_field("mean_soma_workload")
@@ -599,7 +601,6 @@ namespace ea {
                         control_ea->update();
                         ++cur_update;
                     }
-                    df.write(cur_update);
                     
                     double germ_count = 0;
                     double pop_count = 0;
@@ -617,9 +618,26 @@ namespace ea {
                         ++pop_count;
                     }
                     
-                    double germ_percent = (germ_count/pop_count);
                     
-                    df.write(germ_count)
+                    // How many different types of tasks does the group do?
+                    int task_type_count = 0;
+                    if (get<TASK_NOT>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_NAND>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_AND>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_ORNOT>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_NOT>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_ANDNOT>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_NOR>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_XOR>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_EQUALS>(*control_ea,0.0)) ++task_type_count;
+
+                    
+                    
+                    
+                    double germ_percent = (germ_count/pop_count);
+                    df.write(cur_update)
+                    .write(task_type_count)
+                    .write(germ_count)
                     .write(pop_count)
                     .write(germ_percent)
                     .write(mean(germ_workload_acc))
@@ -640,6 +658,8 @@ namespace ea {
                 }
             }
             
+            
+                        
         };
     }
     

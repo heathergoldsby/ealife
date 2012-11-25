@@ -60,7 +60,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--with-time"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = " -l checkpoint-10000.xml --analyze lod_gls_rerun --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
@@ -77,6 +77,10 @@
          <CommandLineArgument
             argument = " -l checkpoint-10000.xml --analyze lod_knockouts --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
             isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = " -l checkpoint-10000.xml --analyze lod_gls_germ_soma_mean_var --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
