@@ -156,6 +156,8 @@ template <typename EA>
 struct task_first_age_tracking : end_of_update_event<EA> {
     task_first_age_tracking(EA& ea) : end_of_update_event<EA>(ea), _df("tasks_first_age.dat") {
         _df.add_field("update")
+        .add_field("sub_pop_size")
+        .add_field("pop_size")
         .add_field("not age")
         .add_field("nand age")
         .add_field("ornot age")
@@ -176,10 +178,13 @@ struct task_first_age_tracking : end_of_update_event<EA> {
             double t_ornot = 0.0;
             double t_ornot_count = 0.0;
             
-            
+            int sub_pop_size = 0;
+            int pop_size = 0;
             for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+                ++sub_pop_size;
                 for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
                     typename EA::individual_type::individual_type& ind=**j;
+                    ++pop_size;
                     
                     if (exists<NOT_AGE>(ind)) {
                         t_not += get<NOT_AGE>(ind);
@@ -202,6 +207,8 @@ struct task_first_age_tracking : end_of_update_event<EA> {
             if (t_ornot_count) { t_ornot /= t_ornot_count; }
             
             _df.write(ea.current_update())
+            .write(sub_pop_size)
+            .write(pop_size)
             .write(t_not)
             .write(t_nand)
             .write(t_ornot)
