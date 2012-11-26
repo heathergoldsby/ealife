@@ -184,19 +184,23 @@ struct task_first_age_tracking : end_of_update_event<EA> {
                 ++sub_pop_size;
                 for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
                     typename EA::individual_type::individual_type& ind=**j;
-                    ++pop_size;
                     
-                    if (exists<NOT_AGE>(ind)) {
-                        t_not += get<NOT_AGE>(ind);
-                        ++t_not_count;
-                    }
-                    if (exists<NAND_AGE>(ind)) {
-                        t_nand += get<NAND_AGE>(ind);
-                        ++t_nand_count;
-                    }
-                    if (exists<ORNOT_AGE>(ind)) {
-                        t_ornot += get<ORNOT_AGE>(ind);
-                        ++t_ornot_count;
+                    if (ind.alive()) {
+                    
+                        ++pop_size;
+                    
+                        if (exists<NOT_AGE>(ind)) {
+                            t_not += get<NOT_AGE>(ind);
+                            ++t_not_count;
+                        }
+                        if (exists<NAND_AGE>(ind)) {
+                            t_nand += get<NAND_AGE>(ind);
+                            ++t_nand_count;
+                        }
+                        if (exists<ORNOT_AGE>(ind)) {
+                            t_ornot += get<ORNOT_AGE>(ind);
+                            ++t_ornot_count;
+                        }
                     }
                     
                 }

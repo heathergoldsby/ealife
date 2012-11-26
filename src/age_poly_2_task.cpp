@@ -90,7 +90,7 @@ struct ts_configuration : public abstract_configuration<EA> {
 /*! Artificial life simulation definition.
  */
 typedef digital_evolution<
-ts_configuration, spatial, random_neighbor, round_robin
+ts_configuration, spatial, empty_neighbor, round_robin
 > ea_type;
 
 template <typename EA>
