@@ -318,7 +318,7 @@ namespace ea {
                 // skip def ancestor (that's what the +1 does)
                 for( ; i!=lod.end(); ++i) {
             
-                    if ((lod_depth % 100) != 0){
+                    if ((lod_depth % 10) != 0){
                         lod_depth++;
                         continue;
                     }
