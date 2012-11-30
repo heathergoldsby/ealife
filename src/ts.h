@@ -80,7 +80,10 @@ template <typename EA>
 struct task_switch_tracking : end_of_update_event<EA> {
     task_switch_tracking(EA& ea) : end_of_update_event<EA>(ea), _df("ts.dat") { 
         _df.add_field("update")
+        .add_field("sub_pop_size")
+        .add_field("pop_size")
         .add_field("mean ts");
+        
     }
     
     //! Destructor.
@@ -92,16 +95,24 @@ struct task_switch_tracking : end_of_update_event<EA> {
         if ((ea.current_update() % 100) == 0) {
             double ts = 0;
             double org = 0;
-                        
+            
+            int sub_pop_size = 0;
+            
             for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+                ++sub_pop_size;
                 for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
+                    
                     typename EA::individual_type::individual_type& ind=**j;
-                    ts += get<NUM_SWITCHES>(ind, 0); 
-                    ++org;
+                    if (ind.alive()) {
+                        ts += get<NUM_SWITCHES>(ind, 0);
+                        ++org;
+                    }
                 }
             }
             ts /= org;
             _df.write(ea.current_update())
+            .write(sub_pop_size)
+            .write(org)
             .write(ts)
             .endl();
         }
