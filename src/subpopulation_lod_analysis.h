@@ -318,10 +318,11 @@ namespace ea {
                 // skip def ancestor (that's what the +1 does)
                 for( ; i!=lod.end(); ++i) {
             
+                    /*
                     if ((lod_depth % 10) != 0){
                         lod_depth++;
                         continue;
-                    }
+                    }*/
                     
                     df.write(lod_depth);
                     
