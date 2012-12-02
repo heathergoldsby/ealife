@@ -7,27 +7,27 @@
 		<key>age_poly.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>11</integer>
 		</dict>
 		<key>gls.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>9</integer>
 		</dict>
-		<key>gls_control.xcscheme</key>
+		<key>gls_no_pseudo_soma.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>13</integer>
 		</dict>
-		<key>gls_ramped.xcscheme</key>
+		<key>gls_no_soma.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>14</integer>
 		</dict>
 		<key>ts.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -38,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>3E22CF3F161E276300EB4D27</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3E55AAC8166BC8BD0097A0E5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

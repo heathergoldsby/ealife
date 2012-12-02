@@ -116,7 +116,7 @@ struct gs_inherit_event : inheritance_event<EA> {
 
 
 /*! Triggers a task having a mutagenic effect on a organism.
- One mutagenic rate for all tasks other than NOT.
+ Configurable mutagenic rate for all tasks.
  */
 
 template <typename EA>
@@ -137,6 +137,49 @@ struct task_mutagenesis : task_performed_event<EA> {
             configurable_per_site m(prob); 
             mutate(ind,m,ea);
             get<WORKLOAD>(ind,0.0) += mult;
+        }
+    }
+};
+
+/*! Triggers a task having a mutagenic effect on an organism in the colony with the same
+ germ/soma status, but that has performed the least amount of work so far.
+ Configurable mutagenic rate for all tasks.
+ */
+
+template <typename EA>
+struct task_mutagenesis_control : task_performed_event<EA> {
+    
+    task_mutagenesis_control(EA& ea) : task_performed_event<EA>(ea) {
+    }
+    
+    virtual ~task_mutagenesis_control() { }
+    virtual void operator()(typename EA::individual_type& ind, // individual
+                            typename EA::tasklib_type::task_ptr_type task, // task pointer
+                            double r, // amount of resource consumed
+                            EA& ea) {
+        
+        
+        double mult = get<TASK_MUTATION_MULT>(*task);
+        double prob = get<TASK_MUTATION_PER_SITE_P>(ea) * mult;
+        bool gs_status = get<GERM_STATUS>(ind, true);
+        typename EA::individual_type& sacrificial_org = ind;
+        int smallest_workload = get<WORKLOAD>(ind, 0.0);
+        if (prob > 0) {
+            // search through the ea for an individual of the same g/s status, but
+            // with the lowest workload
+            for(typename EA::population_type::iterator j=ea.population().begin(); j!=ea.population().end(); ++j) {
+                typename EA::individual_type& org=**j;
+                if (get<GERM_STATUS>(org, true) == gs_status) {
+                    if (get<WORKLOAD>(org,0.0) < smallest_workload) {
+                        smallest_workload = get<WORKLOAD>(org,0.0);
+                        sacrificial_org = org;
+                    }
+                }
+            }
+            
+            configurable_per_site m(prob);
+            mutate(sacrificial_org,m,ea);
+            get<WORKLOAD>(sacrificial_org,0.0) += mult;
         }
     }
 };

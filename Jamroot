@@ -23,6 +23,16 @@ exe gls_no_soma :
 install dist : gls_no_soma : <location>$(HOME)/bin ;
 
 
+exe gls_no_pseudo_soma :
+    src/gls_no_pseudo_soma.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : gls_no_pseudo_soma : <location>$(HOME)/bin ;
+
+
 exe ts :
     src/ts.cpp
     /libea//libea
