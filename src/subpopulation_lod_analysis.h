@@ -346,8 +346,9 @@ namespace ea {
                     int num_rep = 0;
                     int done = 0;
                     int first_update_length = -1;
+                    int max_update = 10000;
                     // and run till the group amasses the right amount of resources
-                    while ((num_rep < max_reps) & (done == 0)){
+                    while ((num_rep < max_reps) & (done == 0) & (cur_update < max_update)){
                         p->update();
                         ++cur_update;
                         
