@@ -100,6 +100,7 @@ struct ts_configuration : public abstract_configuration<EA> {
         
         add_event<task_resource_consumption>(this,ea);
         add_event<task_switching_cost>(this, ea);
+        add_event<ts_birth_event>(this,ea);
 
     }
     

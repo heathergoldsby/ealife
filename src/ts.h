@@ -205,6 +205,35 @@ struct ts_replication : end_of_update_event<EA> {
     
     
 };
+ 
+
+
+
+/*! An organism rotates to face its parent....
+ */
+template <typename EA>
+struct ts_birth_event : birth_event<EA> {
+    
+    //! Constructor.
+    ts_birth_event(EA& ea) : birth_event<EA>(ea) {
+    }
+    
+    //! Destructor.
+    virtual ~ts_birth_event() {
+    }
+    
+    /*! Called for every inheritance event. We are using the orientation of the first parent...
+     */
+    virtual void operator()(typename EA::individual_type& offspring, // individual offspring
+                            typename EA::individual_type& parent, // individual parent
+                            EA& ea) {
+        ea.env().face_org(parent, offspring);
+        //get<GERM_STATUS>(offspring, true) = get<GERM_STATUS>(ind(parents.begin(),ea), true);
+        
+    }
+};
+
+
 
 #endif
 
