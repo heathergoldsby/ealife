@@ -9,6 +9,16 @@
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
+		<key>age_poly_3.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
+		</dict>
+		<key>age_poly_lr.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>22</integer>
+		</dict>
 		<key>gls.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -43,6 +53,16 @@
 			<true/>
 		</dict>
 		<key>3E55AAC8166BC8BD0097A0E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3E5DDA6016AF1A130002AF3E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EA3EEBD16A984FA00EDE84B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

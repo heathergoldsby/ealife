@@ -110,7 +110,7 @@ struct gs_inherit_event : inheritance_event<EA> {
                             typename EA::individual_type& offspring,
                             EA& ea) {
         
-        get<GERM_STATUS>(offspring, true) = get<GERM_STATUS>(ind(parents.begin(),ea), true);
+        get<GERM_STATUS>(offspring, true) = get<GERM_STATUS>(**parents.begin(), true);
     }
 };
 

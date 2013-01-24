@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Michigan State University. All rights reserved.
 //
 
-#ifndef _EALIFE_MULTI_BIRTH_SELFREP_NOT_NAND_ANCESTOR_H_
-#define _EALIFE_MULTI_BIRTH_SELFREP_NOT_NAND_ANCESTOR_H_
+#ifndef _EALIFE_MULTI_BIRTH_SELFREP_NAND_NOT_ANCESTOR_H_
+#define _EALIFE_MULTI_BIRTH_SELFREP_NAND_NOT_ANCESTOR_H_
 
 
 #include <ea/digital_evolution.h>
@@ -17,7 +17,7 @@
 namespace ea {
     /*! Generates a self-replicating ancestor that performs not.
      */
-    struct multibirth_selfrep_not_nand_ancestor {
+    struct multibirth_selfrep_nand_not_ancestor {
         template <typename EA>
         typename EA::representation_type operator()(EA& ea) {
             typename EA::representation_type repr;
@@ -34,23 +34,23 @@ namespace ea {
             repr[4] =  ea.isa()["nop_c"]; // nopc
             repr[5] =  ea.isa()["mov_head"]; // movhead
             
-            // not
-            repr[24] = ea.isa()["fixed_input"]; // input
-            repr[25] = ea.isa()["fixed_input"]; // input
-            repr[26] = ea.isa()["push"]; // push
-            repr[27] = ea.isa()["nop_c"]; // nopc
-            repr[28] = ea.isa()["pop"]; // pop
-            repr[29] = ea.isa()["nand"]; // nand
-            repr[30] = ea.isa()["output"]; //output
-            repr[31] = ea.isa()["donate_res_to_group"]; // donate_res_to_group
-            
             // nand
+            repr[24] = ea.isa()["fixed_input"]; // input
+            repr[25] = ea.isa()["nop_c"]; // nopc
+            repr[26] = ea.isa()["fixed_input"]; // input
+            repr[27] = ea.isa()["nand"]; // nand
+            repr[28] = ea.isa()["output"]; //output
+            repr[29] = ea.isa()["donate_res_to_group"]; // donate_res_to_group
+            
+            // not
             repr[74] = ea.isa()["fixed_input"]; // input
-            repr[75] = ea.isa()["nop_c"]; // nopc
-            repr[76] = ea.isa()["fixed_input"]; // input
-            repr[77] = ea.isa()["nand"]; // nand
-            repr[78] = ea.isa()["output"]; //output
-            repr[79] = ea.isa()["donate_res_to_group"]; // donate_res_to_group
+            repr[75] = ea.isa()["fixed_input"]; // input
+            repr[76] = ea.isa()["push"]; // push
+            repr[77] = ea.isa()["nop_c"]; // nopc
+            repr[78] = ea.isa()["pop"]; // pop
+            repr[79] = ea.isa()["nand"]; // nand
+            repr[80] = ea.isa()["output"]; //output
+            repr[81] = ea.isa()["donate_res_to_group"]; // donate_res_to_group
             
             repr[91] =  ea.isa()["h_search"]; // hsearch
             repr[92] =  ea.isa()["h_copy"]; // hcopy
@@ -61,8 +61,6 @@ namespace ea {
             repr[97] =  ea.isa()["mov_head"]; // movhead
             repr[98] =  ea.isa()["nop_a"]; // nopa
             repr[99] =  ea.isa()["nop_b"]; // nopb
-            
-
             return repr;
         }
     };

@@ -1,6 +1,8 @@
 #include "age_poly.h"
 #include "subpopulation_founder.h"
 #include "multi_birth_selfrep_not_nand_ancestor.h"
+#include "multi_birth_selfrep_nand_not_ancestor.h"
+
 #include "selfrep_not_ancestor.h"
 
 
@@ -81,7 +83,12 @@ struct ts_configuration : public abstract_configuration<EA> {
     
     //! Called to generate the initial EA population.
     void initial_population(EA& ea) {
-        generate_ancestors(multibirth_selfrep_not_nand_ancestor(), 1, ea);
+        int ancest = get<ANCESTOR>(ea, 0);
+        if (ancest == 1) {
+            generate_ancestors(multibirth_selfrep_nand_not_ancestor(), 1, ea);
+        } else {
+            generate_ancestors(multibirth_selfrep_not_nand_ancestor(), 1, ea);
+        }
 
     }
 };
@@ -136,11 +143,12 @@ public:
         add_option<RNG_SEED>(this);
         add_option<RECORDING_PERIOD>(this);
         
-        // ts specific options
+        // age poly specific options
         add_option<TASK_LETHALITY_PROB>(this);
         add_option<LAST_TASK>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
         add_option<EACH_TASK_THRESH>(this);
+        add_option<ANCESTOR>(this);
         
         add_option<NOT_LETHALITY_PROB>(this);
         add_option<NAND_LETHALITY_PROB>(this);
