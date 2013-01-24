@@ -42,11 +42,29 @@ exe ts :
 
 install dist : ts : <location>$(HOME)/bin ;
 
-exe ape :
+exe age_poly :
     src/age_poly_2_task.cpp
     /libea//libea
     /libea//libea_runner
     : <include>./include <link>static
     ;
 
-install dist : ape : <location>$(HOME)/bin ;
+install dist : age_poly : <location>$(HOME)/bin ;
+
+exe age_poly_3 :
+    src/age_poly_3_task.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : age_poly_3 : <location>$(HOME)/bin ;
+
+exe age_poly_lr :
+    src/age_poly_lr_task.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : age_poly_lr : <location>$(HOME)/bin ;

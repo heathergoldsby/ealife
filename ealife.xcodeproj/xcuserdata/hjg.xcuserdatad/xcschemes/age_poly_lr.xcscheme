@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3E5DDA6016AF1A130002AF3E"
-               BuildableName = "age_poly_3"
+               BuildableName = "age_poly_lr"
                BlueprintName = "age_poly_lr"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E5DDA6016AF1A130002AF3E"
-            BuildableName = "age_poly_3"
+            BuildableName = "age_poly_lr"
             BlueprintName = "age_poly_lr"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E5DDA6016AF1A130002AF3E"
-            BuildableName = "age_poly_3"
+            BuildableName = "age_poly_lr"
             BlueprintName = "age_poly_lr"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E5DDA6016AF1A130002AF3E"
-            BuildableName = "age_poly_3"
+            BuildableName = "age_poly_lr"
             BlueprintName = "age_poly_lr"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
