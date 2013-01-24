@@ -61,7 +61,7 @@ exe age_poly_3 :
 install dist : age_poly_3 : <location>$(HOME)/bin ;
 
 exe age_poly_lr :
-    src/age_poly_lr_task.cpp
+    src/age_poly_lr.cpp
     /libea//libea
     /libea//libea_runner
     : <include>./include <link>static
