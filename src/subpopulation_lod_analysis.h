@@ -311,6 +311,7 @@ namespace ea {
                 
                 datafile df("lod_gls_double_rep.dat");
                 df.add_field("lod_depth")
+                .add_field("update")
                 .add_field("num_rep");
                 
                 int lod_depth = 0;
@@ -324,6 +325,7 @@ namespace ea {
                     }*/
                     
                     df.write(lod_depth);
+                    df.write((*i)->founder().update());
                     
                     // **i is the EA, AS OF THE TIME THAT IT DIED!
                     
