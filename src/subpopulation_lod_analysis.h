@@ -395,7 +395,8 @@ namespace ea {
                 
                 datafile df("lod_gls_aging_res_over_time.dat");
                 df.add_field("lod_depth")
-                .add_field("update");
+                .add_field("update")
+                .add_field("res");
 
                 
                 int lod_depth = 0;
@@ -408,8 +409,7 @@ namespace ea {
                         continue;
                     }
                     
-                    df.write(lod_depth);
-                    df.write((*i)->founder().update());
+                    
                     
                     // **i is the EA, AS OF THE TIME THAT IT DIED!
                     
@@ -446,12 +446,14 @@ namespace ea {
                             double cur_res = get<GROUP_RESOURCE_UNITS>(*p,0);
                             double res = cur_res - prev_res;
                             prev_res = cur_res;
+                            df.write(lod_depth);
+                            df.write(cur_update);
                             df.write(res);
+                            df.endl();
                         }
                     }
                     
 //                    df.write(num_rep);
-                    df.endl();
                     
                     ++lod_depth;
                 }
