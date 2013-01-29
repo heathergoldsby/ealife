@@ -403,7 +403,7 @@ namespace ea {
                 for( ; i!=lod.end(); ++i) {
                     
                     
-                    if ((lod_depth % 100) != 0) {
+                    if ((lod_depth % 10) != 0) {
                         lod_depth++;
                         continue;
                     }
@@ -434,7 +434,6 @@ namespace ea {
                     while (cur_update < max_update){
                         p->update();
                         ++cur_update;
-                        int cur_res = get<GROUP_RESOURCE_UNITS>(*p);
                         
                         if (get<GROUP_RESOURCE_UNITS>(*p,0) >= res_resource_thresh) {
                             p->env().reset_resources();
