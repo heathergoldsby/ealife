@@ -294,8 +294,7 @@ namespace ea {
         
         /*! lod_gls_double_rep is designed to work for the gls project. It reruns each subpopulation along a
          line of descent and records how the subpopulation 'ages' as measured by how replication events occur
-         before the amount of time taken by the first group replication event is doubled. Also, it focuses on the
-         first 250 steps along the line of descent.*/
+         before the amount of time taken by the first group replication event is doubled. */
         template <typename EA>
         struct lod_gls_double_rep : public ea::analysis::unary_function<EA> {
             static const char* name() { return "lod_gls_double_rep"; }
@@ -380,7 +379,88 @@ namespace ea {
             
         };
 
+        /*! lod_gls_aging_res_over_time */
+        template <typename EA>
+        struct lod_gls_aging_res_over_time : public ea::analysis::unary_function<EA> {
+            static const char* name() { return "lod_gls_aging_res_over_time"; }
+            
+            virtual void operator()(EA& ea) {
+                using namespace ea;
+                using namespace ea::analysis;
+                
+                line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
+                
+                typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
+                
+                
+                datafile df("lod_gls_aging_res_over_time.dat");
+                df.add_field("lod_depth")
+                .add_field("update");
 
+                
+                int lod_depth = 0;
+                // skip def ancestor (that's what the +1 does)
+                for( ; i!=lod.end(); ++i) {
+                    
+                    
+                    if ((lod_depth % 100) != 0) {
+                        lod_depth++;
+                        continue;
+                    }
+                    
+                    df.write(lod_depth);
+                    df.write((*i)->founder().update());
+                    
+                    // **i is the EA, AS OF THE TIME THAT IT DIED!
+                    
+                    // To replay, need to create a new ea
+                    // setup the population (really, an ea):
+                    typename EA::individual_ptr_type p = ea.make_individual();
+                    p->rng().reset(get<RNG_SEED>(**i));
+                    
+                    // setup the founder
+                    typename EA::individual_type::individual_ptr_type o= (*i)->make_individual((*i)->founder().repr());
+                    o->hw().initialize();
+                    p->append(o);
+                    
+                    // replay!
+                    int res_reset_inc = 500;
+                    int res_resource_thresh = 500;
+                    int cur_update = 0;
+                    int max_update = 10000;
+                    int num_rep = 0;
+                    int prev_res = 0;
+                    // and run till the group amasses the right amount of resources
+                    while (cur_update < max_update){
+                        p->update();
+                        ++cur_update;
+                        int cur_res = get<GROUP_RESOURCE_UNITS>(*p);
+                        
+                        if (get<GROUP_RESOURCE_UNITS>(*p,0) >= res_resource_thresh) {
+                            p->env().reset_resources();
+                            
+                            res_resource_thresh += res_reset_inc;
+                            num_rep++;
+                            
+                        }
+                        if ((cur_update % 1000) == 0) {
+                            double cur_res = get<GROUP_RESOURCE_UNITS)(*p,0);
+                            double res = cur_res - prev_res;
+                            prev_res = cur_res;
+                            df.write(res);
+                        }
+                    }
+                    
+//                    df.write(num_rep);
+                    df.endl();
+                    
+                    ++lod_depth;
+                }
+            }
+            
+        };
+        
+        
         /*! lod_knockouts reruns each subpopulation along a line of descent and records how the subpopulation
          fares with key coordination instructions removed.
          */

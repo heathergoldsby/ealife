@@ -202,6 +202,7 @@ public:
         add_tool<ea::analysis::lod_gls_circle_square_plot>(this);
         add_tool<ea::analysis::lod_gls_germ_soma_mean_var>(this);
         add_tool<ea::analysis::lod_gls_double_rep>(this);
+        add_tool<ea::analysis::lod_gls_aging_res_over_time>(this);
         
         
     }
