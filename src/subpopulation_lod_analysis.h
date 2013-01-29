@@ -444,7 +444,7 @@ namespace ea {
                             
                         }
                         if ((cur_update % 1000) == 0) {
-                            double cur_res = get<GROUP_RESOURCE_UNITS)(*p,0);
+                            double cur_res = get<GROUP_RESOURCE_UNITS>(*p,0);
                             double res = cur_res - prev_res;
                             prev_res = cur_res;
                             df.write(res);
