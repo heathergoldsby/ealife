@@ -745,7 +745,88 @@ namespace ea {
             
                         
         };
+        
+        
+        /*! lod_gls_task_count reruns each subpopulation along a line of descent - prints how many of each task were done.
+         */
+        template <typename EA>
+        struct lod_gls_task_count : public ea::analysis::unary_function<EA> {
+            static const char* name() { return "lod_gls_task_count"; }
+            
+            virtual void operator()(EA& ea) {
+                using namespace ea;
+                using namespace ea::analysis;
+                
+                line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
+                
+                typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
+                
+                datafile df("lod_gls_germ_soma_mean_var.dat");
+                df.add_field("lod_depth")
+                .add_field("not")
+                .add_field("nand")
+                .add_field("and")
+                .add_field("ornot")
+                .add_field("or")
+                .add_field("andnot")
+                .add_field("nor")
+                .add_field("xor")
+                .add_field("equals");
+                
+                int lod_depth = 0;
+                // skip def ancestor (that's what the +1 does)
+                for( ; i!=lod.end(); ++i) {
+                    
+                    df.write(lod_depth);
+                    
+                    // **i is the EA, AS OF THE TIME THAT IT DIED!
+                    
+                    // To replay, need to create new eas for each knockout exper.
+                    // setup the population (really, an ea):
+                    typename EA::individual_ptr_type control_ea = ea.make_individual();
+                    control_ea->rng().reset(get<RNG_SEED>(**i));
+                    
+                    // setup the founder
+                    typename EA::individual_type::individual_ptr_type o= (*i)->make_individual((*i)->founder().repr());
+                    o->hw().initialize();
+                    control_ea->append(o);
+                    
+                    // replay! till the group amasses the right amount of resources
+                    // or exceeds its window...
+                    int cur_update = 0;
+                    int update_max = 10000;
+                    // and run till the group amasses the right amount of resources
+                    while ((get<GROUP_RESOURCE_UNITS>(*control_ea,0) < get<GROUP_REP_THRESHOLD>(*control_ea)) &&
+                           (cur_update < update_max)){
+                        control_ea->update();
+                        ++cur_update;
+                    }
+                    
+                   
+                    // How many different types of tasks does the group do?
+                    df.write(get<TASK_NOT>(*control_ea,0.0))
+                    .write(get<TASK_NAND>(*control_ea,0.0))
+                    .write(get<TASK_AND>(*control_ea,0.0))
+                    .write(get<TASK_ORNOT>(*control_ea,0.0))
+                    .write(get<TASK_OR>(*control_ea,0.0))
+                    .write(get<TASK_ANDNOT>(*control_ea,0.0))
+                    .write(get<TASK_NOR>(*control_ea,0.0))
+                    .write(get<TASK_XOR>(*control_ea,0.0))
+                    .write(get<TASK_EQUALS>(*control_ea,0.0));
+                    
+                    
+                    df.endl();
+                    
+                    ++lod_depth;
+                }
+            }
+            
+            
+            
+        };
     }
+
+    
     
 }
 
