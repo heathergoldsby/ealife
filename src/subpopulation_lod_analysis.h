@@ -378,6 +378,75 @@ namespace ea {
             }
             
         };
+        
+        /*! lod_gls_aging_res_over_time */
+        template <typename EA>
+        struct lod_gls_aging_res_over_time_last_step : public ea::analysis::unary_function<EA> {
+            static const char* name() { return "lod_gls_aging_res_over_time_last_step"; }
+            
+            virtual void operator()(EA& ea) {
+                using namespace ea;
+                using namespace ea::analysis;
+                
+                line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
+                
+                typename line_of_descent<EA>::iterator i=lod.end();  --i;
+                
+                
+                datafile df("lod_gls_aging_res_over_time_last_step.dat");
+                df.add_field("lod_depth")
+                .add_field("update")
+                .add_field("res");
+                
+                
+                int lod_depth = 0;
+
+                    // **i is the EA, AS OF THE TIME THAT IT DIED!
+                    
+                    // To replay, need to create a new ea
+                    // setup the population (really, an ea):
+                    typename EA::individual_ptr_type p = ea.make_individual();
+                    p->rng().reset(get<RNG_SEED>(**i));
+                    
+                    // setup the founder
+                    typename EA::individual_type::individual_ptr_type o= (*i)->make_individual((*i)->founder().repr());
+                    o->hw().initialize();
+                    p->append(o);
+                    
+                    // replay!
+                    int res_reset_inc = 500;
+                    int res_resource_thresh = 500;
+                    int cur_update = 0;
+                    int max_update = 10000;
+                    int num_rep = 0;
+                    int prev_res = 0;
+                    // and run till the group amasses the right amount of resources
+                    while (cur_update < max_update){
+                        p->update();
+                        ++cur_update;
+                        
+                        if (get<GROUP_RESOURCE_UNITS>(*p,0) >= res_resource_thresh) {
+                            p->env().reset_resources();
+                            
+                            res_resource_thresh += res_reset_inc;
+                            num_rep++;
+                            
+                        }
+                        if ((cur_update % 1000) == 0) {
+                            double cur_res = get<GROUP_RESOURCE_UNITS>(*p,0);
+                            double res = cur_res - prev_res;
+                            prev_res = cur_res;
+                            df.write(lod_depth);
+                            df.write(cur_update);
+                            df.write(res);
+                            df.endl();
+                        }
+                    }
+
+            }
+            
+        };
+
 
         /*! lod_gls_aging_res_over_time */
         template <typename EA>
@@ -761,7 +830,7 @@ namespace ea {
                 
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
                 
-                datafile df("lod_gls_germ_soma_mean_var.dat");
+                datafile df("lod_tasks.dat");
                 df.add_field("lod_depth")
                 .add_field("not")
                 .add_field("nand")

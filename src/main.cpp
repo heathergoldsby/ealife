@@ -203,6 +203,7 @@ public:
         add_tool<ea::analysis::lod_gls_germ_soma_mean_var>(this);
         add_tool<ea::analysis::lod_gls_double_rep>(this);
         add_tool<ea::analysis::lod_gls_aging_res_over_time>(this);
+        add_tool<ea::analysis::lod_gls_aging_res_over_time_last_step>(this);
         add_tool<ea::analysis::lod_gls_task_count>(this);
 
         
