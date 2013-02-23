@@ -19,8 +19,10 @@
  */
 
 #include "gls.h"
-#include "subpopulation_founder.h"
+//#include "subpopulation_founder.h"
+
 #include "subpopulation_lod_analysis.h"
+#include <ea/digital_evolution/population_founder.h>
 #include <ea/line_of_descent.h>
 
 
@@ -143,11 +145,12 @@ struct mp_configuration : public abstract_configuration<EA> {
 
 //! Meta-population definition.
 typedef meta_population<
-lod_individual<subpopulation_founder<ea_type> >
-, mp_configuration> mea_type;
+population_lod<population_founder<ea_type> >, 
+ mp_configuration> mea_type;
 
-
-/*! 
+//typedef meta_population<population_lod<population_founder<ea_type1> >, mp_founder_configuration> mea_type3;
+//mea_type3 mea3;
+/*!
  */
 template <typename EA>
 class cli : public cmdline_interface<EA> {

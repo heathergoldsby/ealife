@@ -25,7 +25,7 @@ namespace ea {
             repr.resize(get<REPRESENTATION_SIZE>(ea));
             std::fill(repr.begin(), repr.end(), ea.isa()["nop_x"]);
             
-            // Must use representation size of 100.
+            // Must use representation size o00.
             assert(repr.size() == 100);
             
             repr[0] =  ea.isa()["h_alloc"]; // h_alloc
