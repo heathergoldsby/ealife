@@ -59,28 +59,16 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--with-time"
+            argument = "--with-time -l checkpoint-100.xml --ea.rng.seed 1"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = " -l checkpoint-10000.xml --analyze lod_gls_rerun --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = " -l checkpoint-500000.xml.gz --analyze lod_gls_double_rep --ea.analysis.input.filename lod-500000.xml.gz"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = " -l checkpoint-10000.xml --analyze lod_gls_aging --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = " -l checkpoint-10000.xml --analyze lod_knockouts --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = " -l checkpoint-10000.xml --analyze lod_gls_germ_soma_mean_var --ea.analysis.input.filename lod-10000.xml --ea.rng.seed 0"
+            argument = "--with-time --ea.rng.seed 1 --ea.run.updates=200"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--with-time --ea.rng.seed 1"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

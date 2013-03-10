@@ -212,7 +212,7 @@ public:
         add_event<gls_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<mrca_lineage_datafile>(this,ea);
-        add_event<founder_event>(this,ea);
+        add_event<population_founder_event>(this,ea);
     };
 };
 LIBEA_CMDLINE_INSTANCE(mea_type, cli);

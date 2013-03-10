@@ -449,7 +449,7 @@ namespace ea {
                     if (get<TASK_NAND>(*control_ea,0.0)) ++task_type_count;
                     if (get<TASK_AND>(*control_ea,0.0)) ++task_type_count;
                     if (get<TASK_ORNOT>(*control_ea,0.0)) ++task_type_count;
-                    if (get<TASK_NOT>(*control_ea,0.0)) ++task_type_count;
+                    if (get<TASK_OR>(*control_ea,0.0)) ++task_type_count;
                     if (get<TASK_ANDNOT>(*control_ea,0.0)) ++task_type_count;
                     if (get<TASK_NOR>(*control_ea,0.0)) ++task_type_count;
                     if (get<TASK_XOR>(*control_ea,0.0)) ++task_type_count;
