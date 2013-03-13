@@ -307,6 +307,8 @@
 				3E22CF52161E2ED600EB4D27 /* subpopulation_founder.h */,
 				3E22CF62161E31A800EB4D27 /* configurable_mutation.h */,
 				3E1DA7BA1630631900AA622A /* subpopulation_lod_analysis.h */,
+				3EA3EECE16A9A75100EDE84B /* multi_birth_selfrep_not_nand_ornot_ancestor.h */,
+				3E5DDA7116AF1A8E0002AF3E /* multi_birth_selfrep_not_ancestor.h */,
 				3EBF2BFE1625CF2900161D9B /* age_poly.h */,
 				42441A82158616AF009863BE /* main.cpp */,
 				3ED5CED2161B42B900128910 /* ts.cpp */,
@@ -314,9 +316,7 @@
 				3EA8CBF616612CC1003DC87E /* gls_no_soma.cpp */,
 				3E55AAC4166BC7860097A0E5 /* gls_no_pseudo_soma.cpp */,
 				3EA3EEBB16A983BC00EDE84B /* age_poly_3_task.cpp */,
-				3EA3EECE16A9A75100EDE84B /* multi_birth_selfrep_not_nand_ornot_ancestor.h */,
 				3E5DDA5E16AF18770002AF3E /* age_poly_lr.cpp */,
-				3E5DDA7116AF1A8E0002AF3E /* multi_birth_selfrep_not_ancestor.h */,
 			);
 			path = src;
 			sourceTree = "<group>";

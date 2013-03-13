@@ -19,7 +19,7 @@
  */
 
 #include "gls.h"
-#include "subpopulation_founder.h"
+#include <ea/digital_evolution/population_founder.h>
 #include "subpopulation_lod_analysis.h"
 #include <ea/line_of_descent.h>
 
@@ -143,9 +143,8 @@ struct mp_configuration : public abstract_configuration<EA> {
 
 //! Meta-population definition.
 typedef meta_population<
-lod_individual<subpopulation_founder<ea_type> >
-, mp_configuration> mea_type;
-
+population_lod<population_founder<ea_type> >,
+mp_configuration> mea_type;
 
 /*!
  */
@@ -208,7 +207,7 @@ public:
         add_event<gls_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<mrca_lineage_datafile>(this,ea);
-        add_event<founder_event>(this,ea);
+        add_event<population_founder_event>(this,ea);
     };
 };
 LIBEA_CMDLINE_INSTANCE(mea_type, cli);

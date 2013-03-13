@@ -1,5 +1,5 @@
 #include "age_poly.h"
-#include "subpopulation_founder.h"
+#include <ea/digital_evolution/population_founder.h>
 #include "multi_birth_selfrep_not_nand_ornot_ancestor.h"
 
 #include "selfrep_not_ancestor.h"
@@ -135,9 +135,8 @@ struct mp_configuration : public abstract_configuration<EA> {
 
 //! Meta-population definition.
 typedef meta_population<
-subpopulation_founder <ea_type>
-, mp_configuration> mea_type;
-
+population_lod<population_founder<ea_type> >,
+mp_configuration> mea_type;
 
 /*!
  */
@@ -184,7 +183,7 @@ public:
     virtual void gather_events(EA& ea) {
         add_event<ape_three_task_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
-        add_event<founder_event>(this,ea);
+        add_event<population_founder_event>(this,ea);
         add_event<task_first_age_tracking>(this,ea);
     };
 };

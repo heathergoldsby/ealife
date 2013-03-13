@@ -148,8 +148,6 @@ typedef meta_population<
 population_lod<population_founder<ea_type> >, 
  mp_configuration> mea_type;
 
-//typedef meta_population<population_lod<population_founder<ea_type1> >, mp_founder_configuration> mea_type3;
-//mea_type3 mea3;
 /*!
  */
 template <typename EA>
