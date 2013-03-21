@@ -32,6 +32,24 @@ exe gls_no_pseudo_soma :
 
 install dist : gls_no_pseudo_soma : <location>$(HOME)/bin ;
 
+exe gls_unlimited_not :
+    src/gls_unlimited_not.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : gls_unlimited_not : <location>$(HOME)/bin ;
+
+exe gls_unlimited_all :
+    src/gls_unlimited_all.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : gls_unlimited_all : <location>$(HOME)/bin ;
+
 
 exe ts :
     src/ts.cpp

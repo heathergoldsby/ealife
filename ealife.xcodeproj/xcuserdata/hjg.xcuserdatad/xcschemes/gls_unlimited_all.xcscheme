@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3E5DDA6016AF1A130002AF3E"
-               BuildableName = "age_poly_lr"
-               BlueprintName = "age_poly_lr"
+               BlueprintIdentifier = "3EB67F0C16FB208A00111A41"
+               BuildableName = "gls_unlimited_all"
+               BlueprintName = "gls_unlimited_all"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E5DDA6016AF1A130002AF3E"
-            BuildableName = "age_poly_lr"
-            BlueprintName = "age_poly_lr"
+            BlueprintIdentifier = "3EB67F0C16FB208A00111A41"
+            BuildableName = "gls_unlimited_all"
+            BlueprintName = "gls_unlimited_all"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E5DDA6016AF1A130002AF3E"
-            BuildableName = "age_poly_lr"
-            BlueprintName = "age_poly_lr"
+            BlueprintIdentifier = "3EB67F0C16FB208A00111A41"
+            BuildableName = "gls_unlimited_all"
+            BlueprintName = "gls_unlimited_all"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E5DDA6016AF1A130002AF3E"
-            BuildableName = "age_poly_lr"
-            BlueprintName = "age_poly_lr"
+            BlueprintIdentifier = "3EB67F0C16FB208A00111A41"
+            BuildableName = "gls_unlimited_all"
+            BlueprintName = "gls_unlimited_all"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
