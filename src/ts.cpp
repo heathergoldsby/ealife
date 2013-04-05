@@ -20,9 +20,7 @@
 
 #include "ts.h"
 #include <ea/digital_evolution/population_founder.h>
-
 #include <ea/line_of_descent.h>
-
 
 //! Configuration object for an EA.
 template <typename EA>

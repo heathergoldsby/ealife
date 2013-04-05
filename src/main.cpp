@@ -19,7 +19,6 @@
  */
 
 #include "gls.h"
-//#include "subpopulation_founder.h"
 
 #include "subpopulation_lod_analysis.h"
 #include <ea/digital_evolution/population_founder.h>

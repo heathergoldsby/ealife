@@ -58,6 +58,7 @@
 		3EB67F1416FB208A00111A41 /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
 		3EB67F1516FB208A00111A41 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
 		3EB67F1B16FB209D00111A41 /* gls_unlimited_all.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EB67EF816FB1FC300111A41 /* gls_unlimited_all.cpp */; };
+		3EBE55CA170EF5B50040E0BD /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB67EE616F789C800111A41 /* libea.a */; };
 		42441A9B15861785009863BE /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
 		42441A9C15861785009863BE /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
 		42441A9D15861785009863BE /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
@@ -211,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EBE55CA170EF5B50040E0BD /* libea.a in Frameworks */,
 				3E22CF44161E276300EB4D27 /* libboost_iostreams.dylib in Frameworks */,
 				3E22CF45161E276300EB4D27 /* libboost_program_options.dylib in Frameworks */,
 				3E22CF46161E276300EB4D27 /* libboost_regex.dylib in Frameworks */,
