@@ -20,7 +20,7 @@
 #include <ea/selection/random.h>
 #include <ea/mutation.h>
 
-using namespace ea;
+using namespace ealib;
 
 
 /*! Mutation - Per-site mutation at a configurable rate

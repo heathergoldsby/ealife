@@ -32,9 +32,8 @@ struct gls_configuration : public abstract_configuration<EA> {
     typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
     
     
-    //! Called as the final step of EA construction.
-    void construct(EA& ea) {
-        using namespace ea::instructions;
+    void configure(EA& ea) {
+        using namespace ealib::instructions;
         append_isa<nop_a>(0,ea); // 0
         append_isa<nop_b>(0,ea);
         append_isa<nop_c>(0,ea);
@@ -193,12 +192,12 @@ public:
     }
     
     virtual void gather_tools() {
-        add_tool<ea::analysis::lod_knockouts>(this);
-        add_tool<ea::analysis::lod_gls_circle_square_plot>(this);
-        add_tool<ea::analysis::lod_gls_germ_soma_mean_var>(this);
-        add_tool<ea::analysis::lod_gls_aging_res_over_time>(this);
-        add_tool<ea::analysis::lod_gls_aging_res_over_time_compact>(this);
-        add_tool<ea::analysis::lod_gls_task_count>(this);
+        add_tool<ealib::analysis::lod_knockouts>(this);
+        add_tool<ealib::analysis::lod_gls_circle_square_plot>(this);
+        add_tool<ealib::analysis::lod_gls_germ_soma_mean_var>(this);
+        add_tool<ealib::analysis::lod_gls_aging_res_over_time>(this);
+        add_tool<ealib::analysis::lod_gls_aging_res_over_time_compact>(this);
+        add_tool<ealib::analysis::lod_gls_task_count>(this);
         
     }
     

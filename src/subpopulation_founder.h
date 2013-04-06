@@ -13,7 +13,7 @@
 #include <ea/digital_evolution/hardware.h>
 
 
-using namespace ea;
+using namespace ealib;
 using namespace boost::accumulators;
 
 

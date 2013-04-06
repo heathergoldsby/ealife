@@ -13,7 +13,7 @@
 #include <ea/meta_data.h>
 
 
-namespace ea {
+namespace ealib {
     /*! Generates a self-replicating ancestor that performs not.
      */
     struct repro_not_ancestor {

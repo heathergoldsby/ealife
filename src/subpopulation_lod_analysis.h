@@ -21,7 +21,7 @@
 
 
 
-namespace ea {
+namespace ealib {
     namespace analysis {
         
         /* Rerun a LoD, where a LoD is the sequential list of eas that contributed to a final dominant
@@ -32,12 +32,12 @@ namespace ea {
         
         /*! lod_gls_aging_res_over_time */
         template <typename EA>
-        struct lod_gls_aging_res_over_time_compact : public ea::analysis::unary_function<EA> {
+        struct lod_gls_aging_res_over_time_compact : public ealib::analysis::unary_function<EA> {
             static const char* name() { return "lod_gls_aging_res_over_time_compact"; }
             
             virtual void operator()(EA& ea) {
-                using namespace ea;
-                using namespace ea::analysis;
+                using namespace ealib;
+                using namespace ealib::analysis;
                 
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
@@ -121,12 +121,12 @@ namespace ea {
 
         /*! lod_gls_aging_res_over_time */
         template <typename EA>
-        struct lod_gls_aging_res_over_time : public ea::analysis::unary_function<EA> {
+        struct lod_gls_aging_res_over_time : public ealib::analysis::unary_function<EA> {
             static const char* name() { return "lod_gls_aging_res_over_time"; }
             
             virtual void operator()(EA& ea) {
-                using namespace ea;
-                using namespace ea::analysis;
+                using namespace ealib;
+                using namespace ealib::analysis;
                 
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
@@ -206,12 +206,12 @@ namespace ea {
          fares with key coordination instructions removed.
          */
         template <typename EA>
-        struct lod_knockouts : public ea::analysis::unary_function<EA> {
+        struct lod_knockouts : public ealib::analysis::unary_function<EA> {
             static const char* name() { return "lod_knockouts"; }
             
             virtual void operator()(EA& ea) {
-                using namespace ea;
-                using namespace ea::analysis;
+                using namespace ealib;
+                using namespace ealib::analysis;
                 
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
@@ -302,12 +302,12 @@ namespace ea {
         /*! lod_knockouts reruns each subpopulation along a line of descent - setup for circle / square plot
          */
         template <typename EA>
-        struct lod_gls_circle_square_plot : public ea::analysis::unary_function<EA> {
+        struct lod_gls_circle_square_plot : public ealib::analysis::unary_function<EA> {
             static const char* name() { return "lod_gls_circle_square_plot"; }
             
             virtual void operator()(EA& ea) {
-                using namespace ea;
-                using namespace ea::analysis;
+                using namespace ealib;
+                using namespace ealib::analysis;
                 
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
@@ -374,12 +374,12 @@ namespace ea {
         /*! lod_gls_germ_soma_mean_var reruns each subpopulation along a line of descent - setup for circle / square plot
          */
         template <typename EA>
-        struct lod_gls_germ_soma_mean_var : public ea::analysis::unary_function<EA> {
+        struct lod_gls_germ_soma_mean_var : public ealib::analysis::unary_function<EA> {
             static const char* name() { return "lod_gls_germ_soma_mean_var"; }
             
             virtual void operator()(EA& ea) {
-                using namespace ea;
-                using namespace ea::analysis;
+                using namespace ealib;
+                using namespace ealib::analysis;
                 
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
@@ -490,12 +490,12 @@ namespace ea {
         /*! lod_gls_task_count reruns each subpopulation along a line of descent - prints how many of each task were done.
          */
         template <typename EA>
-        struct lod_gls_task_count : public ea::analysis::unary_function<EA> {
+        struct lod_gls_task_count : public ealib::analysis::unary_function<EA> {
             static const char* name() { return "lod_gls_task_count"; }
             
             virtual void operator()(EA& ea) {
-                using namespace ea;
-                using namespace ea::analysis;
+                using namespace ealib;
+                using namespace ealib::analysis;
                 
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 

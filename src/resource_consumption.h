@@ -19,7 +19,7 @@
 #include <ea/selection/random.h>
 #include <ea/mutation.h>
 
-using namespace ea;
+using namespace ealib;
 
 
 LIBEA_MD_DECL(GROUP_RESOURCE_UNITS, "ea.res.group_resource_units", double);

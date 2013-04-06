@@ -15,7 +15,7 @@
 #include <ea/meta_data.h>
 
 
-namespace ea {
+namespace ealib {
     /*! Generates a self-replicating ancestor that performs not.
      */
     struct selfrep_not_ancestor {

@@ -33,7 +33,7 @@
 #include <ea/selection/random.h>
 #include <ea/mutation.h>
 
-using namespace ea;
+using namespace ealib;
 using namespace boost::accumulators;
 
 LIBEA_MD_DECL(TASK_SWITCHING_COST, "ea.ts.task_switching_cost", int);
@@ -41,6 +41,13 @@ LIBEA_MD_DECL(LAST_TASK, "ea.ts.last_task", std::string);
 LIBEA_MD_DECL(NUM_SWITCHES, "ea.ts.num_switches", int);
 
 LIBEA_MD_DECL(GERM_MUTATION_PER_SITE_P, "ea.ts.germ_mutation_per_site_p", double);
+
+
+
+LIBEA_MD_DECL(RES_INITIAL_AMOUNT, "ea.ts.res_initial_amount", double);
+LIBEA_MD_DECL(RES_INFLOW_AMOUNT, "ea.ts.res_inflow_amount", double);
+LIBEA_MD_DECL(RES_OUTFLOW_FRACTION, "ea.ts.res_outflow_fraction", double);
+LIBEA_MD_DECL(RES_FRACTION_CONSUMED, "ea.ts.res_fraction_consumed", double);
 
 
 

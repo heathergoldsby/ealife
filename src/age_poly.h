@@ -31,7 +31,7 @@
 #include <ea/selection/random.h>
 #include <ea/mutation.h>
 
-using namespace ea;
+using namespace ealib;
 using namespace boost::accumulators;
 
 

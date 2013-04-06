@@ -30,9 +30,8 @@ struct ts_configuration : public abstract_configuration<EA> {
     typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
     
     
-    //! Called as the final step of EA construction.
-    void construct(EA& ea) {
-        using namespace ea::instructions;
+    void configure(EA& ea) {
+        using namespace ealib::instructions;
         append_isa<nop_a>(0,ea); 
         append_isa<nop_b>(0,ea);
         append_isa<nop_c>(0,ea);
@@ -77,25 +76,22 @@ struct ts_configuration : public abstract_configuration<EA> {
         task_ptr_type task_equals = make_task<tasks::task_equals,catalysts::additive<0> >("equals", ea);
         
         // initial amount (unit), inflow (unit), outflow (percentage), percent consumed, ea
-        resource_ptr_type resA = make_resource("resA", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resB = make_resource("resB", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resC = make_resource("resC", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resD = make_resource("resD", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resE = make_resource("resE", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resF = make_resource("resF", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resG = make_resource("resG", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resH = make_resource("resH", 100.0, 1.0, 0.01, 0.05, ea);
-        resource_ptr_type resI = make_resource("resI", 100.0, 1.0, 0.01, 0.05, ea);
+        double init_amt = get<RES_INITIAL_AMOUNT>(ea, 0);
+        double inflow = get<RES_INFLOW_AMOUNT>(ea,0);
+        double outflow = get<RES_OUTFLOW_FRACTION>(ea,0);
+        double frac = get<RES_FRACTION_CONSUMED>(ea,0);
         
-        task_not->consumes(resA);
-        task_nand->consumes(resB);
-        task_and->consumes(resC);
-        task_ornot->consumes(resD);
-        task_or->consumes(resE);
-        task_andnot->consumes(resF);
-        task_nor->consumes(resG);
-        task_xor->consumes(resH);
-        task_equals->consumes(resI);
+        // initial amount (unit), inflow (unit), outflow (percentage), percent consumed, ea
+        resource_ptr_type resA = make_resource("resA", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resB = make_resource("resB", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resC = make_resource("resC", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resD = make_resource("resD", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resE = make_resource("resE", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resF = make_resource("resF", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resG = make_resource("resG", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resH = make_resource("resH", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resI = make_resource("resI", init_amt, inflow, outflow, frac, ea);
+
         
         add_event<task_resource_consumption>(this,ea);
         add_event<task_switching_cost>(this, ea);

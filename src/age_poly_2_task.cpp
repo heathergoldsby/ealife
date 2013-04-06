@@ -17,11 +17,11 @@ struct ts_configuration : public abstract_configuration<EA> {
     typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
     
     
-    //! Called as the final step of EA construction. All code. No data. Never use 
+    //! All code. No data. Never use 
     // parameters, depend on input, read a file, etc. It is done *BEFORE* initialize. 
     // If you depend on metadata, you MUST go into intialize. 
-    void construct(EA& ea) {
-        using namespace ea::instructions;
+    void configure(EA& ea) {
+        using namespace ealib::instructions;
         append_isa<nop_a>(0,ea); 
         append_isa<nop_b>(0,ea);
         append_isa<nop_c>(0,ea);
