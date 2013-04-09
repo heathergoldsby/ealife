@@ -160,6 +160,12 @@ public:
         add_option<LAST_TASK>(this);
         add_option<NUM_SWITCHES>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
+        
+        // initial amount (unit), inflow (unit), outflow (percentage), percent consumed
+        add_option<RES_INITIAL_AMOUNT>(this);
+        add_option<RES_INFLOW_AMOUNT>(this);
+        add_option<RES_OUTFLOW_FRACTION>(this);
+        add_option<RES_FRACTION_CONSUMED>(this);
     }
     
     virtual void gather_tools() {
