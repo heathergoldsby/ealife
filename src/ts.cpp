@@ -63,7 +63,17 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<if_equal>(ea);
         append_isa<if_not_equal>(ea);
         append_isa<jump_head>(ea);
+
         
+        add_event<task_resource_consumption>(this,ea);
+        add_event<task_switching_cost>(this, ea);
+        add_event<ts_birth_event>(this,ea);
+
+    }
+    
+    //! Initialize! Things are live and are mostly setup. All the objects are there, but they
+    // may not have the parameters that they need.
+    void initialize(EA& ea) {
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
         task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
@@ -91,12 +101,16 @@ struct ts_configuration : public abstract_configuration<EA> {
         resource_ptr_type resG = make_resource("resG", init_amt, inflow, outflow, frac, ea);
         resource_ptr_type resH = make_resource("resH", init_amt, inflow, outflow, frac, ea);
         resource_ptr_type resI = make_resource("resI", init_amt, inflow, outflow, frac, ea);
-
         
-        add_event<task_resource_consumption>(this,ea);
-        add_event<task_switching_cost>(this, ea);
-        add_event<ts_birth_event>(this,ea);
-
+        task_not->consumes(resA);
+        task_nand->consumes(resB);
+        task_and->consumes(resC);
+        task_ornot->consumes(resD);
+        task_or->consumes(resE);
+        task_andnot->consumes(resF);
+        task_nor->consumes(resG);
+        task_xor->consumes(resH);
+        task_equals->consumes(resI);
     }
     
     //! Called to generate the initial EA population.

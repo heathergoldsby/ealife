@@ -44,7 +44,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/hjg/Desktop/research/projects/ea/temp-ts"
+      customWorkingDirectory = "/Users/hjg/Desktop/research/ea/temp-ts"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -60,7 +60,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--config ts.cfg"
+            argument = "--config=ts.cfg"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
