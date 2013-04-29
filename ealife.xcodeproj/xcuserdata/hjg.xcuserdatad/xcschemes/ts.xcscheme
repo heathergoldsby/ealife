@@ -61,6 +61,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--config=ts.cfg"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--analyze lod_shannon_tasks_orgs -l /Users/hjg/Desktop/research/dol/var/ts-ealife/003-size/s5_1/checkpoint-100000.xml.gz"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

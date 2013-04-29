@@ -120,9 +120,9 @@ struct gs_inherit_event : inheritance_event<EA> {
  */
 
 template <typename EA>
-struct task_mutagenesis : task_performed_event<EA> {
+struct task_mutagenesis : reaction_event<EA> {
     
-    task_mutagenesis(EA& ea) : task_performed_event<EA>(ea) {
+    task_mutagenesis(EA& ea) : reaction_event<EA>(ea) {
     }
     
     virtual ~task_mutagenesis() { }
@@ -147,9 +147,9 @@ struct task_mutagenesis : task_performed_event<EA> {
  */
 
 template <typename EA>
-struct task_mutagenesis_control : task_performed_event<EA> {
+struct task_mutagenesis_control : reaction_event<EA> {
     
-    task_mutagenesis_control(EA& ea) : task_performed_event<EA>(ea) {
+    task_mutagenesis_control(EA& ea) : reaction_event<EA>(ea) {
     }
     
     virtual ~task_mutagenesis_control() { }

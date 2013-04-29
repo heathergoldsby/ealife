@@ -50,8 +50,8 @@ DIGEVO_INSTRUCTION_DECL(donate_res_to_group){
  */
 
 template <typename EA>
-struct task_resource_consumption : task_performed_event<EA> {
-    task_resource_consumption(EA& ea) : task_performed_event<EA>(ea) {
+struct task_resource_consumption : reaction_event<EA> {
+    task_resource_consumption(EA& ea) : reaction_event <EA>(ea) {
     }
     
     virtual ~task_resource_consumption() { }

@@ -56,9 +56,9 @@ LIBEA_MD_DECL(RES_FRACTION_CONSUMED, "ea.ts.res_fraction_consumed", double);
  */
 
 template <typename EA>
-struct task_switching_cost : task_performed_event<EA> {
+struct task_switching_cost : reaction_event<EA> {
     
-    task_switching_cost(EA& ea) : task_performed_event<EA>(ea) {
+    task_switching_cost(EA& ea) : reaction_event<EA>(ea) {
     }
     
     virtual ~task_switching_cost() { }

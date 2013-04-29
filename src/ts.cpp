@@ -19,6 +19,8 @@
  */
 
 #include "ts.h"
+#include "shannon_mutual_lod_tasks_orgs.h"
+
 #include <ea/digital_evolution/population_founder.h>
 #include <ea/line_of_descent.h>
 
@@ -183,12 +185,14 @@ public:
     }
     
     virtual void gather_tools() {
+        add_tool<ealib::analysis::lod_shannon_tasks_orgs>(this);
     }
     
     virtual void gather_events(EA& ea) {
         add_event<ts_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<task_switch_tracking>(this,ea);
+        add_event<mrca_lineage_datafile>(this,ea);
         add_event<population_founder_event>(this,ea);
     };
 };

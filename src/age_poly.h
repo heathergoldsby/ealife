@@ -117,9 +117,9 @@ DIGEVO_INSTRUCTION_DECL(h_divide_soft_parent_reset) {
  */
 
 template <typename EA>
-struct task_lethality : task_performed_event<EA> {
+struct task_lethality : reaction_event<EA> {
     
-    task_lethality(EA& ea) : task_performed_event<EA>(ea) {
+    task_lethality(EA& ea) : reaction_event<EA>(ea) {
     }
     
     virtual ~task_lethality() { }
@@ -143,8 +143,8 @@ struct task_lethality : task_performed_event<EA> {
  */
 
 template <typename EA>
-struct task_first_age : task_performed_event<EA> {
-    task_first_age(EA& ea) : task_performed_event<EA>(ea) {
+struct task_first_age : reaction_event<EA> {
+    task_first_age(EA& ea) : reaction_event<EA>(ea) {
     }
     
     virtual ~task_first_age() { }
