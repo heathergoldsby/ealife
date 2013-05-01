@@ -61,15 +61,15 @@ struct task_resource_consumption : reaction_event<EA> {
                             EA& ea) {
         get<SAVED_RESOURCES>(ind, 0.0) += r;
         std::string t = task->name();
-        if (t == "not") { get<TASK_NOT>(ea,0.0) += 1.0; }
-        else if (t == "nand") {get<TASK_NAND>(ea,0.0) += 1.0;}
-        else if (t == "and") {get<TASK_AND>(ea,0.0) += 1.0;}
-        else if (t == "ornot") {get<TASK_ORNOT>(ea,0.0) += 1.0;}
-        else if (t == "or") {get<TASK_OR>(ea,0.0) += 1.0;}
-        else if (t == "andnot") {get<TASK_ANDNOT>(ea,0.0) += 1.0;}
-        else if (t == "nor") {get<TASK_NOR>(ea,0.0) += 1.0;}
-        else if (t == "xor") {get<TASK_XOR>(ea,0.0) += 1.0;}
-        else if (t == "equals") {get<TASK_EQUALS>(ea,0.0) += 1.0;}
+        if (t == "not") { get<TASK_NOT>(ea,0.0) += 1.0; get<TASK_NOT>(ind,0.0) += 1.0; }
+        else if (t == "nand") { get<TASK_NAND>(ea,0.0) += 1.0; get<TASK_NAND>(ind,0.0) += 1.0; }
+        else if (t == "and") { get<TASK_AND>(ea,0.0) += 1.0; get<TASK_AND>(ind,0.0) += 1.0; }
+        else if (t == "ornot") { get<TASK_ORNOT>(ea,0.0) += 1.0; get<TASK_ORNOT>(ind,0.0) += 1.0; }
+        else if (t == "or") { get<TASK_OR>(ea,0.0) += 1.0; get<TASK_OR>(ind,0.0) += 1.0; }
+        else if (t == "andnot") { get<TASK_ANDNOT>(ea,0.0) += 1.0; get<TASK_ANDNOT>(ind,0.0) += 1.0; }
+        else if (t == "nor") { get<TASK_NOR>(ea,0.0) += 1.0; get<TASK_NOR>(ind,0.0) += 1.0; }
+        else if (t == "xor") { get<TASK_XOR>(ea,0.0) += 1.0; get<TASK_XOR>(ind,0.0) += 1.0; }
+        else if (t == "equals") { get<TASK_EQUALS>(ea,0.0) += 1.0; get<TASK_EQUALS>(ind,0.0) += 1.0; }
         
     }
 };

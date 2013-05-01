@@ -64,7 +64,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--analyze lod_shannon_tasks_orgs -l /Users/hjg/Desktop/research/dol/var/ts-ealife/003-size/s5_1/checkpoint-100000.xml.gz"
+            argument = "-l checkpoint-100000.xml.gz --analyze lod_shannon_tasks_orgs --ea.analysis.input.filename lod-100000.xml.gz"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

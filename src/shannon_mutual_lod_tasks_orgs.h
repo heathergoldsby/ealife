@@ -57,7 +57,7 @@ namespace ealib {
                 datafile df("lod_shannon_tasks_orgs.dat");
                 df.add_field("lod_depth")
                 .add_field("shannon")
-                .add_field("shannon norm");
+                .add_field("shannon_norm");
                 
 
                 
@@ -88,9 +88,9 @@ namespace ealib {
                     int cur_update = 0;
                     int update_max = 10000;
                     // and run till the group amasses the right amount of resources
-                    while ((get<GROUP_RESOURCE_UNITS>(**i,0) < get<GROUP_REP_THRESHOLD>(**i)) &&
+                    while ((get<GROUP_RESOURCE_UNITS>(*p,0) < get<GROUP_REP_THRESHOLD>(*p)) &&
                            (cur_update < update_max)){
-                        (*i)->update();
+                        (p)->update();
                         ++cur_update;
                     }
                     
@@ -104,7 +104,7 @@ namespace ealib {
 
                     
                     // cycle through orgs and create matrix for shannon mutual information.
-                    for(typename EA::individual_type::population_type::iterator j=(*i)->population().begin(); j!=(*i)->population().end(); ++j) {
+                    for(typename EA::individual_type::population_type::iterator j=(p)->population().begin(); j!=(p)->population().end(); ++j) {
                         typename EA::individual_type::individual_type& org=**j;
                         ++pop_count;
                         std::vector<double> porg (9);
@@ -161,9 +161,10 @@ namespace ealib {
                                 }
                             }
                         }
-                        shannon_norm = shannon_sum / log((double)active_pop);
 
                     }
+                    shannon_norm = shannon_sum / log((double)active_pop);
+
                     df.write(shannon_sum)
                     .write(shannon_norm);
                     df.endl();

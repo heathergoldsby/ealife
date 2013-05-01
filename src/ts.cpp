@@ -170,6 +170,8 @@ public:
         add_option<RNG_SEED>(this);
         add_option<RECORDING_PERIOD>(this);
         
+        add_option<ANALYSIS_INPUT>(this);
+        
         // ts specific options
         add_option<GROUP_REP_THRESHOLD>(this);
         add_option<TASK_SWITCHING_COST>(this);
