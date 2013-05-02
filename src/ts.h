@@ -156,15 +156,11 @@ struct ts_replication : end_of_update_event<EA> {
             if (exists<GROUP_RESOURCE_UNITS>(*i) && 
                 (get<GROUP_RESOURCE_UNITS>(*i) > get<GROUP_REP_THRESHOLD>(*i))){
                 
-                // why can't I just grab the founder? Does this make a copy?
                 // grab a copy of the founder!
                 
                 typename EA::individual_type::individual_type prop = (*i).founder();
                 prop.repr().resize((*i).founder().hw().original_size());
 
-                //typename EA::individual_type::individual_type j = **(i->population().begin());
-                //typename EA::individual_type::individual_type prop = j;
-                //prop.repr().resize(j.hw().original_size());
                 prop.hw().initialize();
                 
                 
@@ -235,7 +231,6 @@ struct ts_birth_event : birth_event<EA> {
                             typename EA::individual_type& parent, // individual parent
                             EA& ea) {
         ea.env().face_org(parent, offspring);
-        //get<GERM_STATUS>(offspring, true) = get<GERM_STATUS>(ind(parents.begin(),ea), true);
         
     }
 };

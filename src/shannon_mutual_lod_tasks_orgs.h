@@ -57,7 +57,9 @@ namespace ealib {
                 datafile df("lod_shannon_tasks_orgs.dat");
                 df.add_field("lod_depth")
                 .add_field("shannon")
-                .add_field("shannon_norm");
+                .add_field("shannon_norm")
+                .add_field("active_pop")
+                .add_field("total_pop");
                 
 
                 
@@ -166,7 +168,9 @@ namespace ealib {
                     shannon_norm = shannon_sum / log((double)active_pop);
 
                     df.write(shannon_sum)
-                    .write(shannon_norm);
+                    .write(shannon_norm)
+                    .write(active_pop)
+                    .write(pop_count);
                     df.endl();
                      
                      
