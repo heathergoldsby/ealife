@@ -26,6 +26,13 @@
 		3E55AAD0166BC8BD0097A0E5 /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
 		3E55AAD1166BC8BD0097A0E5 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
 		3E55AAD8166BC8CD0097A0E5 /* gls_no_soma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EA8CBF616612CC1003DC87E /* gls_no_soma.cpp */; };
+		3E55ED3A174654C500735172 /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB67EE616F789C800111A41 /* libea.a */; };
+		3E55ED3B174654C500735172 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
+		3E55ED3C174654C500735172 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
+		3E55ED3D174654C500735172 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
+		3E55ED3E174654C500735172 /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
+		3E55ED3F174654C500735172 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
+		3E55ED45174654DF00735172 /* ts-soft-reset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E55ED341746541800735172 /* ts-soft-reset.cpp */; };
 		3E5DDA6516AF1A130002AF3E /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
 		3E5DDA6616AF1A130002AF3E /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
 		3E5DDA6716AF1A130002AF3E /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
@@ -92,6 +99,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		3E55AAD2166BC8BD0097A0E5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		3E55ED40174654C500735172 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -169,6 +185,8 @@
 		3E497E03171D722100202314 /* shannon_mutual_lod_tasks_orgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shannon_mutual_lod_tasks_orgs.h; sourceTree = "<group>"; };
 		3E55AAC4166BC7860097A0E5 /* gls_no_pseudo_soma.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gls_no_pseudo_soma.cpp; sourceTree = "<group>"; };
 		3E55AAD6166BC8BD0097A0E5 /* gls_no_soma */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gls_no_soma; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E55ED341746541800735172 /* ts-soft-reset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ts-soft-reset.cpp"; sourceTree = "<group>"; };
+		3E55ED44174654C500735172 /* ts-soft-reset */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ts-soft-reset"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5DDA5E16AF18770002AF3E /* age_poly_lr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = age_poly_lr.cpp; sourceTree = "<group>"; };
 		3E5DDA6E16AF1A130002AF3E /* age_poly_lr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = age_poly_lr; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5DDA7116AF1A8E0002AF3E /* multi_birth_selfrep_not_ancestor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = multi_birth_selfrep_not_ancestor.h; sourceTree = "<group>"; };
@@ -238,6 +256,19 @@
 				3E55AACF166BC8BD0097A0E5 /* libboost_regex.dylib in Frameworks */,
 				3E55AAD0166BC8BD0097A0E5 /* libboost_serialization.dylib in Frameworks */,
 				3E55AAD1166BC8BD0097A0E5 /* libboost_signals.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E55ED39174654C500735172 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E55ED3A174654C500735172 /* libea.a in Frameworks */,
+				3E55ED3B174654C500735172 /* libboost_iostreams.dylib in Frameworks */,
+				3E55ED3C174654C500735172 /* libboost_program_options.dylib in Frameworks */,
+				3E55ED3D174654C500735172 /* libboost_regex.dylib in Frameworks */,
+				3E55ED3E174654C500735172 /* libboost_serialization.dylib in Frameworks */,
+				3E55ED3F174654C500735172 /* libboost_signals.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +377,7 @@
 				3E5DDA6E16AF1A130002AF3E /* age_poly_lr */,
 				3EB67F0A16FB203E00111A41 /* gls_unlimited_not */,
 				3EB67F1A16FB208A00111A41 /* gls_unlimited_all */,
+				3E55ED44174654C500735172 /* ts-soft-reset */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -385,6 +417,7 @@
 				3EB67EF616FB1FAA00111A41 /* gls_unlimited_not.cpp */,
 				3EB67EF816FB1FC300111A41 /* gls_unlimited_all.cpp */,
 				3E497E03171D722100202314 /* shannon_mutual_lod_tasks_orgs.h */,
+				3E55ED341746541800735172 /* ts-soft-reset.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -455,6 +488,23 @@
 			name = gls_no_soma;
 			productName = ealife;
 			productReference = 3E55AAD6166BC8BD0097A0E5 /* gls_no_soma */;
+			productType = "com.apple.product-type.tool";
+		};
+		3E55ED36174654C500735172 /* ts-soft-reset */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E55ED41174654C500735172 /* Build configuration list for PBXNativeTarget "ts-soft-reset" */;
+			buildPhases = (
+				3E55ED37174654C500735172 /* Sources */,
+				3E55ED39174654C500735172 /* Frameworks */,
+				3E55ED40174654C500735172 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ts-soft-reset";
+			productName = ealife;
+			productReference = 3E55ED44174654C500735172 /* ts-soft-reset */;
 			productType = "com.apple.product-type.tool";
 		};
 		3E5DDA6016AF1A130002AF3E /* age_poly_lr */ = {
@@ -589,6 +639,7 @@
 				3E5DDA6016AF1A130002AF3E /* age_poly_lr */,
 				3EB67EFB16FB203E00111A41 /* gls_unlimited_not */,
 				3EB67F0C16FB208A00111A41 /* gls_unlimited_all */,
+				3E55ED36174654C500735172 /* ts-soft-reset */,
 			);
 		};
 /* End PBXProject section */
@@ -615,6 +666,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E55AAD8166BC8CD0097A0E5 /* gls_no_soma.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E55ED37174654C500735172 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E55ED45174654DF00735172 /* ts-soft-reset.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,6 +803,32 @@
 					"\"$(SRCROOT)/../ealib/build/Debug\"",
 				);
 				PRODUCT_NAME = gls_no_soma;
+			};
+			name = Release;
+		};
+		3E55ED42174654C500735172 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../ealib/build/Debug\"",
+				);
+				PRODUCT_NAME = "ts-soft-reset";
+			};
+			name = Debug;
+		};
+		3E55ED43174654C500735172 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../ealib/build/Debug\"",
+				);
+				PRODUCT_NAME = "ts-soft-reset";
 			};
 			name = Release;
 		};
@@ -968,6 +1053,15 @@
 			buildConfigurations = (
 				3E55AAD4166BC8BD0097A0E5 /* Debug */,
 				3E55AAD5166BC8BD0097A0E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3E55ED41174654C500735172 /* Build configuration list for PBXNativeTarget "ts-soft-reset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E55ED42174654C500735172 /* Debug */,
+				3E55ED43174654C500735172 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -204,7 +204,7 @@ public:
     virtual void gather_events(EA& ea) {
         add_event<gls_replication>(this,ea);
         add_event<task_performed_tracking>(this,ea);
-        add_event<mrca_lineage_datafile>(this,ea);
+        add_event<datafiles::mrca_lineage>(this,ea);
         add_event<population_founder_event>(this,ea);
     };
 };

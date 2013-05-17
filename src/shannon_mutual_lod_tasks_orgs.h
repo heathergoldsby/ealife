@@ -100,7 +100,6 @@ namespace ealib {
                     
                     std::vector< std::vector<double> > pij;
                     std::vector<double> pj (9);
-                    double pi = 0.0;
                     double pop_count = 0;
                     double active_pop = 0;
 
@@ -124,7 +123,7 @@ namespace ealib {
                         
                         // Normalize the tasks and add to matrix
                         if(total_num_tasks > 0) {
-                            for (int k=0; k<porg.size(); ++k) {
+                            for (unsigned int k=0; k<porg.size(); ++k) {
                                 porg[k] /= total_num_tasks;
                             }
                             ++active_pop;
@@ -137,7 +136,7 @@ namespace ealib {
                     if (active_pop > 1) {
                     
                         // figure out pj
-                        for (int k=0; k<pj.size(); ++k) {
+                        for (unsigned int k=0; k<pj.size(); ++k) {
                             for (int m=0; m<active_pop; ++m) {
                                 pj[k] += pij[m][k];
                             }
@@ -152,7 +151,7 @@ namespace ealib {
                         double t_pj = 0;
                         double pij_sum = 0.0;
                         // calculate shannon mutual information
-                        for (int i=0; i<active_pop; i++) {
+                        for (unsigned int i=0; i<active_pop; i++) {
                             for (int j=0; j<pj.size(); j++) {
                                 t_pij = pij[i][j]/active_pop;
                                 t_pj = pj[j];
