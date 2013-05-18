@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3E55ED36174654C500735172"
-               BuildableName = "ts"
+               BuildableName = "ts-soft-reset"
                BlueprintName = "ts-soft-reset"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E55ED36174654C500735172"
-            BuildableName = "ts"
+            BuildableName = "ts-soft-reset"
             BlueprintName = "ts-soft-reset"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E55ED36174654C500735172"
-            BuildableName = "ts"
+            BuildableName = "ts-soft-reset"
             BlueprintName = "ts-soft-reset"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E55ED36174654C500735172"
-            BuildableName = "ts"
+            BuildableName = "ts-soft-reset"
             BlueprintName = "ts-soft-reset"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>

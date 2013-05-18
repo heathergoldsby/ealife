@@ -190,6 +190,8 @@ public:
     
     virtual void gather_tools() {
         add_tool<ealib::analysis::lod_shannon_tasks_orgs>(this);
+        add_tool<ealib::analysis::lod_knockouts>(this);
+
     }
     
     virtual void gather_events(EA& ea) {
