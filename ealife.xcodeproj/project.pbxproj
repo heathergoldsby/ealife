@@ -206,6 +206,7 @@
 		3EBF2BFF16273CD400161D9B /* age_poly_2_task.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = age_poly_2_task.cpp; sourceTree = "<group>"; };
 		3ED5CED2161B42B900128910 /* ts.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ts.cpp; sourceTree = "<group>"; };
 		3ED5CED4161B436700128910 /* ts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ts.h; sourceTree = "<group>"; };
+		3EF08D8117494045007852C8 /* lod_knockouts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lod_knockouts.h; sourceTree = "<group>"; };
 		42441A7E158616AF009863BE /* ealife.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ealife.xcconfig; sourceTree = "<group>"; };
 		42441A7F158616AF009863BE /* libea_defaults.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; path = libea_defaults.cfg; sourceTree = "<group>"; };
 		42441A80158616AF009863BE /* Jamroot */ = {isa = PBXFileReference; lastKnownFileType = text; path = Jamroot; sourceTree = "<group>"; };
@@ -404,6 +405,7 @@
 				3E22CF52161E2ED600EB4D27 /* subpopulation_founder.h */,
 				3E22CF62161E31A800EB4D27 /* configurable_mutation.h */,
 				3E1DA7BA1630631900AA622A /* subpopulation_lod_analysis.h */,
+				3EF08D8117494045007852C8 /* lod_knockouts.h */,
 				3EA3EECE16A9A75100EDE84B /* multi_birth_selfrep_not_nand_ornot_ancestor.h */,
 				3E5DDA7116AF1A8E0002AF3E /* multi_birth_selfrep_not_ancestor.h */,
 				3EBF2BFE1625CF2900161D9B /* age_poly.h */,

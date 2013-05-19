@@ -20,6 +20,7 @@
 
 #include "ts.h"
 #include "shannon_mutual_lod_tasks_orgs.h"
+#include "lod_knockouts.h"
 #include "multi_birth_selfrep_not_ancestor.h"
 
 #include <ea/digital_evolution/population_founder.h>

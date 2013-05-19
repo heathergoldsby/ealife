@@ -21,6 +21,8 @@
 #include "gls.h"
 
 #include "subpopulation_lod_analysis.h"
+#include "lod_knockouts.h"
+
 #include <ea/digital_evolution/population_founder.h>
 #include <ea/line_of_descent.h>
 
