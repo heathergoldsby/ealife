@@ -32,7 +32,7 @@
 		3E55ED3D174654C500735172 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
 		3E55ED3E174654C500735172 /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
 		3E55ED3F174654C500735172 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
-		3E55ED45174654DF00735172 /* ts-soft_reset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E55ED341746541800735172 /* ts-soft_reset.cpp */; };
+		3E55ED45174654DF00735172 /* ts_soft_reset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E55ED341746541800735172 /* ts_soft_reset.cpp */; };
 		3E5DDA6516AF1A130002AF3E /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
 		3E5DDA6616AF1A130002AF3E /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
 		3E5DDA6716AF1A130002AF3E /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
@@ -201,7 +201,7 @@
 		3E497E03171D722100202314 /* shannon_mutual_lod_tasks_orgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shannon_mutual_lod_tasks_orgs.h; sourceTree = "<group>"; };
 		3E55AAC4166BC7860097A0E5 /* gls_no_pseudo_soma.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gls_no_pseudo_soma.cpp; sourceTree = "<group>"; };
 		3E55AAD6166BC8BD0097A0E5 /* gls_no_soma */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gls_no_soma; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E55ED341746541800735172 /* ts-soft_reset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ts-soft_reset.cpp"; sourceTree = "<group>"; };
+		3E55ED341746541800735172 /* ts_soft_reset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ts_soft_reset.cpp; sourceTree = "<group>"; };
 		3E55ED44174654C500735172 /* ts-soft-reset */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ts-soft-reset"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5DDA5E16AF18770002AF3E /* age_poly_lr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = age_poly_lr.cpp; sourceTree = "<group>"; };
 		3E5DDA6E16AF1A130002AF3E /* age_poly_lr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = age_poly_lr; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -453,7 +453,7 @@
 				3E5DDA5E16AF18770002AF3E /* age_poly_lr.cpp */,
 				3EB67EF616FB1FAA00111A41 /* gls_unlimited_not.cpp */,
 				3EB67EF816FB1FC300111A41 /* gls_unlimited_all.cpp */,
-				3E55ED341746541800735172 /* ts-soft_reset.cpp */,
+				3E55ED341746541800735172 /* ts_soft_reset.cpp */,
 				3EF08D82174CDB20007852C8 /* propagule_size.cpp */,
 			);
 			path = src;
@@ -728,7 +728,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E55ED45174654DF00735172 /* ts-soft_reset.cpp in Sources */,
+				3E55ED45174654DF00735172 /* ts_soft_reset.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
