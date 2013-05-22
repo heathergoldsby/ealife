@@ -32,7 +32,7 @@
 		3E55ED3D174654C500735172 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
 		3E55ED3E174654C500735172 /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
 		3E55ED3F174654C500735172 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
-		3E55ED45174654DF00735172 /* ts-soft-reset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E55ED341746541800735172 /* ts-soft-reset.cpp */; };
+		3E55ED45174654DF00735172 /* ts-soft_reset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3E55ED341746541800735172 /* ts-soft_reset.cpp */; };
 		3E5DDA6516AF1A130002AF3E /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
 		3E5DDA6616AF1A130002AF3E /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
 		3E5DDA6716AF1A130002AF3E /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
@@ -71,6 +71,13 @@
 		3EBE55CD1710433A0040E0BD /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB67EE616F789C800111A41 /* libea.a */; };
 		3EBE55CE171043410040E0BD /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB67EE616F789C800111A41 /* libea.a */; };
 		3EBE55CF171043490040E0BD /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB67EE616F789C800111A41 /* libea.a */; };
+		3EF08D88174CE516007852C8 /* libea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB67EE616F789C800111A41 /* libea.a */; };
+		3EF08D89174CE516007852C8 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
+		3EF08D8A174CE516007852C8 /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
+		3EF08D8B174CE516007852C8 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
+		3EF08D8C174CE516007852C8 /* libboost_serialization.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9915861785009863BE /* libboost_serialization.dylib */; };
+		3EF08D8D174CE516007852C8 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9A15861785009863BE /* libboost_signals.dylib */; };
+		3EF08D93174CE545007852C8 /* propagule_size.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3EF08D82174CDB20007852C8 /* propagule_size.cpp */; };
 		42441A9B15861785009863BE /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9615861785009863BE /* libboost_iostreams.dylib */; };
 		42441A9C15861785009863BE /* libboost_program_options.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9715861785009863BE /* libboost_program_options.dylib */; };
 		42441A9D15861785009863BE /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42441A9815861785009863BE /* libboost_regex.dylib */; };
@@ -161,6 +168,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		3EF08D8E174CE516007852C8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		42441A8915861724009863BE /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -185,7 +201,7 @@
 		3E497E03171D722100202314 /* shannon_mutual_lod_tasks_orgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shannon_mutual_lod_tasks_orgs.h; sourceTree = "<group>"; };
 		3E55AAC4166BC7860097A0E5 /* gls_no_pseudo_soma.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gls_no_pseudo_soma.cpp; sourceTree = "<group>"; };
 		3E55AAD6166BC8BD0097A0E5 /* gls_no_soma */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gls_no_soma; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E55ED341746541800735172 /* ts-soft-reset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ts-soft-reset.cpp"; sourceTree = "<group>"; };
+		3E55ED341746541800735172 /* ts-soft_reset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "ts-soft_reset.cpp"; sourceTree = "<group>"; };
 		3E55ED44174654C500735172 /* ts-soft-reset */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ts-soft-reset"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5DDA5E16AF18770002AF3E /* age_poly_lr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = age_poly_lr.cpp; sourceTree = "<group>"; };
 		3E5DDA6E16AF1A130002AF3E /* age_poly_lr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = age_poly_lr; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +223,9 @@
 		3ED5CED2161B42B900128910 /* ts.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ts.cpp; sourceTree = "<group>"; };
 		3ED5CED4161B436700128910 /* ts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ts.h; sourceTree = "<group>"; };
 		3EF08D8117494045007852C8 /* lod_knockouts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lod_knockouts.h; sourceTree = "<group>"; };
+		3EF08D82174CDB20007852C8 /* propagule_size.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = propagule_size.cpp; sourceTree = "<group>"; };
+		3EF08D83174CDBE8007852C8 /* propagule_size.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = propagule_size.h; sourceTree = "<group>"; };
+		3EF08D92174CE517007852C8 /* propagule_size */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = propagule_size; sourceTree = BUILT_PRODUCTS_DIR; };
 		42441A7E158616AF009863BE /* ealife.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ealife.xcconfig; sourceTree = "<group>"; };
 		42441A7F158616AF009863BE /* libea_defaults.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; path = libea_defaults.cfg; sourceTree = "<group>"; };
 		42441A80158616AF009863BE /* Jamroot */ = {isa = PBXFileReference; lastKnownFileType = text; path = Jamroot; sourceTree = "<group>"; };
@@ -338,6 +357,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3EF08D87174CE516007852C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EF08D88174CE516007852C8 /* libea.a in Frameworks */,
+				3EF08D89174CE516007852C8 /* libboost_iostreams.dylib in Frameworks */,
+				3EF08D8A174CE516007852C8 /* libboost_program_options.dylib in Frameworks */,
+				3EF08D8B174CE516007852C8 /* libboost_regex.dylib in Frameworks */,
+				3EF08D8C174CE516007852C8 /* libboost_serialization.dylib in Frameworks */,
+				3EF08D8D174CE516007852C8 /* libboost_signals.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		42441A8815861724009863BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -379,6 +411,7 @@
 				3EB67F0A16FB203E00111A41 /* gls_unlimited_not */,
 				3EB67F1A16FB208A00111A41 /* gls_unlimited_all */,
 				3E55ED44174654C500735172 /* ts-soft-reset */,
+				3EF08D92174CE517007852C8 /* propagule_size */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -401,14 +434,16 @@
 				3E4067EE16A88A580034413F /* multi_birth_selfrep_nand_not_ancestor.h */,
 				3EB3CA8515E6F62E00B82B07 /* gls.h */,
 				3ED5CED4161B436700128910 /* ts.h */,
+				3EF08D83174CDBE8007852C8 /* propagule_size.h */,
+				3E497E03171D722100202314 /* shannon_mutual_lod_tasks_orgs.h */,
 				3E22CF51161E27E400EB4D27 /* resource_consumption.h */,
 				3E22CF52161E2ED600EB4D27 /* subpopulation_founder.h */,
 				3E22CF62161E31A800EB4D27 /* configurable_mutation.h */,
+				3EBF2BFE1625CF2900161D9B /* age_poly.h */,
 				3E1DA7BA1630631900AA622A /* subpopulation_lod_analysis.h */,
 				3EF08D8117494045007852C8 /* lod_knockouts.h */,
 				3EA3EECE16A9A75100EDE84B /* multi_birth_selfrep_not_nand_ornot_ancestor.h */,
 				3E5DDA7116AF1A8E0002AF3E /* multi_birth_selfrep_not_ancestor.h */,
-				3EBF2BFE1625CF2900161D9B /* age_poly.h */,
 				42441A82158616AF009863BE /* main.cpp */,
 				3ED5CED2161B42B900128910 /* ts.cpp */,
 				3EBF2BFF16273CD400161D9B /* age_poly_2_task.cpp */,
@@ -418,8 +453,8 @@
 				3E5DDA5E16AF18770002AF3E /* age_poly_lr.cpp */,
 				3EB67EF616FB1FAA00111A41 /* gls_unlimited_not.cpp */,
 				3EB67EF816FB1FC300111A41 /* gls_unlimited_all.cpp */,
-				3E497E03171D722100202314 /* shannon_mutual_lod_tasks_orgs.h */,
-				3E55ED341746541800735172 /* ts-soft-reset.cpp */,
+				3E55ED341746541800735172 /* ts-soft_reset.cpp */,
+				3EF08D82174CDB20007852C8 /* propagule_size.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -594,6 +629,23 @@
 			productReference = 3EB67F1A16FB208A00111A41 /* gls_unlimited_all */;
 			productType = "com.apple.product-type.tool";
 		};
+		3EF08D84174CE516007852C8 /* propagule_size */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EF08D8F174CE516007852C8 /* Build configuration list for PBXNativeTarget "propagule_size" */;
+			buildPhases = (
+				3EF08D85174CE516007852C8 /* Sources */,
+				3EF08D87174CE516007852C8 /* Frameworks */,
+				3EF08D8E174CE516007852C8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = propagule_size;
+			productName = ealife;
+			productReference = 3EF08D92174CE517007852C8 /* propagule_size */;
+			productType = "com.apple.product-type.tool";
+		};
 		42441A8A15861724009863BE /* gls */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 42441A9215861725009863BE /* Build configuration list for PBXNativeTarget "gls" */;
@@ -642,6 +694,7 @@
 				3EB67EFB16FB203E00111A41 /* gls_unlimited_not */,
 				3EB67F0C16FB208A00111A41 /* gls_unlimited_all */,
 				3E55ED36174654C500735172 /* ts-soft-reset */,
+				3EF08D84174CE516007852C8 /* propagule_size */,
 			);
 		};
 /* End PBXProject section */
@@ -675,7 +728,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E55ED45174654DF00735172 /* ts-soft-reset.cpp in Sources */,
+				3E55ED45174654DF00735172 /* ts-soft_reset.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +769,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EB67F1B16FB209D00111A41 /* gls_unlimited_all.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EF08D85174CE516007852C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EF08D93174CE545007852C8 /* propagule_size.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,6 +1025,32 @@
 			};
 			name = Release;
 		};
+		3EF08D90174CE516007852C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../ealib/build/Debug\"",
+				);
+				PRODUCT_NAME = propagule_size;
+			};
+			name = Debug;
+		};
+		3EF08D91174CE516007852C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
+					"\"$(SRCROOT)/../ealib/build/Debug\"",
+				);
+				PRODUCT_NAME = propagule_size;
+			};
+			name = Release;
+		};
 		424419FB15861127009863BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 42441A7E158616AF009863BE /* ealife.xcconfig */;
@@ -1109,6 +1196,15 @@
 			buildConfigurations = (
 				3EB67F1816FB208A00111A41 /* Debug */,
 				3EB67F1916FB208A00111A41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3EF08D8F174CE516007852C8 /* Build configuration list for PBXNativeTarget "propagule_size" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EF08D90174CE516007852C8 /* Debug */,
+				3EF08D91174CE516007852C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

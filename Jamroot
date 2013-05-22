@@ -60,15 +60,24 @@ exe ts :
 
 install dist : ts : <location>$(HOME)/bin ;
 
-exe ts-soft-reset :
-    src/ts-soft-reset.cpp
+exe ts_soft_reset :
+    src/ts_soft_reset.cpp
     /libea//libea
     /libea//libea_runner
     : <include>./include <link>static
     ;
 
-install dist : ts-soft-reset : <location>$(HOME)/bin ;
+install dist : ts_soft_reset : <location>$(HOME)/bin ;
 
+
+exe propagule_size :
+    src/propagule_size.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : propagule_size : <location>$(HOME)/bin ;
 
 exe age_poly :
     src/age_poly_2_task.cpp

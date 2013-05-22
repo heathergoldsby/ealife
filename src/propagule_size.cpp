@@ -1,4 +1,4 @@
-/* ts-soft-reset.cpp
+/* propagule_size.cpp
  *
  * This file is part of EALife.
  *
@@ -19,6 +19,7 @@
  */
 
 #include "ts.h"
+#include "propagule_size.h"
 #include "shannon_mutual_lod_tasks_orgs.h"
 #include "lod_knockouts.h"
 #include "multi_birth_selfrep_not_ancestor.h"
@@ -181,6 +182,10 @@ public:
         add_option<NUM_SWITCHES>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
         
+        // propagule speciific options
+        add_option<PROPAGULE_SIZE>(this);
+        add_option<PROPAGULE_COMPOSITION>(this);
+        
         // initial amount (unit), inflow (unit), outflow (percentage), percent consumed
         add_option<RES_INITIAL_AMOUNT>(this);
         add_option<RES_INFLOW_AMOUNT>(this);
@@ -191,11 +196,11 @@ public:
     virtual void gather_tools() {
         add_tool<ealib::analysis::lod_shannon_tasks_orgs>(this);
         add_tool<ealib::analysis::lod_knockouts>(this);
-
+        
     }
     
     virtual void gather_events(EA& ea) {
-        add_event<ts_replication>(this,ea);
+        add_event<ts_replication_propagule>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<task_switch_tracking>(this,ea);
         add_event<datafiles::mrca_lineage>(this,ea);

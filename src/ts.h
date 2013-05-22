@@ -39,9 +39,7 @@ using namespace boost::accumulators;
 LIBEA_MD_DECL(TASK_SWITCHING_COST, "ea.ts.task_switching_cost", int);
 LIBEA_MD_DECL(LAST_TASK, "ea.ts.last_task", std::string);
 LIBEA_MD_DECL(NUM_SWITCHES, "ea.ts.num_switches", int);
-
 LIBEA_MD_DECL(GERM_MUTATION_PER_SITE_P, "ea.ts.germ_mutation_per_site_p", double);
-
 
 
 LIBEA_MD_DECL(RES_INITIAL_AMOUNT, "ea.ts.res_initial_amount", double);

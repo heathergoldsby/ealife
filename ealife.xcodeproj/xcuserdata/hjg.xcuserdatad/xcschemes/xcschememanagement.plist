@@ -44,6 +44,11 @@
 			<key>orderHint</key>
 			<integer>10</integer>
 		</dict>
+		<key>propagule_size.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>26</integer>
+		</dict>
 		<key>ts-soft-reset.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -123,6 +128,11 @@
 			<true/>
 		</dict>
 		<key>3EB67F0C16FB208A00111A41</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EF08D84174CE516007852C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
