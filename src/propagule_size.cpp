@@ -194,8 +194,8 @@ public:
     }
     
     virtual void gather_tools() {
-        add_tool<ealib::analysis::lod_shannon_tasks_orgs>(this);
-        add_tool<ealib::analysis::lod_knockouts>(this);
+        //add_tool<ealib::analysis::lod_shannon_tasks_orgs>(this);
+        //add_tool<ealib::analysis::lod_knockouts>(this);
         
     }
     
@@ -203,7 +203,7 @@ public:
         add_event<ts_replication_propagule>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<task_switch_tracking>(this,ea);
-        add_event<datafiles::mrca_lineage>(this,ea);
+        //add_event<datafiles::mrca_lineage>(this,ea);
         add_event<population_founder_event>(this,ea);
     };
 };
