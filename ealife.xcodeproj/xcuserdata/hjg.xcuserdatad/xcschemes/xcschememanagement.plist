@@ -49,6 +49,11 @@
 			<key>orderHint</key>
 			<integer>27</integer>
 		</dict>
+		<key>hologenome_not_nand_balance.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>28</integer>
+		</dict>
 		<key>propagule_size.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -78,6 +83,11 @@
 			<true/>
 		</dict>
 		<key>3E22CF3F161E276300EB4D27</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3E2D2BAF17A699F90069C966</key>
 		<dict>
 			<key>primary</key>
 			<true/>

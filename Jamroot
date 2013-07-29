@@ -114,3 +114,12 @@ exe hologenome_ns :
     ;
 
 install dist : hologenome_ns : <location>$(HOME)/bin ;
+
+exe hologenome_not_nand_balance :
+    src/hologenome_not_nand_balance.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : hologenome_not_nand_balance : <location>$(HOME)/bin ;
