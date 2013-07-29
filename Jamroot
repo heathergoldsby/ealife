@@ -105,3 +105,12 @@ exe age_poly_lr :
     ;
 
 install dist : age_poly_lr : <location>$(HOME)/bin ;
+
+exe hologenome_ns :
+    src/hologenome.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : hologenome_ns : <location>$(HOME)/bin ;
