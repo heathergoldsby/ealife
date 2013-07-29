@@ -34,8 +34,7 @@ struct ts_configuration : public abstract_configuration<EA> {
     typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
     typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
     
-    
-    void configure(EA& ea) {
+    virtual void configure(EA& ea) {
         using namespace ealib::instructions;
         append_isa<nop_a>(0,ea);
         append_isa<nop_b>(0,ea);
@@ -64,21 +63,19 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<fixed_input>(ea);
         append_isa<output>(ea);
         append_isa<donate_res_to_group>(ea);
-        append_isa<get_xy>(ea);
+        //append_isa<get_xy>(ea);
         append_isa<if_equal>(ea);
         append_isa<if_not_equal>(ea);
         append_isa<jump_head>(ea);
         
-        
         add_event<task_resource_consumption>(this,ea);
         add_event<task_switching_cost>(this, ea);
         add_event<ts_birth_event>(this,ea);
-        
     }
     
     //! Initialize! Things are live and are mostly setup. All the objects are there, but they
     // may not have the parameters that they need.
-    void initialize(EA& ea) {
+    virtual void initialize(EA& ea) {
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
         task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
@@ -119,7 +116,7 @@ struct ts_configuration : public abstract_configuration<EA> {
     }
     
     //! Called to generate the initial EA population.
-    void initial_population(EA& ea) {
+    virtual void initial_population(EA& ea) {
         generate_ancestors(multibirth_selfrep_not_ancestor(), 1, ea);
     }
 };
@@ -152,8 +149,6 @@ mp_configuration> mea_type;
 template <typename EA>
 class cli : public cmdline_interface<EA> {
 public:
-    
-    
     virtual void gather_options() {
         add_option<SPATIAL_X>(this);
         add_option<SPATIAL_Y>(this);

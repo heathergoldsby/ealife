@@ -32,9 +32,10 @@ struct configurable_per_site {
     }
     
     //! Iterate through all elements in the given representation, possibly mutating them.
-    template <typename Representation, typename EA>
-    void operator()(Representation& repr, EA& ea) {
-        for(typename Representation::iterator i=repr.begin(); i!=repr.end(); ++i){
+    template <typename EA>
+    void operator()(typename EA::individual_type& ind, EA& ea) {
+        typename EA::representation_type& repr=ind.repr();
+        for(typename EA::representation_type::iterator i=repr.begin(); i!=repr.end(); ++i){
             if(ea.rng().p(_mp)) {
                 _mt(repr, i, ea);
             }

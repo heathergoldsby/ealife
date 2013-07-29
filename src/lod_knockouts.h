@@ -55,11 +55,11 @@ namespace ealib {
                     
                     typename EA::individual_ptr_type knockout_rx_ea = ea.make_individual();
                     knockout_rx_ea->rng().reset(get<RNG_SEED>(**i));
-                    knockout_isa<instructions::nop_x>("rx_msg", *knockout_rx_ea);
+                    knockout<instructions::rx_msg,instructions::nop_x>(*knockout_rx_ea);
                     
                     typename EA::individual_ptr_type knockout_location_ea = ea.make_individual();
                     knockout_location_ea->rng().reset(get<RNG_SEED>(**i));
-                    knockout_isa<instructions::nop_x>("get_xy", *knockout_location_ea);
+                    knockout<instructions::get_xy,instructions::nop_x>(*knockout_location_ea);
                     
                     // setup the founder
                     typename EA::individual_type::individual_ptr_type o= (*i)->make_individual((*i)->founder().repr());
