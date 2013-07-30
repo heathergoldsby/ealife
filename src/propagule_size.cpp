@@ -157,6 +157,7 @@ public:
         add_event<ts_replication_propagule>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<population_founder_event>(this,ea);
+        add_event<reward_tracking>(this,ea);
     };
 };
 LIBEA_CMDLINE_INSTANCE(mea_type, cli);

@@ -30,6 +30,9 @@ using namespace ealib;
  
  */
 
+LIBEA_MD_DECL(TASK_NOT_REWARD, "ea.not_reward", double);
+
+
 template <typename EA>
 struct spots : reaction_event<EA> {
     spots(EA& ea) : reaction_event <EA>(ea) {
@@ -65,9 +68,67 @@ struct spots : reaction_event<EA> {
         get<SAVED_RESOURCES>(ind, 0.0) += res;
         std::string t = task->name();
         if (t == "not") { get<TASK_NOT>(ea,0.0) += 1.0; get<TASK_NOT>(ind,0.0) += 1.0; }
+        get<TASK_NOT_REWARD>(ea,0.0) += res;
         
     }
 };
+
+
+/*! Prints information about the mean amount of reward organisms got for their tasks. 
+ (higher means that 'spots' are appearing more frequently.
+ */
+
+
+template <typename EA>
+struct reward_tracking : end_of_update_event<EA> {
+    reward_tracking(EA& ea) : end_of_update_event<EA>(ea), _df("ps.dat") {
+        _df.add_field("update")
+        .add_field("sub_pop_size")
+        .add_field("pop_size")
+        .add_field("mean_reward");
+        
+    }
+    
+    //! Destructor.
+    virtual ~reward_tracking() {
+    }
+    
+    //! Track how many task-switches are being performed!
+    virtual void operator()(EA& ea) {
+        if ((ea.current_update() % 100) == 0) {
+            double org = 0;
+            
+            int sub_pop_size = 0;
+            double rew = 0.0;
+            double not_count = 0.0;
+            
+            for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+                ++sub_pop_size;
+                for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
+                    rew += get<TASK_NOT_REWARD>(*i,0.0);
+                    not_count += get<TASK_NOT>(*i,0.0);
+                    typename EA::individual_type::individual_type& ind=**j;
+                    if (ind.alive()) {
+                        ++org;
+                    }
+                }
+            }
+            if (not_count) {
+                rew /= not_count; 
+            }
+            _df.write(ea.current_update())
+            .write(sub_pop_size)
+            .write(org)
+            .write(rew)
+            .endl();
+        }
+        
+    }
+    datafile _df;
+    
+};
+
+
 
 
 #endif
