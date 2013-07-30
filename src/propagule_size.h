@@ -38,9 +38,9 @@ using namespace boost::accumulators;
 
 
 //! the number of organisms used to start a group
-LIBEA_MD_DECL(PROPAGULE_SIZE, "ea.ts.propagule_size", double);
+LIBEA_MD_DECL(PROP_SIZE, "ea.ts.propagule_size", double);
 //! the composition of the propagule: 0: clonal, 1: randomly selected
-LIBEA_MD_DECL(PROPAGULE_COMPOSITION, "ea.ts.propagule_composition", double);
+LIBEA_MD_DECL(PROP_COMPOSITION, "ea.ts.propagule_composition", double);
 
 
 
@@ -71,8 +71,8 @@ struct ts_replication_propagule : end_of_update_event<EA> {
                 
                 // the number of parents selected is the propagule size or 1, if
                 // the propagule's composition is clonal.
-                int num_parents = get<PROPAGULE_SIZE>(*i);
-                if (get<PROPAGULE_COMPOSITION>(*i) == 0) {
+                int num_parents = get<PROP_SIZE>(*i);
+                if (get<PROP_COMPOSITION>(*i) == 0) {
                     num_parents = 1;
                 }
                 
@@ -95,8 +95,8 @@ struct ts_replication_propagule : end_of_update_event<EA> {
                     configurable_per_site m(get<GERM_MUTATION_PER_SITE_P>(ea));
                     mutate(org,m,*p);
                     
-                    if (get<PROPAGULE_COMPOSITION>(*i) == 0) {
-                        for (int k=0; k<get<PROPAGULE_SIZE>(*i); ++k) {
+                    if (get<PROP_COMPOSITION>(*i) == 0) {
+                        for (int k=0; k<get<PROP_SIZE>(*i); ++k) {
                             // and fill up the offspring population with copies of the germ:
                             typename EA::individual_type::individual_ptr_type o=p->make_individual(org.repr());
                             p->append(o);

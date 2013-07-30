@@ -26,7 +26,7 @@ using namespace ealib;
 /*! Mutation - Per-site mutation at a configurable rate
  */
 struct configurable_per_site {            
-    typedef mutation::uniform_integer mutation_type;
+    typedef mutation::site::uniform_integer mutation_type;
     
     configurable_per_site(double prob) : _mp(prob) {
     }
@@ -37,7 +37,7 @@ struct configurable_per_site {
         typename EA::representation_type& repr=ind.repr();
         for(typename EA::representation_type::iterator i=repr.begin(); i!=repr.end(); ++i){
             if(ea.rng().p(_mp)) {
-                _mt(repr, i, ea);
+                _mt(i, ea);
             }
         }
     }

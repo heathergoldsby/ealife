@@ -234,6 +234,7 @@
 		3E22CF62161E31A800EB4D27 /* configurable_mutation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configurable_mutation.h; sourceTree = "<group>"; };
 		3E2D2BAE17A699650069C966 /* hologenome_not_nand_balance.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hologenome_not_nand_balance.cpp; sourceTree = "<group>"; };
 		3E2D2BBD17A699F90069C966 /* hologenome_nn_balance */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hologenome_nn_balance; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E2D2BBF17A6D8390069C966 /* resource_phenotype.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource_phenotype.h; sourceTree = "<group>"; };
 		3E4067EE16A88A580034413F /* multi_birth_selfrep_nand_not_ancestor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = multi_birth_selfrep_nand_not_ancestor.h; sourceTree = "<group>"; };
 		3E497E03171D722100202314 /* shannon_mutual_lod_tasks_orgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shannon_mutual_lod_tasks_orgs.h; sourceTree = "<group>"; };
 		3E55AAC4166BC7860097A0E5 /* gls_no_pseudo_soma.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gls_no_pseudo_soma.cpp; sourceTree = "<group>"; };
@@ -505,6 +506,7 @@
 				3EF08D83174CDBE8007852C8 /* propagule_size.h */,
 				3E497E03171D722100202314 /* shannon_mutual_lod_tasks_orgs.h */,
 				3E22CF51161E27E400EB4D27 /* resource_consumption.h */,
+				3E2D2BBF17A6D8390069C966 /* resource_phenotype.h */,
 				3E22CF52161E2ED600EB4D27 /* subpopulation_founder.h */,
 				3E22CF62161E31A800EB4D27 /* configurable_mutation.h */,
 				3EBF2BFE1625CF2900161D9B /* age_poly.h */,

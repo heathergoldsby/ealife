@@ -19,8 +19,8 @@
  */
 
 #include "ts.h"
+#include "resource_phenotype.h"
 #include "propagule_size.h"
-#include "shannon_mutual_lod_tasks_orgs.h"
 #include "lod_knockouts.h"
 #include "multi_birth_selfrep_not_ancestor.h"
 
@@ -63,13 +63,12 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<fixed_input>(ea);
         append_isa<output>(ea);
         append_isa<donate_res_to_group>(ea);
-        //append_isa<get_xy>(ea);
+        append_isa<get_xy>(ea);
         append_isa<if_equal>(ea);
         append_isa<if_not_equal>(ea);
         append_isa<jump_head>(ea);
         
-        add_event<task_resource_consumption>(this,ea);
-        add_event<task_switching_cost>(this, ea);
+        add_event<spots>(this,ea);
         add_event<ts_birth_event>(this,ea);
     }
     
@@ -78,41 +77,11 @@ struct ts_configuration : public abstract_configuration<EA> {
     virtual void initialize(EA& ea) {
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
-        task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
-        task_ptr_type task_and = make_task<tasks::task_and,catalysts::additive<0> >("and", ea);
-        task_ptr_type task_ornot = make_task<tasks::task_ornot,catalysts::additive<0> >("ornot", ea);
-        task_ptr_type task_or = make_task<tasks::task_or,catalysts::additive<0> >("or", ea);
-        task_ptr_type task_andnot = make_task<tasks::task_andnot,catalysts::additive<0> >("andnot", ea);
-        task_ptr_type task_nor = make_task<tasks::task_nor,catalysts::additive<0> >("nor", ea);
-        task_ptr_type task_xor = make_task<tasks::task_xor,catalysts::additive<0> >("xor", ea);
-        task_ptr_type task_equals = make_task<tasks::task_equals,catalysts::additive<0> >("equals", ea);
-        
-        // initial amount (unit), inflow (unit), outflow (percentage), percent consumed, ea
-        double init_amt = get<RES_INITIAL_AMOUNT>(ea, 0);
-        double inflow = get<RES_INFLOW_AMOUNT>(ea,0);
-        double outflow = get<RES_OUTFLOW_FRACTION>(ea,0);
-        double frac = get<RES_FRACTION_CONSUMED>(ea,0);
-        
-        // initial amount (unit), inflow (unit), outflow (percentage), percent consumed, ea
-        resource_ptr_type resA = make_resource("resA", init_amt, inflow, outflow, frac, ea);
-        resource_ptr_type resB = make_resource("resB", init_amt, inflow, outflow, frac, ea);
-        resource_ptr_type resC = make_resource("resC", init_amt, inflow, outflow, frac, ea);
-        resource_ptr_type resD = make_resource("resD", init_amt, inflow, outflow, frac, ea);
-        resource_ptr_type resE = make_resource("resE", init_amt, inflow, outflow, frac, ea);
-        resource_ptr_type resF = make_resource("resF", init_amt, inflow, outflow, frac, ea);
-        resource_ptr_type resG = make_resource("resG", init_amt, inflow, outflow, frac, ea);
-        resource_ptr_type resH = make_resource("resH", init_amt, inflow, outflow, frac, ea);
-        resource_ptr_type resI = make_resource("resI", init_amt, inflow, outflow, frac, ea);
+            
+        resource_ptr_type resA = make_resource("resA", ea);
         
         task_not->consumes(resA);
-        task_nand->consumes(resB);
-        task_and->consumes(resC);
-        task_ornot->consumes(resD);
-        task_or->consumes(resE);
-        task_andnot->consumes(resF);
-        task_nor->consumes(resG);
-        task_xor->consumes(resH);
-        task_equals->consumes(resI);
+
     }
     
     //! Called to generate the initial EA population.
@@ -172,33 +141,21 @@ public:
         
         // ts specific options
         add_option<GROUP_REP_THRESHOLD>(this);
-        add_option<TASK_SWITCHING_COST>(this);
-        add_option<LAST_TASK>(this);
-        add_option<NUM_SWITCHES>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
         
         // propagule speciific options
-        add_option<PROPAGULE_SIZE>(this);
-        add_option<PROPAGULE_COMPOSITION>(this);
+        add_option<PROP_SIZE>(this);
+        add_option<PROP_COMPOSITION>(this);
         
-        // initial amount (unit), inflow (unit), outflow (percentage), percent consumed
-        add_option<RES_INITIAL_AMOUNT>(this);
-        add_option<RES_INFLOW_AMOUNT>(this);
-        add_option<RES_OUTFLOW_FRACTION>(this);
-        add_option<RES_FRACTION_CONSUMED>(this);
     }
     
     virtual void gather_tools() {
-        //add_tool<ealib::analysis::lod_shannon_tasks_orgs>(this);
-        //add_tool<ealib::analysis::lod_knockouts>(this);
         
     }
     
     virtual void gather_events(EA& ea) {
         add_event<ts_replication_propagule>(this,ea);
         add_event<task_performed_tracking>(this,ea);
-        add_event<task_switch_tracking>(this,ea);
-        //add_event<datafiles::mrca_lineage>(this,ea);
         add_event<population_founder_event>(this,ea);
     };
 };
