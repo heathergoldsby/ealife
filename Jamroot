@@ -79,6 +79,15 @@ exe propagule_size :
 
 install dist : propagule_size : <location>$(HOME)/bin ;
 
+exe stripes :
+    src/stripes.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : stripes : <location>$(HOME)/bin ;
+
 exe age_poly :
     src/age_poly_2_task.cpp
     /libea//libea

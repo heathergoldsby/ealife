@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3E2D2BAF17A699F90069C966"
-               BuildableName = "hologenome_nn_balance"
-               BlueprintName = "hologenome_not_nand_balance"
+               BlueprintIdentifier = "3E667D7917ABE01100A42924"
+               BuildableName = "propagule_size"
+               BlueprintName = "stripes"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E2D2BAF17A699F90069C966"
-            BuildableName = "hologenome_nn_balance"
-            BlueprintName = "hologenome_not_nand_balance"
+            BlueprintIdentifier = "3E667D7917ABE01100A42924"
+            BuildableName = "propagule_size"
+            BlueprintName = "stripes"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E2D2BAF17A699F90069C966"
-            BuildableName = "hologenome_nn_balance"
-            BlueprintName = "hologenome_not_nand_balance"
+            BlueprintIdentifier = "3E667D7917ABE01100A42924"
+            BuildableName = "propagule_size"
+            BlueprintName = "stripes"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E2D2BAF17A699F90069C966"
-            BuildableName = "hologenome_nn_balance"
-            BlueprintName = "hologenome_not_nand_balance"
+            BlueprintIdentifier = "3E667D7917ABE01100A42924"
+            BuildableName = "propagule_size"
+            BlueprintName = "stripes"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

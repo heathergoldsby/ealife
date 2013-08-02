@@ -59,6 +59,11 @@
 			<key>orderHint</key>
 			<integer>26</integer>
 		</dict>
+		<key>stripes.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>29</integer>
+		</dict>
 		<key>ts-soft-reset.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -103,6 +108,11 @@
 			<true/>
 		</dict>
 		<key>3E5DDA6016AF1A130002AF3E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3E667D7917ABE01100A42924</key>
 		<dict>
 			<key>primary</key>
 			<true/>
