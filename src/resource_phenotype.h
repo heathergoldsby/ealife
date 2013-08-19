@@ -30,7 +30,8 @@ using namespace ealib;
  
  */
 
-LIBEA_MD_DECL(TASK_NOT_REWARD, "ea.not_reward", double);
+LIBEA_MD_DECL(TASK_NOT_REWARD, "ea.res_pheno.not_reward", double);
+LIBEA_MD_DECL(TASK_EXP_BASE, "ea.res_pheno.task_exp_base", double);
 
 
 template <typename EA>
@@ -51,21 +52,21 @@ struct spots : reaction_event<EA> {
 
         
         // check neigbhors
+        double potential_neighbors = 8.0;
         double neighbor_task_count = 0.0;
-        double potential_neighbors = 0.0;
+        double exp_base = get<TASK_EXP_BASE>(ea);
         
         // spin around the circle (find even locations), check if they performed NOT
-        for (int i=0; i<=6; i+=2) {
+        for (int i=0; i<=7; i+=1) {
             typedef typename EA::environment_type::iterator env_it;
             env_it n = ea.env().direction_neighbor(ind, i, ea);
-            ++potential_neighbors;
             if(n->occupied() && get<TASK_NOT>(*(n->inhabitant()),0.0)) {
                     neighbor_task_count++;
             }
         }
       
         
-        double res = (potential_neighbors - neighbor_task_count + 1.0)/potential_neighbors;
+        double res = pow(exp_base,(potential_neighbors-neighbor_task_count));
         
         get<SAVED_RESOURCES>(ind, 0.0) += res;
         get<TASK_NOT_REWARD>(ind, 0.0) += res;
@@ -100,27 +101,32 @@ struct stripes : reaction_event<EA> {
          4  |  Or.|  0
          5  |  6  |  7
          */
-                
-        double res = 0.25;
+
+        double neighbors_right_action = 0.0;
+        double exp_base = get<TASK_EXP_BASE>(ea);
+
         typedef typename EA::environment_type::iterator env_it;
         
         // north
         env_it n = ea.env().direction_neighbor(ind, 2, ea);
-        if (n->occupied() && get<TASK_NOT>(*(n->inhabitant()),0.0)) { res += 0.5; }
+        if (n->occupied() && get<TASK_NOT>(*(n->inhabitant()),0.0)) { neighbors_right_action++; }
         
         // south
         env_it n2 = ea.env().direction_neighbor(ind, 6, ea);
-        if (n2->occupied() && get<TASK_NOT>(*(n2->inhabitant()),0.0)) { res += 0.5; }
+        if (n2->occupied() && get<TASK_NOT>(*(n2->inhabitant()),0.0)) { neighbors_right_action++; }
         
         // spin around the remainder of the neighbors...
-        for (int i=0; i<=6; i+=2) {
-            if (i==2 || i ==6 || res<0.25) { continue; }
+        for (int i=0; i<=7; i+=1) {
+            if (i==2 || i ==6) { continue; }
 
             env_it n3 = ea.env().direction_neighbor(ind, i, ea);
-            if(n3->occupied() && get<TASK_NOT>(*(n3->inhabitant()),0.0)) {
-                res -= 0.25;
+            if(!(n3->occupied() && get<TASK_NOT>(*(n3->inhabitant()),0.0))) {
+                neighbors_right_action++;
             }
         }
+        
+        double res = pow(exp_base, neighbors_right_action);
+
         
         get<SAVED_RESOURCES>(ind, 0.0) += res;
         get<TASK_NOT_REWARD>(ind, 0.0) += res;

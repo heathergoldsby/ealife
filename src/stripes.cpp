@@ -94,7 +94,7 @@ struct ts_configuration : public abstract_configuration<EA> {
 /*! Artificial life simulation definition.
  */
 typedef digital_evolution<
-ts_configuration, spatial, empty_neighbor, round_robin
+ts_configuration, spatial, empty_facing_neighbor, round_robin
 > ea_type;
 
 template <typename EA>
@@ -146,6 +146,9 @@ public:
         // propagule speciific options
         add_option<PROP_SIZE>(this);
         add_option<PROP_COMPOSITION>(this);
+        
+        // resource phenotype options
+        add_option<TASK_EXP_BASE>(this);
         
     }
     
