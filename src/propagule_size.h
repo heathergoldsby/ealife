@@ -43,6 +43,22 @@ LIBEA_MD_DECL(PROP_SIZE, "ea.ts.propagule_size", double);
 LIBEA_MD_DECL(PROP_COMPOSITION, "ea.ts.propagule_composition", double);
 
 
+//! epigenetic info
+LIBEA_MD_DECL(EPIGENETIC_INFO, "ea.ts.epigenetic_info", double);
+
+//! Set organism's epigenetic info
+DIGEVO_INSTRUCTION_DECL(set_epigenetic_info){
+    put<EPIGENETIC_INFO>(hw.getRegValue(hw.modifyRegister()), *p);
+}
+
+//! Get organism's epigenetic info
+DIGEVO_INSTRUCTION_DECL(get_epigenetic_info){
+    if(exists<EPIGENETIC_INFO>(*p)) {
+        hw.setRegValue(hw.modifyRegister(), get<EPIGENETIC_INFO>(*p));
+    }
+}
+
+
 
 //! Performs group replication using germ lines.
 template <typename EA>
@@ -66,6 +82,8 @@ struct ts_replication_propagule : end_of_update_event<EA> {
             // Do not replicate if the 'founding org' is sterile.
             if (i->population().size() < 2) continue;
             
+            double x = get<GROUP_RESOURCE_UNITS>(*i,0.0);
+            
             if (exists<GROUP_RESOURCE_UNITS>(*i) &&
                 (get<GROUP_RESOURCE_UNITS>(*i) > get<GROUP_REP_THRESHOLD>(*i))){
                 
@@ -75,6 +93,9 @@ struct ts_replication_propagule : end_of_update_event<EA> {
                 if (get<PROP_COMPOSITION>(*i) == 0) {
                     num_parents = 1;
                 }
+                
+                get<NUM_GROUP_REPLICATIONS>(ea,0) ++;
+
                 
                 // setup the population (really, an ea):
                 typename EA::individual_ptr_type p = ea.make_individual();
@@ -99,12 +120,20 @@ struct ts_replication_propagule : end_of_update_event<EA> {
                         for (int k=0; k<get<PROP_SIZE>(*i); ++k) {
                             // and fill up the offspring population with copies of the germ:
                             typename EA::individual_type::individual_ptr_type o=p->make_individual(org.repr());
+                            if(exists<EPIGENETIC_INFO>(org)) {
+                                put<EPIGENETIC_INFO>(get<EPIGENETIC_INFO>(org),*o);
+                            }
+                            
                             p->append(o);
                         }
                     } else {
                         // and fill up the offspring population with copies of the germ:
                         typename EA::individual_type::individual_ptr_type o=p->make_individual(org.repr());
+                        if(exists<EPIGENETIC_INFO>(org)) {
+                            put<EPIGENETIC_INFO>(get<EPIGENETIC_INFO>(org),*o);
+                        }
                         p->append(o);
+                        
                     }
                     
                     ++p_size;

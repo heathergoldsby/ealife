@@ -61,6 +61,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--config spots.cfg"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--config ts5.cfg"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

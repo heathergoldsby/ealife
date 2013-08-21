@@ -40,6 +40,7 @@ LIBEA_MD_DECL(TASK_SWITCHING_COST, "ea.ts.task_switching_cost", int);
 LIBEA_MD_DECL(LAST_TASK, "ea.ts.last_task", std::string);
 LIBEA_MD_DECL(NUM_SWITCHES, "ea.ts.num_switches", int);
 LIBEA_MD_DECL(GERM_MUTATION_PER_SITE_P, "ea.ts.germ_mutation_per_site_p", double);
+LIBEA_MD_DECL(NUM_GROUP_REPLICATIONS, "ea.ts.num_group_replications", int);
 
 
 LIBEA_MD_DECL(RES_INITIAL_AMOUNT, "ea.ts.res_initial_amount", double);
@@ -87,7 +88,8 @@ struct task_switch_tracking : end_of_update_event<EA> {
         _df.add_field("update")
         .add_field("sub_pop_size")
         .add_field("pop_size")
-        .add_field("mean ts");
+        .add_field("mean_ts")
+        .add_field("group_rep");
         
     }
     
@@ -119,7 +121,10 @@ struct task_switch_tracking : end_of_update_event<EA> {
             .write(sub_pop_size)
             .write(org)
             .write(ts)
+            .write(get<NUM_GROUP_REPLICATIONS>(ea,0))
             .endl();
+            
+            get<NUM_GROUP_REPLICATIONS>(ea) = 0;
         }
         
     }
@@ -186,6 +191,7 @@ struct ts_replication : end_of_update_event<EA> {
             }
         }
         
+        get<NUM_GROUP_REPLICATIONS>(ea,0) += offspring.size();
         
         // select surviving parent groups
         if (offspring.size() > 0) {
