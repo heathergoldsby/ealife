@@ -89,7 +89,7 @@ struct task_switch_tracking : end_of_update_event<EA> {
         .add_field("sub_pop_size")
         .add_field("pop_size")
         .add_field("mean_ts")
-        .add_field("group_rep");
+        .add_field("mc_rep");
         
     }
     

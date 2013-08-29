@@ -72,6 +72,15 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<get_epigenetic_info>(ea);
         append_isa<set_epigenetic_info>(ea);
         
+        // extended for part 2
+        append_isa<inc_propagule_size>(ea);
+        append_isa<dec_propagule_size>(ea);
+        append_isa<get_propagule_size>(ea);
+        
+        append_isa<become_soma>(ea);
+        append_isa<if_soma>(ea);
+        append_isa<if_germ>(ea);
+        
         add_event<task_resource_consumption>(this,ea);
         add_event<task_switching_cost>(this, ea);
         add_event<ts_birth_event>(this,ea);
@@ -192,6 +201,8 @@ public:
         // propagule speciific options
         add_option<PROP_SIZE>(this);
         add_option<PROP_COMPOSITION>(this);
+        add_option<PROP_BASE_REP_UNITS>(this);
+        add_option<PROP_CELL_REP_UNITS>(this);
         
         
     }
@@ -201,9 +212,11 @@ public:
     }
     
     virtual void gather_events(EA& ea) {
-        add_event<ts_replication_propagule>(this,ea);
+//        add_event<ts_replication_propagule>(this,ea);
+        add_event<ps_size_propagule>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<task_switch_tracking>(this,ea);
+        add_event<propagule_size_tracking>(this,ea);
         add_event<population_founder_event>(this,ea);
         add_event<reward_tracking>(this,ea);
     };
