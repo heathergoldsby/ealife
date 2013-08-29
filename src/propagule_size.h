@@ -133,7 +133,7 @@ struct ps_size_propagule : end_of_update_event<EA> {
             
             // Do not replicate if the 'founding org' is sterile.
             // Note may need to adjust this to include starting colony size.
-            if (i->population().size() < 2) continue;
+            if (i->population().size() == get<ACTUAL_PROP_SIZE>(*i, 1.0)) continue;
             
             double group_res = get<GROUP_RESOURCE_UNITS>(*i,0.0);
             double prop_base = get<PROP_BASE_REP_UNITS>(*i,0.0);
@@ -155,12 +155,15 @@ struct ps_size_propagule : end_of_update_event<EA> {
                     ++num_germ;
                 }
             }
-            desired_prop_size = floor(desired_prop_size/num_org);
-            assert(desired_prop_size >= 1);
             
+            if (num_germ == 0) { break; }
+            desired_prop_size = floor(desired_prop_size/num_org);
             if(desired_prop_size > num_germ) {
                 desired_prop_size = num_germ;
             }
+            if (desired_prop_size < 1) { desired_prop_size = 1; }
+            
+            
             
             // Can this multicell replicate
             double res_required = get<PROP_BASE_REP_UNITS>(*i) + (desired_prop_size * get<PROP_CELL_REP_UNITS>(*i));
