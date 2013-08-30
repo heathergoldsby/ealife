@@ -395,7 +395,7 @@ struct propagule_size_tracking : end_of_update_event<EA> {
             }
             mean_ps /= sub_pop_size;
             mean_res /= sub_pop_size;
-            mean_desired_prop_size /= pop_size;
+            mean_desired_ps /= pop_size;
             _df.write(ea.current_update())
             .write(mean_ps)
             .write(mean_desired_ps)
