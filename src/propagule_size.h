@@ -370,10 +370,12 @@ struct propagule_size_tracking : end_of_update_event<EA> {
     virtual void operator()(EA& ea) {
         if ((ea.current_update() % 100) == 0) {
             double mean_ps = 0.0;
+            double mean_desired_ps = 0.0;
             double sub_pop_size = 0.0;
             double mean_res = 0.0;
             double pop_size = 0.0;
             double num_germ = 0.0;
+            
             
             for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
                 ++sub_pop_size;
@@ -383,6 +385,7 @@ struct propagule_size_tracking : end_of_update_event<EA> {
                     
                     typename EA::individual_type::individual_type& ind=**j;
                     if (ind.alive()) {
+                        mean_desired_ps += get<PROPAGULE_SIZE>(ind,1.0);
                         pop_size++;
                         if (get<GERM_STATUS>(ind,true)) {
                             num_germ++;
@@ -392,8 +395,10 @@ struct propagule_size_tracking : end_of_update_event<EA> {
             }
             mean_ps /= sub_pop_size;
             mean_res /= sub_pop_size;
+            mean_desired_prop_size /= pop_size;
             _df.write(ea.current_update())
             .write(mean_ps)
+            .write(mean_desired_ps)
             .write(mean_res)
             .write(num_germ)
             .write(pop_size)
