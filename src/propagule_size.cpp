@@ -203,6 +203,7 @@ public:
         add_option<PROP_COMPOSITION>(this);
         add_option<PROP_BASE_REP_UNITS>(this);
         add_option<PROP_CELL_REP_UNITS>(this);
+        add_option<MAX_PROPAGULE_SIZE>(this);
         
         
     }

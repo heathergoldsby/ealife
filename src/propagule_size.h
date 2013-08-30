@@ -49,6 +49,8 @@ LIBEA_MD_DECL(PROP_BASE_REP_UNITS, "ea.ps.prop_base_rep", double);
 LIBEA_MD_DECL(PROP_CELL_REP_UNITS, "ea.ps.prop_cell_rep", double);
 //! the actual number of orgs in the propagule
 LIBEA_MD_DECL(ACTUAL_PROP_SIZE, "ea.ps.actual_prop_size", double);
+//! max propagule size
+LIBEA_MD_DECL(MAX_PROPAGULE_SIZE, "ea.ps.max_prop_size", double);
 
 
 
@@ -69,7 +71,11 @@ DIGEVO_INSTRUCTION_DECL(get_epigenetic_info){
 
 //! Increment the propagule size suggested by the organism.
 DIGEVO_INSTRUCTION_DECL(inc_propagule_size){
-    get<PROPAGULE_SIZE>(*p,0)++;
+    int prop_size = get<PROPAGULE_SIZE>(*p, 1);
+    if (prop_size < get<MAX_PROPAGULE_SIZE>(ea,1)) {
+        prop_size++;
+        put<PROPAGULE_SIZE>(prop_size, *p);
+    }
 }
 
 //! Decrement the propagule size suggested by the organism.
@@ -143,6 +149,8 @@ struct ps_size_propagule : end_of_update_event<EA> {
                 continue;
             }
             
+            
+
             double desired_prop_size = 0.0;
             int num_germ = 0;
             int num_org = 0;
@@ -156,13 +164,19 @@ struct ps_size_propagule : end_of_update_event<EA> {
                 }
             }
             
-            if (num_germ == 0) { break; }
             desired_prop_size = floor(desired_prop_size/num_org);
+            
+            if (desired_prop_size < 1) { desired_prop_size = 1; }
+            std::random_shuffle(i->population().begin(), i->population().end(), ea.rng());
+
+            if (num_germ == 0) {
+                typename EA::individual_type::individual_type& o=**(i->population().begin());
+                put<GERM_STATUS>(true, o);
+                num_germ++;
+            }
             if(desired_prop_size > num_germ) {
                 desired_prop_size = num_germ;
             }
-            if (desired_prop_size < 1) { desired_prop_size = 1; }
-            
             
             
             // Can this multicell replicate
@@ -175,7 +189,6 @@ struct ps_size_propagule : end_of_update_event<EA> {
             // setup the population (really, an ea):
             typename EA::individual_ptr_type p = ea.make_individual();
             
-            std::random_shuffle(i->population().begin(), i->population().end(), ea.rng());
             
             int p_size = 0;
             
