@@ -133,7 +133,7 @@ struct ps_size_propagule : end_of_update_event<EA> {
             
             // Do not replicate if the 'founding org' is sterile.
             // Note may need to adjust this to include starting colony size.
-            if (i->population().size() == get<ACTUAL_PROP_SIZE>(*i, 1.0)) continue;
+            if (i->population().size() <= get<ACTUAL_PROP_SIZE>(*i, 1.0)) continue;
             
             double group_res = get<GROUP_RESOURCE_UNITS>(*i,0.0);
             double prop_base = get<PROP_BASE_REP_UNITS>(*i,0.0);
@@ -355,7 +355,10 @@ template <typename EA>
 struct propagule_size_tracking : end_of_update_event<EA> {
     propagule_size_tracking(EA& ea) : end_of_update_event<EA>(ea), _df("prop_size.dat") {
         _df.add_field("update")
-        .add_field("mean_prop_size");
+        .add_field("mean_prop_size")
+        .add_field("mean_resources")
+        .add_field("num_germ")
+        .add_field("pop_size");
         
     }
     
@@ -368,15 +371,53 @@ struct propagule_size_tracking : end_of_update_event<EA> {
         if ((ea.current_update() % 100) == 0) {
             double mean_ps = 0.0;
             double sub_pop_size = 0.0;
+            double mean_res = 0.0;
+            double pop_size = 0.0;
+            double num_germ = 0.0;
             
             for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
                 ++sub_pop_size;
                 mean_ps += get<ACTUAL_PROP_SIZE>(*i,1.0);
+                mean_res += get<GROUP_RESOURCE_UNITS>(*i,0.0);
+                for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
+                    
+                    typename EA::individual_type::individual_type& ind=**j;
+                    if (ind.alive()) {
+                        pop_size++;
+                        if (get<GERM_STATUS>(ind,true)) {
+                            num_germ++;
+                        }
+                    }
+                }
             }
             mean_ps /= sub_pop_size;
+            mean_res /= sub_pop_size;
             _df.write(ea.current_update())
             .write(mean_ps)
+            .write(mean_res)
+            .write(num_germ)
+            .write(pop_size)
             .endl();
+            
+            /* for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
+             
+             typename EA::individual_type::individual_type& ind=**j;
+             if (ind.alive()) {
+             ts += get<NUM_SWITCHES>(ind, 0);
+             ++org;
+             }
+             }
+             }
+             ts /= org;
+             _df.write(ea.current_update())
+             .write(sub_pop_size)
+             .write(org)
+             .write(ts)
+             .write(get<NUM_GROUP_REPLICATIONS>(ea,0))
+             .endl();
+             
+             get<NUM_GROUP_REPLICATIONS>(ea) = 0;
+             */
             
         }
         
