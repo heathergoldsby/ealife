@@ -214,7 +214,7 @@ public:
     
     virtual void gather_events(EA& ea) {
 //        add_event<ts_replication_propagule>(this,ea);
-        add_event<ps_size_propagule>(this,ea);
+        add_event<ps_size_propagule2>(this,ea);
         add_event<task_performed_tracking>(this,ea);
         add_event<task_switch_tracking>(this,ea);
         add_event<propagule_size_tracking>(this,ea);

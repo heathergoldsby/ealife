@@ -81,9 +81,7 @@ DIGEVO_INSTRUCTION_DECL(inc_propagule_size){
 //! Decrement the propagule size suggested by the organism.
 DIGEVO_INSTRUCTION_DECL(dec_propagule_size){
     int prop_size = get<PROPAGULE_SIZE>(*p, 1);
-    if (prop_size > 2) {
-        get<PROPAGULE_SIZE>(*p)--;
-    }
+    get<PROPAGULE_SIZE>(*p)--;
 }
 
 //! Get the propagule size suggested by the organism.
@@ -113,6 +111,142 @@ DIGEVO_INSTRUCTION_DECL(if_soma){
     }
 }
 
+
+//! Performs group replication.
+template <typename EA>
+struct ps_size_propagule2 : end_of_update_event<EA> {
+    //! Constructor.
+    ps_size_propagule2(EA& ea) : end_of_update_event<EA>(ea) {
+    }
+    
+    
+    //! Destructor.
+    virtual ~ps_size_propagule2() {
+    }
+    
+    //! Perform replication among populations.
+    virtual void operator()(EA& ea) {
+        // For each multicell:
+        // (1) figure out its propagule size (mean of prop sizes of individuals)
+        // (2) figure out how many resources it currently has
+        // (3) can it replicate?
+        
+        typename EA::population_type offspring;
+        for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+            
+            // Do not replicate if the 'founding org' is sterile.
+            // Note may need to adjust this to include starting colony size.
+            if (i->population().size() <= get<ACTUAL_PROP_SIZE>(*i, 1.0)) continue;
+            
+            double group_res = get<GROUP_RESOURCE_UNITS>(*i,0.0);
+            double prop_base = get<PROP_BASE_REP_UNITS>(*i,0.0);
+            // If there aren't enough resources for the base replication rate, skip
+            // assessing propagule size.
+            if (group_res < get<PROP_BASE_REP_UNITS>(*i)) {
+                continue;
+            }
+            
+            
+            
+            double desired_prop_size = 0.0;
+            int num_germ = 0;
+            int num_org = 0;
+            for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j) {
+                typename EA::individual_type::individual_type& o=**j;
+                
+                ++num_org;
+                double temp_p = get<PROPAGULE_SIZE>(o,1);
+                if (temp_p < 1) {
+                    temp_p = 1;
+                }
+                desired_prop_size += temp_p;
+                if (get<GERM_STATUS>(o,true)) {
+                    ++num_germ;
+                }
+            }
+            
+            desired_prop_size = floor(desired_prop_size/num_org);
+            
+            if (desired_prop_size < 1) { desired_prop_size = 1; }
+            std::random_shuffle(i->population().begin(), i->population().end(), ea.rng());
+            
+            if (num_germ == 0) {
+                continue;
+            }
+            if(desired_prop_size > num_germ) {
+                desired_prop_size = num_germ;
+            }
+            
+            
+            // Can this multicell replicate
+            double res_required = get<PROP_BASE_REP_UNITS>(*i) + (desired_prop_size * get<PROP_CELL_REP_UNITS>(*i));
+            if (group_res < res_required) {
+                continue; // multicell cannot replicate. continue
+            }
+            
+            get<NUM_GROUP_REPLICATIONS>(ea,0) ++;
+            // setup the population (really, an ea):
+            typename EA::individual_ptr_type p = ea.make_individual();
+            
+            
+            int p_size = 0;
+            
+            typename EA::individual_type::individual_type org;
+            
+            for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j) {
+                typename EA::individual_type::individual_type& prop_org=**j;
+                
+                if (get<GERM_STATUS>(prop_org,true)) {
+                    org = prop_org;
+                    org.repr().resize(org.hw().original_size());
+                    org.hw().initialize();
+                    
+                    // mutate it:
+                    configurable_per_site m(get<GERM_MUTATION_PER_SITE_P>(ea));
+                    mutate(org,m,*p);
+                    typename EA::individual_type::individual_ptr_type o=p->make_individual(org.repr());
+                    if(exists<EPIGENETIC_INFO>(org)) {
+                        put<EPIGENETIC_INFO>(get<EPIGENETIC_INFO>(org),*o);
+                    }
+                    
+                    p->append(o);
+                    ++p_size;
+                }
+                
+                if (p_size >= desired_prop_size) {
+                    put<ACTUAL_PROP_SIZE>(p_size, *p);
+                    break;
+                }
+            }
+            offspring.push_back(p);
+            
+            // reset resource units
+            i->env().reset_resources();
+            put<GROUP_RESOURCE_UNITS>(0,*i);
+            
+            // i == parent individual;
+            typename EA::population_type parent_pop, offspring_pop;
+            parent_pop.push_back(*i.base());
+            offspring_pop.push_back(p);
+            inherits(parent_pop, offspring_pop, ea);
+            
+            
+        }
+        // select surviving parent groups
+        if (offspring.size() > 0) {
+            int n = get<META_POPULATION_SIZE>(ea) - offspring.size();
+            
+            typename EA::population_type survivors;
+            select_n<selection::random>(ea.population(), survivors, n, ea);
+            
+            // add the offspring to the list of survivors:
+            survivors.insert(survivors.end(), offspring.begin(), offspring.end());
+            
+            // and swap 'em in for the current population:
+            std::swap(ea.population(), survivors);
+        }
+    }
+};
 
 
 //! Performs group replication.
@@ -363,6 +497,9 @@ struct ts_replication_propagule : end_of_update_event<EA> {
         
     }
 };
+
+
+
 
 template <typename EA>
 struct propagule_size_tracking : end_of_update_event<EA> {
