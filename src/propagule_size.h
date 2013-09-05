@@ -71,22 +71,18 @@ DIGEVO_INSTRUCTION_DECL(get_epigenetic_info){
 
 //! Increment the propagule size suggested by the organism.
 DIGEVO_INSTRUCTION_DECL(inc_propagule_size){
-    int prop_size = get<PROPAGULE_SIZE>(*p, 1);
-    if (prop_size < get<MAX_PROPAGULE_SIZE>(ea,1)) {
-        prop_size++;
-        put<PROPAGULE_SIZE>(prop_size, *p);
-    }
+    get<PROPAGULE_SIZE>(*p, 1.0)++;
 }
 
 //! Decrement the propagule size suggested by the organism.
 DIGEVO_INSTRUCTION_DECL(dec_propagule_size){
-    int prop_size = get<PROPAGULE_SIZE>(*p, 1);
-    get<PROPAGULE_SIZE>(*p)--;
+    double p1 = get<PROPAGULE_SIZE>(*p, 1.0);
+    p1 -= 1.0;
 }
 
 //! Get the propagule size suggested by the organism.
 DIGEVO_INSTRUCTION_DECL(get_propagule_size){
-    hw.setRegValue(hw.modifyRegister(), get<PROPAGULE_SIZE>(*p, 1));
+    hw.setRegValue(hw.modifyRegister(), get<PROPAGULE_SIZE>(*p, 1.0));
 }
 
 
@@ -144,9 +140,7 @@ struct ps_size_propagule2 : end_of_update_event<EA> {
             // assessing propagule size.
             if (group_res < get<PROP_BASE_REP_UNITS>(*i)) {
                 continue;
-            }
-            
-            
+            }            
             
             double desired_prop_size = 0.0;
             int num_germ = 0;
@@ -155,11 +149,7 @@ struct ps_size_propagule2 : end_of_update_event<EA> {
                 typename EA::individual_type::individual_type& o=**j;
                 
                 ++num_org;
-                double temp_p = get<PROPAGULE_SIZE>(o,1);
-                if (temp_p < 1) {
-                    temp_p = 1;
-                }
-                desired_prop_size += temp_p;
+                desired_prop_size += get<PROPAGULE_SIZE>(o,1.0);
                 if (get<GERM_STATUS>(o,true)) {
                     ++num_germ;
                 }
@@ -167,15 +157,10 @@ struct ps_size_propagule2 : end_of_update_event<EA> {
             
             desired_prop_size = floor(desired_prop_size/num_org);
             
-            if (desired_prop_size < 1) { desired_prop_size = 1; }
+            if (desired_prop_size < 1) { continue; }
+            if (num_germ == 0) { continue; }
+            if (desired_prop_size > num_germ) { desired_prop_size = num_germ; }
             std::random_shuffle(i->population().begin(), i->population().end(), ea.rng());
-            
-            if (num_germ == 0) {
-                continue;
-            }
-            if(desired_prop_size > num_germ) {
-                desired_prop_size = num_germ;
-            }
             
             
             // Can this multicell replicate
@@ -292,7 +277,7 @@ struct ps_size_propagule : end_of_update_event<EA> {
                 typename EA::individual_type::individual_type& o=**j;
                 
                 ++num_org;
-                desired_prop_size += get<PROPAGULE_SIZE>(o, 1);
+                desired_prop_size += get<PROPAGULE_SIZE>(o, 1.0);
                 if (get<GERM_STATUS>(o,true)) {
                     ++num_germ;
                 }
@@ -506,6 +491,7 @@ struct propagule_size_tracking : end_of_update_event<EA> {
     propagule_size_tracking(EA& ea) : end_of_update_event<EA>(ea), _df("prop_size.dat") {
         _df.add_field("update")
         .add_field("mean_prop_size")
+        .add_field("desired_prop_size")
         .add_field("mean_resources")
         .add_field("num_germ")
         .add_field("pop_size");
@@ -554,25 +540,6 @@ struct propagule_size_tracking : end_of_update_event<EA> {
             .write(pop_size)
             .endl();
             
-            /* for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
-             
-             typename EA::individual_type::individual_type& ind=**j;
-             if (ind.alive()) {
-             ts += get<NUM_SWITCHES>(ind, 0);
-             ++org;
-             }
-             }
-             }
-             ts /= org;
-             _df.write(ea.current_update())
-             .write(sub_pop_size)
-             .write(org)
-             .write(ts)
-             .write(get<NUM_GROUP_REPLICATIONS>(ea,0))
-             .endl();
-             
-             get<NUM_GROUP_REPLICATIONS>(ea) = 0;
-             */
             
         }
         
