@@ -107,7 +107,7 @@ struct ts_configuration : public abstract_configuration<EA> {
         double frac = get<RES_FRACTION_CONSUMED>(ea,0);
         
         // initial amount (unit), inflow (unit), outflow (percentage), percent consumed, ea
-        resource_ptr_type resA = make_resource("resA", init_amt, inflow, outflow, frac, ea);
+        resource_ptr_type resA = make_resource("resA", 0.1, init_amt, inflow, outflow, frac, ea);
         resource_ptr_type resB = make_resource("resB", init_amt, inflow, outflow, frac, ea);
         resource_ptr_type resC = make_resource("resC", init_amt, inflow, outflow, frac, ea);
         resource_ptr_type resD = make_resource("resD", init_amt, inflow, outflow, frac, ea);

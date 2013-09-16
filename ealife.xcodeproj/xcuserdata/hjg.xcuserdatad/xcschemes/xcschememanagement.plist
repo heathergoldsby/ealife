@@ -49,6 +49,11 @@
 			<key>orderHint</key>
 			<integer>27</integer>
 		</dict>
+		<key>hologenome_gender.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>30</integer>
+		</dict>
 		<key>hologenome_not_nand_balance.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -113,6 +118,11 @@
 			<true/>
 		</dict>
 		<key>3E667D7917ABE01100A42924</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3E77045917E72A9700A2323F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

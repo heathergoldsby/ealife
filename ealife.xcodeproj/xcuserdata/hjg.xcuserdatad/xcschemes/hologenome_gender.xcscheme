@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3EF08D84174CE516007852C8"
-               BuildableName = "propagule_size"
-               BlueprintName = "propagule_size"
+               BlueprintIdentifier = "3E77045917E72A9700A2323F"
+               BuildableName = "hologenome"
+               BlueprintName = "hologenome_gender"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3EF08D84174CE516007852C8"
-            BuildableName = "propagule_size"
-            BlueprintName = "propagule_size"
+            BlueprintIdentifier = "3E77045917E72A9700A2323F"
+            BuildableName = "hologenome"
+            BlueprintName = "hologenome_gender"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -44,7 +44,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/hjg/Desktop/research/ea/temp-ps"
+      customWorkingDirectory = "/Users/hjg/Desktop/research/ea/temp-holo"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -52,32 +52,16 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3EF08D84174CE516007852C8"
-            BuildableName = "propagule_size"
-            BlueprintName = "propagule_size"
+            BlueprintIdentifier = "3E77045917E72A9700A2323F"
+            BuildableName = "hologenome"
+            BlueprintName = "hologenome_gender"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--config spots.cfg"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-l checkpoint-1000.xml"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--config ts5.cfg"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--config ts5-spatial.cfg"
+            argument = "-c ealib.cfg"
             isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-l checkpoint-100.xml"
-            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
@@ -92,9 +76,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3EF08D84174CE516007852C8"
-            BuildableName = "propagule_size"
-            BlueprintName = "propagule_size"
+            BlueprintIdentifier = "3E77045917E72A9700A2323F"
+            BuildableName = "hologenome"
+            BlueprintName = "hologenome_gender"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
