@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3E77045917E72A9700A2323F"
-               BuildableName = "hologenome"
+               BuildableName = "hologenome_gender"
                BlueprintName = "hologenome_gender"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E77045917E72A9700A2323F"
-            BuildableName = "hologenome"
+            BuildableName = "hologenome_gender"
             BlueprintName = "hologenome_gender"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E77045917E72A9700A2323F"
-            BuildableName = "hologenome"
+            BuildableName = "hologenome_gender"
             BlueprintName = "hologenome_gender"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3E77045917E72A9700A2323F"
-            BuildableName = "hologenome"
+            BuildableName = "hologenome_gender"
             BlueprintName = "hologenome_gender"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>

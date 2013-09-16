@@ -132,3 +132,12 @@ exe hologenome_not_nand_balance :
     ;
 
 install dist : hologenome_not_nand_balance : <location>$(HOME)/bin ;
+
+exe hologenome_gender :
+    src/hologenome_gender.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : hologenome_gender : <location>$(HOME)/bin ;
