@@ -55,7 +55,8 @@ LIBEA_MD_DECL(ANDNOT_MUTATION_MULT, "ea.gls.andnot_mutation_mult", double);
 LIBEA_MD_DECL(NOR_MUTATION_MULT, "ea.gls.nor_mutation_mult", double);
 LIBEA_MD_DECL(XOR_MUTATION_MULT, "ea.gls.xor_mutation_mult", double);
 LIBEA_MD_DECL(EQUALS_MUTATION_MULT, "ea.gls.equals_mutation_mult", double);
-
+LIBEA_MD_DECL(REWRITE_SOMA, "ea.gls.rewrite_soma", double);
+LIBEA_MD_DECL(REWRITE_STATUS, "ea.gls.rewrite_status", bool);
 
 // Germ instructions!
 
@@ -63,7 +64,9 @@ LIBEA_MD_DECL(EQUALS_MUTATION_MULT, "ea.gls.equals_mutation_mult", double);
  */
 
 DIGEVO_INSTRUCTION_DECL(become_soma) {
+  if(!get<REWRITE_STATUS>(*p,false)) {
     put<GERM_STATUS>(false,*p);
+  }
 }
 
 
@@ -109,8 +112,8 @@ struct gs_inherit_event : inheritance_event<EA> {
     virtual void operator()(typename EA::population_type& parents,
                             typename EA::individual_type& offspring,
                             EA& ea) {
-        
-        get<GERM_STATUS>(offspring, true) = get<GERM_STATUS>(**parents.begin(), true);
+      put<REWRITE_STATUS>(get<REWRITE_STATUS>(**parents.begin(), false), offspring);
+      get<GERM_STATUS>(offspring, true) = get<GERM_STATUS>(**parents.begin(), true);
     }
 };
 
@@ -291,6 +294,7 @@ struct gls_replication : end_of_update_event<EA> {
                 
                 // and fill up the offspring population with copies of the germ:
                 typename EA::individual_type::individual_ptr_type o=p->make_individual(germ.repr());
+                put<REWRITE_STATUS>(get<REWRITE_STATUS>(germ,false),*o);
                 p->append(o);
                 offspring.push_back(p);
                 

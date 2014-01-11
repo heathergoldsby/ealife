@@ -66,8 +66,6 @@ struct gls_configuration : public abstract_configuration<EA> {
         append_isa<donate_res_to_group>(ea);
         append_isa<get_xy>(ea);
         
-
-        
         add_event<task_mutagenesis>(this,ea);
         add_event<gs_inherit_event>(this,ea);
         add_event<task_resource_consumption>(this,ea);
@@ -115,6 +113,29 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_nor->consumes(resG);
         task_xor->consumes(resH);
         task_equals->consumes(resI);
+
+	double rewrite_p=get<REWRITE_SOMA>(ea,0.0);
+        if(rewrite_p > 0.0) {
+	  std::size_t become_soma_i = ea.isa()["become_soma"];
+	  std::size_t nopx_i = ea.isa()["nop_x"];
+	  
+	  for(typename EA::population_type::iterator i=ea.population().begin()
+		; i!=ea.population().end()
+		; ++i) {
+	    typename EA::individual_type& org=**i;
+	    if(ea.rng().p(rewrite_p)) {
+	      for(typename EA::representation_type::iterator j=org.repr().begin()
+		    ; j!=org.repr().end()
+		    ; ++j) {
+		if((*j) == become_soma_i) {
+		  *j = nopx_i;
+		  put<REWRITE_STATUS>(true,org);
+		  put<GERM_STATUS>(true,org);
+		}
+	      }
+	    }
+	  }
+	}
     }
     
     //! Called to generate the initial EA population.
