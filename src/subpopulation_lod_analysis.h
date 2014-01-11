@@ -395,8 +395,10 @@ namespace ea {
                 .add_field("mean_germ_workload")
                 .add_field("mean_germ_workload_var")
                 .add_field("mean_soma_workload")
-                .add_field("mean_soma_workload_var");
-                
+                .add_field("mean_soma_workload_var")
+		.add_field("mean_overall_workload")
+		.add_field("mean_overall_workload_var");
+
                 int lod_depth = 0;
                 // skip def ancestor (that's what the +1 does)
                 for( ; i!=lod.end(); ++i) {
@@ -428,11 +430,13 @@ namespace ea {
                     
                     double germ_count = 0;
                     double pop_count = 0;
-                    accumulator_set<double, stats<tag::mean, tag::variance> > germ_workload_acc;
-                    accumulator_set<double, stats<tag::mean, tag::variance> > soma_workload_acc;
+                    accumulator_set<double, stats<tag::count,tag::mean, tag::variance> > germ_workload_acc;
+                    accumulator_set<double, stats<tag::count,tag::mean, tag::variance> > soma_workload_acc;
+                    accumulator_set<double, stats<tag::count,tag::mean, tag::variance> > overall_workload_acc;
                     
                     for(typename EA::individual_type::population_type::iterator j=control_ea->population().begin(); j!=control_ea->population().end(); ++j) {
                         typename EA::individual_type::individual_type& org=**j;
+                        overall_workload_acc(get<WORKLOAD>(org,0.0));
                         if (get<GERM_STATUS>(org, true)) {
                             ++germ_count;
                             germ_workload_acc(get<WORKLOAD>(org, 0.0));
@@ -454,36 +458,39 @@ namespace ea {
                     if (get<TASK_NOR>(*control_ea,0.0)) ++task_type_count;
                     if (get<TASK_XOR>(*control_ea,0.0)) ++task_type_count;
                     if (get<TASK_EQUALS>(*control_ea,0.0)) ++task_type_count;
-
-                    
-                    
                     
                     double germ_percent = (germ_count/pop_count);
                     df.write(cur_update)
                     .write(task_type_count)
                     .write(germ_count)
                     .write(pop_count)
-                    .write(germ_percent)
-                    .write(mean(germ_workload_acc))
-                    .write(variance(germ_workload_acc));
-                    
-                    if (germ_count != pop_count){
-                        df.write(mean(soma_workload_acc))
-                        .write(variance(soma_workload_acc));
+		      .write(germ_percent);
+
+		    if(count(germ_workload_acc) > 0) {
+		      df.write(mean(germ_workload_acc))
+                        .write(variance(germ_workload_acc));
                     } else {
-                        df.write(0)
-                        .write(0); 
+		      df.write(0.0).write(0.0);
                     }
                     
+                    if(count(soma_workload_acc) > 0) {
+		      df.write(mean(soma_workload_acc))
+                        .write(variance(soma_workload_acc));
+                    } else {
+		      df.write(0).write(0);
+                    }
                     
+                    if(count(overall_workload_acc) > 0) {
+		      df.write(mean(overall_workload_acc))
+                        .write(variance(overall_workload_acc));
+                    } else {
+		      df.write(0).write(0);
+                    }
                     df.endl();
                     
                     ++lod_depth;
                 }
             }
-            
-            
-                        
         };
         
         
