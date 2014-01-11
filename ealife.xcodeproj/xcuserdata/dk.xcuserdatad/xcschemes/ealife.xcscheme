@@ -14,8 +14,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "42441A8A15861724009863BE"
-               BuildableName = "ealife"
-               BlueprintName = "ealife"
+               BuildableName = "gls"
+               BlueprintName = "gls"
                ReferencedContainer = "container:ealife.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -35,13 +35,16 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
       customWorkingDirectory = "/Users/dk/Documents/repositories/research.hg/src/ealife/tmp"
-      buildConfiguration = "Debug">
+      buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "42441A8A15861724009863BE"
-            BuildableName = "ealife"
-            BlueprintName = "ealife"
+            BuildableName = "gls"
+            BlueprintName = "gls"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -58,13 +61,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release">
+      buildConfiguration = "Release"
+      debugDocumentVersioning = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "42441A8A15861724009863BE"
-            BuildableName = "ealife"
-            BlueprintName = "ealife"
+            BuildableName = "gls"
+            BlueprintName = "gls"
             ReferencedContainer = "container:ealife.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
