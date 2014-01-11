@@ -364,8 +364,53 @@ struct gls_replication : end_of_update_event<EA> {
     std::deque<double> soma_workload;
     std::deque<double> soma_workload_var;
     int num_rep;
+};
+
+
+/*! Datafile for mean generation, and mean & max fitness.
+ */
+template <typename EA>
+struct cheater_datafile : record_statistics_event<EA> {
+    cheater_datafile(EA& ea)
+    : record_statistics_event<EA>(ea)
+    , _df("cheater.dat") {
+        _df.add_field("update")
+        .add_field("population_size")
+        .add_field("soma")
+        .add_field("germ")
+        .add_field("cheaters");
+    }
     
+    virtual ~cheater_datafile() {
+    }
     
+    virtual void operator()(EA& ea) {
+        
+        unsigned int p=0,s=0,g=0,c=0;
+        
+        for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+            for(typename EA::population_type::iterator j=i->population().begin()
+                ; j!=i->population().end()
+                ; ++j) {
+                typename EA::individual_type& org=**j;
+
+                ++p;
+                if(get<GERM_STATUS>(org,true)) {
+                    ++g;
+                } else {
+                    ++s;
+                }
+                if(get<REWRITE_STATUS>(org,false)) {
+                    ++c;
+                }
+            }
+        }
+        
+        _df.write(ea.current_update())
+        .write(p).write(s).write(g).write(c).endl();
+    }
+    
+    datafile _df;
 };
 
 

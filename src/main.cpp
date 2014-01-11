@@ -1,19 +1,19 @@
 /* main.cpp
- * 
+ *
  * This file is part of EALife.
- * 
+ *
  * Copyright 2012 David B. Knoester, Heather J. Goldsby.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,14 +48,14 @@ struct gls_configuration : public abstract_configuration<EA> {
         append_isa<swap>(ea);//10
         append_isa<inc>(ea);
         append_isa<dec>(ea);
-        append_isa<tx_msg>(ea); 
+        append_isa<tx_msg>(ea);
         append_isa<rx_msg>(ea); //15
         append_isa<bc_msg>(ea);
         append_isa<rotate>(ea);
         append_isa<rotate_cw>(ea);
         append_isa<rotate_ccw>(ea);
         append_isa<if_less>(ea); //20
-        append_isa<h_alloc>(ea);             
+        append_isa<h_alloc>(ea);
         append_isa<h_copy>(ea);
         append_isa<h_divide>(ea);
         append_isa<fixed_input>(ea);
@@ -113,29 +113,29 @@ struct gls_configuration : public abstract_configuration<EA> {
         task_nor->consumes(resG);
         task_xor->consumes(resH);
         task_equals->consumes(resI);
-
-	double rewrite_p=get<REWRITE_SOMA>(ea,0.0);
+        
+        double rewrite_p=get<REWRITE_SOMA>(ea,0.0);
         if(rewrite_p > 0.0) {
-	  std::size_t become_soma_i = ea.isa()["become_soma"];
-	  std::size_t nopx_i = ea.isa()["nop_x"];
-	  
-	  for(typename EA::population_type::iterator i=ea.population().begin()
-		; i!=ea.population().end()
-		; ++i) {
-	    typename EA::individual_type& org=**i;
-	    if(ea.rng().p(rewrite_p)) {
-	      for(typename EA::representation_type::iterator j=org.repr().begin()
-		    ; j!=org.repr().end()
-		    ; ++j) {
-		if((*j) == become_soma_i) {
-		  *j = nopx_i;
-		  put<REWRITE_STATUS>(true,org);
-		  put<GERM_STATUS>(true,org);
-		}
-	      }
-	    }
-	  }
-	}
+            std::size_t become_soma_i = ea.isa()["become_soma"];
+            std::size_t nopx_i = ea.isa()["nop_x"];
+            
+            for(typename EA::population_type::iterator i=ea.population().begin()
+                ; i!=ea.population().end()
+                ; ++i) {
+                typename EA::individual_type& org=**i;
+                if(ea.rng().p(rewrite_p)) {
+                    for(typename EA::representation_type::iterator j=org.repr().begin()
+                        ; j!=org.repr().end()
+                        ; ++j) {
+                        if((*j) == become_soma_i) {
+                            *j = nopx_i;
+                            put<REWRITE_STATUS>(true,org);
+                            put<GERM_STATUS>(true,org);
+                        }
+                    }
+                }
+            }
+        }
     }
     
     //! Called to generate the initial EA population.
@@ -150,7 +150,7 @@ struct gls_configuration : public abstract_configuration<EA> {
 typedef digital_evolution<
 gls_configuration, spatial, empty_neighbor, round_robin
 > ea_type;
-  
+
 template <typename EA>
 struct mp_configuration : public abstract_configuration<EA> {
     void initial_population(EA& ea) {
@@ -168,7 +168,7 @@ lod_individual<subpopulation_founder<ea_type> >
 , mp_configuration> mea_type;
 
 
-/*! 
+/*!
  */
 template <typename EA>
 class cli : public cmdline_interface<EA> {
@@ -190,10 +190,10 @@ public:
         add_option<MUTATION_UNIFORM_INT_MAX>(this);
         add_option<RUN_UPDATES>(this);
         add_option<RUN_EPOCHS>(this);
-        add_option<CHECKPOINT_PREFIX>(this);        
+        add_option<CHECKPOINT_PREFIX>(this);
         add_option<RNG_SEED>(this);
         add_option<RECORDING_PERIOD>(this);
-
+        
         add_option<ANALYSIS_INPUT>(this);
         
         // gls specific options
@@ -216,14 +216,14 @@ public:
     }
     
     virtual void gather_tools() {
-
+        
         add_tool<ea::analysis::lod_knockouts>(this);
         add_tool<ea::analysis::lod_gls_circle_square_plot>(this);
         add_tool<ea::analysis::lod_gls_germ_soma_mean_var>(this);
         add_tool<ea::analysis::lod_gls_aging_res_over_time>(this);
         add_tool<ea::analysis::lod_gls_aging_res_over_time_compact>(this);
         add_tool<ea::analysis::lod_gls_task_count>(this);
-
+        
         
     }
     
@@ -232,6 +232,7 @@ public:
         add_event<task_performed_tracking>(this,ea);
         add_event<mrca_lineage_datafile>(this,ea);
         add_event<founder_event>(this,ea);
+        add_event<cheater_datafile>(this,ea);
     };
 };
 LIBEA_CMDLINE_INSTANCE(mea_type, cli);
