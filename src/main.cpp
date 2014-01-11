@@ -212,6 +212,7 @@ public:
         add_option<XOR_MUTATION_MULT>(this);
         add_option<EQUALS_MUTATION_MULT>(this);
         
+        add_option<REWRITE_SOMA>(this);
     }
     
     virtual void gather_tools() {
