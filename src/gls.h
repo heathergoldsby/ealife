@@ -389,10 +389,10 @@ struct cheater_datafile : record_statistics_event<EA> {
         unsigned int p=0,s=0,g=0,c=0;
         
         for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
-            for(typename EA::population_type::iterator j=i->population().begin()
+            for(typename EA::individual_type::population_type::iterator j=i->population().begin()
                 ; j!=i->population().end()
                 ; ++j) {
-                typename EA::individual_type& org=**j;
+                typename EA::individual_type::individual_type& org=**j;
 
                 ++p;
                 if(get<GERM_STATUS>(org,true)) {
