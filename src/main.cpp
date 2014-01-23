@@ -223,7 +223,7 @@ public:
         add_tool<ea::analysis::lod_gls_aging_res_over_time>(this);
         add_tool<ea::analysis::lod_gls_aging_res_over_time_compact>(this);
         add_tool<ea::analysis::lod_gls_task_count>(this);
-        
+        add_tool<ea::analysis::lod_last_genome>(this);        
         
     }
     
