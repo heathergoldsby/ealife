@@ -10,6 +10,14 @@ exe gls :
     : <include>./include <link>static
     ;
 
+exe gls-analysis :
+    src/main.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static <define>EA_ANALYSIS
+    ;
+
+
 install dist : gls : <location>$(HOME)/bin ;
 
 

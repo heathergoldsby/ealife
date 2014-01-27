@@ -603,8 +603,108 @@ namespace ea {
                 }
             };
 
+        
     } // analysis
 
+    
+    template <typename EA>
+    struct task_locations_event : task_performed_event<EA> {
+        task_locations_event(EA& ea) : task_performed_event<EA>(ea), _df("task_locations.dat") {
+            _df.add_field("update")
+            .add_field("x")
+            .add_field("y")
+            .add_field("task");
+        }
+        virtual ~task_locations_event() { }
+        virtual void operator()(typename EA::individual_type& ind, // individual
+                                typename EA::tasklib_type::task_ptr_type task, // task pointer
+                                double r, // resources consumed
+                                EA& ea) {
+            _df.write(ea.current_update())
+            .write(ind.location()->x)
+            .write(ind.location()->y)
+            .write(task->name())
+            .endl();
+        }
+        datafile _df;
+    };
+
+    
+    /*! Chains together offspring and their parents, called for every inheritance event.
+     */
+    template <typename EA>
+    struct trace_event : event {
+        trace_event(EA& ea) : _df("trace.dat") {
+            conn = ea.events().instruction_executed.connect(boost::bind(&trace_event::operator(), this, _1, _2, _3));
+            _df.add_field("update")
+            .add_field("x")
+            .add_field("y")
+            .add_field("heading")
+            .add_field("germ_status")
+            .add_field("inst_name")
+            .add_field("ip");
+        }
+        
+        //! Destructor.
+        virtual ~trace_event() {
+        }
+        
+        //! Called on instruction execution.
+        virtual void operator()(typename EA::individual_type& ind,
+                                typename EA::isa_type::inst_ptr_type inst,
+                                EA& ea) {
+            _df.write(ea.current_update())
+            .write(ind.location()->x)
+            .write(ind.location()->y)
+            .write(ind.location()->heading)
+            .write(get<GERM_STATUS>(ind,true))
+            .write(inst->name())
+            .write(ind.hw().getHeadLocation(0))
+            .endl();
+        }
+        
+        datafile _df;
+    };
+    
+    template <typename EA>
+    struct lod_trace_last : public ea::analysis::unary_function<EA> {
+        static const char* name() { return "lod_trace_last"; }
+        
+        virtual void operator()(EA& ea) {
+            using namespace ea;
+            using namespace ea::analysis;
+            
+            line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
+            typename line_of_descent<EA>::reverse_iterator i=lod.rbegin();
+            
+            typename EA::individual_ptr_type control_ea = ea.make_individual();
+            control_ea->rng().reset(get<RNG_SEED>(**i));
+            
+            // setup the founder
+            typename EA::individual_type::individual_ptr_type o= (*i)->make_individual((*i)->founder().repr());
+            o->hw().initialize();
+            control_ea->append(o);
+            
+            // now add our trace events:
+            typedef typename EA::individual_type::base_type::base_type embedded_type;
+            task_locations_event<embedded_type> taskloc(*control_ea);
+            trace_event<embedded_type> trace(*control_ea);
+            
+            // replay! till the group amasses the right amount of resources
+            // or exceeds its window...
+            int cur_update = 0;
+            int update_max = 10000;
+            // and run till the group amasses the right amount of resources
+            while ((get<GROUP_RESOURCE_UNITS>(*control_ea,0) < get<GROUP_REP_THRESHOLD>(*control_ea)) &&
+                   (cur_update < update_max)) {
+                control_ea->update();
+                ++cur_update;
+            }
+        }
+    };
+    
+
+    
 } // ealib
 
 #endif

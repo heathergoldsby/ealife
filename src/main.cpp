@@ -224,7 +224,7 @@ public:
         add_tool<ea::analysis::lod_gls_aging_res_over_time_compact>(this);
         add_tool<ea::analysis::lod_gls_task_count>(this);
         add_tool<ea::analysis::lod_last_genome>(this);        
-        
+        add_tool<ea::lod_trace_last>(this);
     }
     
     virtual void gather_events(EA& ea) {
