@@ -1,28 +1,12 @@
-/* propagule_size.cpp
- *
- * This file is part of EALife.
- *
- * Copyright 2012 David B. Knoester, Heather J. Goldsby.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+
 
 #include "ts.h"
+#include "stripes.h"
 #include "resource_phenotype.h"
 #include "propagule_size.h"
 #include "lod_knockouts.h"
 #include "multi_birth_selfrep_not_ancestor.h"
+#include "multi_birth_selfrep_not_nand_ancestor.h"
 
 #include <ea/digital_evolution/population_founder.h>
 #include <ea/line_of_descent.h>
@@ -63,31 +47,60 @@ struct ts_configuration : public abstract_configuration<EA> {
         append_isa<fixed_input>(ea);
         append_isa<output>(ea);
         append_isa<donate_res_to_group>(ea);
-        append_isa<get_xy>(ea);
+        //        append_isa<get_xy>(ea);
         append_isa<if_equal>(ea);
         append_isa<if_not_equal>(ea);
         append_isa<jump_head>(ea);
+        append_isa<is_neighbor>(ea);
+        append_isa<is_origin>(ea);
+        append_isa<get_epigenetic_info>(ea);
+        append_isa<set_epigenetic_info>(ea);
         
-        add_event<stripes>(this,ea);
+        // SOMA
+//        append_isa<inc_propagule_size>(ea);
+//        append_isa<dec_propagule_size>(ea);
+//        append_isa<get_propagule_size>(ea);
+//        
+//        append_isa<become_soma>(ea);
+//        append_isa<if_soma>(ea);
+//        append_isa<if_germ>(ea);
+        
+        add_event<task_resource_consumption>(this,ea);
+        add_event<task_switching_cost>(this, ea);
         add_event<ts_birth_event>(this,ea);
     }
     
     //! Initialize! Things are live and are mostly setup. All the objects are there, but they
     // may not have the parameters that they need.
     virtual void initialize(EA& ea) {
-        // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
+        task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
         
         resource_ptr_type resA = make_resource("resA", ea);
+        resource_ptr_type resB = make_resource("resB", ea);
         
         task_not->consumes(resA);
+        task_nand->consumes(resB);
+        
         
     }
     
     //! Called to generate the initial EA population.
-    virtual void initial_population(EA& ea) {
-        generate_ancestors(multibirth_selfrep_not_ancestor(), 1, ea);
+    void initial_population(EA& ea) {
+        
+        int ancest = get<ANCESTOR>(ea, 0);
+        switch (ancest) {
+            case 0:
+                generate_ancestors(multibirth_selfrep_not_ancestor(), 1, ea);
+                break;
+            case 1:
+                generate_ancestors(multibirth_selfrep_not_nand_ancestor(), 1, ea);
+                break;
+        }
+        
+        
     }
+
 };
 
 
@@ -141,14 +154,28 @@ public:
         
         // ts specific options
         add_option<GROUP_REP_THRESHOLD>(this);
+        add_option<TASK_SWITCHING_COST>(this);
+        add_option<LAST_TASK>(this);
+        add_option<NUM_SWITCHES>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
+        
+        // initial amount (unit), inflow (unit), outflow (percentage), percent consumed
+//        add_option<RES_INITIAL_AMOUNT>(this);
+//        add_option<RES_INFLOW_AMOUNT>(this);
+//        add_option<RES_OUTFLOW_FRACTION>(this);
+//        add_option<RES_FRACTION_CONSUMED>(this);
         
         // propagule speciific options
         add_option<PROP_SIZE>(this);
         add_option<PROP_COMPOSITION>(this);
+        add_option<PROP_BASE_REP_UNITS>(this);
+        add_option<PROP_CELL_REP_UNITS>(this);
+        add_option<MAX_PROPAGULE_SIZE>(this);
         
-        // resource phenotype options
-        add_option<TASK_EXP_BASE>(this);
+        // stripes
+        add_option<ANCESTOR>(this);
+
+        
         
     }
     
@@ -157,8 +184,12 @@ public:
     }
     
     virtual void gather_events(EA& ea) {
-        add_event<ts_replication_propagule>(this,ea);
+        //        add_event<ts_replication_propagule>(this,ea);
+//        add_event<ps_size_propagule2>(this,ea);
+        add_event<vert_stripes>(this,ea);
         add_event<task_performed_tracking>(this,ea);
+        add_event<task_switch_tracking>(this,ea);
+        add_event<propagule_size_tracking>(this,ea);
         add_event<population_founder_event>(this,ea);
         add_event<reward_tracking>(this,ea);
     };

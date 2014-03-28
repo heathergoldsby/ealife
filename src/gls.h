@@ -41,7 +41,7 @@ using namespace boost::accumulators;
  
  */
 
-LIBEA_MD_DECL(GERM_STATUS, "ea.gls.germ_status", bool);
+LIBEA_MD_DECL(GERM_STATUS, "ea.gls.germ_status", int);
 LIBEA_MD_DECL(TASK_MUTATION_PER_SITE_P, "ea.gls.task_mutation_per_site_p", double);
 LIBEA_MD_DECL(GERM_MUTATION_PER_SITE_P, "ea.gls.germ_mutation_per_site_p", double);
 LIBEA_MD_DECL(WORKLOAD, "ea.gls.workload", double);
@@ -161,7 +161,7 @@ struct task_mutagenesis_control : reaction_event<EA> {
         
         double mult = get<TASK_MUTATION_MULT>(*task);
         double prob = get<TASK_MUTATION_PER_SITE_P>(ea) * mult;
-        bool gs_status = get<GERM_STATUS>(ind, true);
+        int gs_status = get<GERM_STATUS>(ind, true);
         typename EA::individual_type& sacrificial_org = ind;
         int smallest_workload = get<WORKLOAD>(ind, 0.0);
         if (prob > 0) {
@@ -221,7 +221,7 @@ struct gls_replication : end_of_update_event<EA> {
                 
                 // grab a copy of the first individual: 
                 typename EA::individual_type::individual_type germ;
-                bool germ_present = false;
+                int germ_present = false;
                 
                 // If so, setup a new replicate pop.
                 // Find a germ...

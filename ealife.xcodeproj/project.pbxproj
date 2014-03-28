@@ -312,6 +312,7 @@
 		42441A9915861785009863BE /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = /usr/local/lib/libboost_serialization.dylib; sourceTree = "<absolute>"; };
 		42441A9A15861785009863BE /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = /usr/local/lib/libboost_signals.dylib; sourceTree = "<absolute>"; };
 		42441B2815862C44009863BE /* libea.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libea.a; path = ../../../DerivedData/research/Build/Products/Debug/libea.a; sourceTree = "<group>"; };
+		48A1E129183F8ED70023C478 /* stripes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stripes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -587,6 +588,7 @@
 				3EB67EF816FB1FC300111A41 /* gls_unlimited_all.cpp */,
 				3E55ED341746541800735172 /* ts_soft_reset.cpp */,
 				3EF08D82174CDB20007852C8 /* spots.cpp */,
+				48A1E129183F8ED70023C478 /* stripes.h */,
 				3E667D7817ABDFE400A42924 /* stripes.cpp */,
 				3E067FFF178B2C8E003AD69F /* hologenome.cpp */,
 				3E2D2BAE17A699650069C966 /* hologenome_not_nand_balance.cpp */,

@@ -110,8 +110,6 @@ struct ts_configuration : public abstract_configuration<EA> {
         }
         
         
-        generate_ancestors(multibirth_selfrep_not_nand_ornot_ancestor(), 1, ea);
-        
     }
 };
 
