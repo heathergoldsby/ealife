@@ -22,7 +22,6 @@
 
 #include "subpopulation_lod_analysis.h"
 #include "lod_knockouts.h"
-#include "multi_birth_selfrep_not_ancestor.h"
 
 #include <ea/digital_evolution/population_founder.h>
 #include <ea/line_of_descent.h>
@@ -142,7 +141,7 @@ gls_configuration, spatial, empty_neighbor, round_robin
 typedef digital_evolution
 < gls_configuration
 , organism< >
-, multibirth_selfrep_not_ancestor
+, selfrep_not_ancestor
 , recombination::asexual
 , round_robin
 , empty_neighbor
