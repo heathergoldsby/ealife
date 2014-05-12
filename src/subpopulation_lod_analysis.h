@@ -18,7 +18,7 @@
 #include <ea/analysis.h>
 
 //#include <ea/analysis/tool.h>
-#include <ea/digital_evolution/isa.h>
+#include <ea/digital_evolution/instruction_set.h>
 #include <ea/digital_evolution/discrete_spatial_environment.h>
 
 

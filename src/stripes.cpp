@@ -15,14 +15,6 @@ using namespace ealib;
 
 
 //! Configuration object for an EA.
-//template <typename EA>
-//struct ts_configuration : public abstract_configuration<EA> {
-//
-//    typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
-//    typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
-//
-//    virtual void configure(EA& ea) {
-//        using namespace ealib::instructions;
 struct configuration : public default_configuration {
     
     //! Called as the final step of EA construction (must not depend on configuration parameters)
@@ -159,7 +151,6 @@ typedef digital_evolution
     */
 
 // hjg - ask about lod...
-// subpopulation_mutator
 //! Metapopulation definition:
 typedef metapopulation
 < subpopulation<ea_type>,
@@ -178,7 +169,6 @@ public:
         add_option<SPATIAL_Y>(this);
         add_option<META_POPULATION_SIZE>(this);
         add_option<POPULATION_SIZE>(this);
-        //        add_option<INITIAL_POPULATION_SIZE>(this);
         add_option<REPRESENTATION_SIZE>(this);
         add_option<SCHEDULER_TIME_SLICE>(this);
         add_option<MUTATION_PER_SITE_P>(this);
@@ -197,24 +187,8 @@ public:
         add_option<NUM_PROPAGULE_CELL>(this);
         
         // ts specific options
-//        add_option<GROUP_REP_THRESHOLD>(this);
         add_option<TASK_SWITCHING_COST>(this);
-//        add_option<LAST_TASK>(this);
-//        add_option<NUM_SWITCHES>(this);
         add_option<GERM_MUTATION_PER_SITE_P>(this);
-        
-        // initial amount (unit), inflow (unit), outflow (percentage), percent consumed
-        //        add_option<RES_INITIAL_AMOUNT>(this);
-        //        add_option<RES_INFLOW_AMOUNT>(this);
-        //        add_option<RES_OUTFLOW_FRACTION>(this);
-        //        add_option<RES_FRACTION_CONSUMED>(this);
-        
-        // propagule speciific options
-//        add_option<PROP_SIZE>(this);
-//        add_option<PROP_COMPOSITION>(this);
-//        add_option<PROP_BASE_REP_UNITS>(this);
-//        add_option<PROP_CELL_REP_UNITS>(this);
-//        add_option<MAX_PROPAGULE_SIZE>(this);
         
         // stripes
         add_option<ANCESTOR>(this);
