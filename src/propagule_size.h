@@ -26,10 +26,10 @@
 #include <ea/digital_evolution.h>
 #include <ea/digital_evolution/hardware.h>
 #include <ea/digital_evolution/isa.h>
-#include <ea/digital_evolution/spatial.h>
+#include <ea/digital_evolution/discrete_spatial_environment.h>
 #include <ea/datafiles/reactions.h>
 #include <ea/cmdline_interface.h>
-#include <ea/meta_population.h>
+#include <ea/metapopulation.h>
 #include <ea/selection/random.h>
 #include <ea/mutation.h>
 
@@ -71,18 +71,18 @@ DIGEVO_INSTRUCTION_DECL(get_epigenetic_info){
 
 //! Increment the propagule size suggested by the organism.
 DIGEVO_INSTRUCTION_DECL(inc_propagule_size){
-    get<PROPAGULE_SIZE>(*p, 1.0)++;
+    get<PROP_SIZE>(*p, 1.0)++;
 }
 
 //! Decrement the propagule size suggested by the organism.
 DIGEVO_INSTRUCTION_DECL(dec_propagule_size){
-    double p1 = get<PROPAGULE_SIZE>(*p, 1.0);
+    double p1 = get<PROP_SIZE>(*p, 1.0);
     p1 -= 1.0;
 }
 
 //! Get the propagule size suggested by the organism.
 DIGEVO_INSTRUCTION_DECL(get_propagule_size){
-    hw.setRegValue(hw.modifyRegister(), get<PROPAGULE_SIZE>(*p, 1.0));
+    hw.setRegValue(hw.modifyRegister(), get<PROP_SIZE>(*p, 1.0));
 }
 
 
@@ -149,7 +149,7 @@ struct ps_size_propagule2 : end_of_update_event<EA> {
                 typename EA::individual_type::individual_type& o=**j;
                 
                 ++num_org;
-                desired_prop_size += get<PROPAGULE_SIZE>(o,1.0);
+                desired_prop_size += get<PROP_SIZE>(o,1.0);
                 if (get<GERM_STATUS>(o,true)) {
                     ++num_germ;
                 }
@@ -277,7 +277,7 @@ struct ps_size_propagule : end_of_update_event<EA> {
                 typename EA::individual_type::individual_type& o=**j;
                 
                 ++num_org;
-                desired_prop_size += get<PROPAGULE_SIZE>(o, 1.0);
+                desired_prop_size += get<PROP_SIZE>(o, 1.0);
                 if (get<GERM_STATUS>(o,true)) {
                     ++num_germ;
                 }
@@ -502,7 +502,6 @@ struct propagule_size_tracking : end_of_update_event<EA> {
     virtual ~propagule_size_tracking() {
     }
     
-    //! Track how many task-switches are being performed!
     virtual void operator()(EA& ea) {
         if ((ea.current_update() % 100) == 0) {
             double mean_ps = 0.0;
@@ -517,11 +516,15 @@ struct propagule_size_tracking : end_of_update_event<EA> {
                 ++sub_pop_size;
                 mean_ps += get<ACTUAL_PROP_SIZE>(*i,1.0);
                 mean_res += get<GROUP_RESOURCE_UNITS>(*i,0.0);
-                for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
+//                for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
+                
+                for(typename EA::subpopulation_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
+    
+//                    typename EA::individual_type::individual_type& ind=**j;
                     
-                    typename EA::individual_type::individual_type& ind=**j;
+                    typename EA::subpopulation_type::individual_type& ind=**j;
                     if (ind.alive()) {
-                        mean_desired_ps += get<PROPAGULE_SIZE>(ind,1.0);
+                        mean_desired_ps += get<PROP_SIZE>(ind,1.0);
                         pop_size++;
                         if (get<GERM_STATUS>(ind,true)) {
                             num_germ++;

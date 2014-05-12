@@ -26,10 +26,10 @@
 #include <ea/digital_evolution.h>
 #include <ea/digital_evolution/hardware.h>
 #include <ea/digital_evolution/isa.h>
-#include <ea/digital_evolution/spatial.h>
+#include <ea/digital_evolution/discrete_spatial_environment.h>
 #include <ea/datafiles/reactions.h>
 #include <ea/cmdline_interface.h>
-#include <ea/meta_population.h>
+#include <ea/metapopulation.h>
 #include <ea/selection/random.h>
 #include <ea/mutation.h>
 
@@ -62,7 +62,7 @@ struct task_switching_cost : reaction_event<EA> {
     
     virtual ~task_switching_cost() { }
     virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer
+                            typename EA::task_library_type::task_ptr_type task, // task pointer
                             double r, // amount of resource consumed
                             EA& ea) {
         
@@ -107,9 +107,8 @@ struct task_switch_tracking : end_of_update_event<EA> {
             
             for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
                 ++sub_pop_size;
-                for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
-                    
-                    typename EA::individual_type::individual_type& ind=**j;
+                for(typename EA::subpopulation_type::iterator j=i->population().begin(); j!=i->population().end(); ++j){
+                    typename EA::subpopulation_type::individual_type& ind=**j;
                     if (ind.alive()) {
                         ts += get<NUM_SWITCHES>(ind, 0);
                         ++org;

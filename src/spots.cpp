@@ -107,6 +107,7 @@ struct mp_configuration : public abstract_configuration<EA> {
 };
 
 
+
 //! Meta-population definition.
 typedef meta_population<
 population_lod<population_founder<ea_type> >,

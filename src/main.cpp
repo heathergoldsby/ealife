@@ -29,13 +29,14 @@
 
 //! Configuration object for an EA.
 template <typename EA>
-struct gls_configuration : public abstract_configuration<EA> {
+struct gls_configuration : public default_configuration {
     
-    typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
-    typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
+//    typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
+//    typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
+//    
     
-    
-    void configure(EA& ea) {
+    template <typename EA>
+    void after_construction(EA& ea) {
         using namespace ealib::instructions;
         append_isa<nop_a>(0,ea); // 0
         append_isa<nop_b>(0,ea);
@@ -73,7 +74,8 @@ struct gls_configuration : public abstract_configuration<EA> {
         add_event<task_resource_consumption>(this,ea);
         
     }
-    
+
+    template <typename EA>
     void initialize(EA& ea) {
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
@@ -118,6 +120,7 @@ struct gls_configuration : public abstract_configuration<EA> {
     }
     
     //! Called to generate the initial EA population.
+    template <typename EA>
     void initial_population(EA& ea) {
         generate_ancestors(selfrep_not_ancestor(), 1, ea);
     }
@@ -126,10 +129,22 @@ struct gls_configuration : public abstract_configuration<EA> {
 
 /*! Artificial life simulation definition.
  */
+/*
 typedef digital_evolution<
 gls_configuration, spatial, empty_neighbor, round_robin
 > ea_type;
-  
+*/
+typedef digital_evolution
+< gls_configuration
+, organism< >
+, multibirth_selfrep_not_ancestor
+, recombination::asexual
+, round_robin
+, empty_neighbor
+> ea_type;
+
+
+ 
 template <typename EA>
 struct mp_configuration : public abstract_configuration<EA> {
     void initial_population(EA& ea) {

@@ -12,10 +12,10 @@
 #include <ea/digital_evolution.h>
 #include <ea/digital_evolution/hardware.h>
 #include <ea/digital_evolution/isa.h>
-#include <ea/digital_evolution/spatial.h>
+#include <ea/digital_evolution/discrete_spatial_environment.h>
 #include <ea/datafiles/reactions.h>
 #include <ea/cmdline_interface.h>
-#include <ea/meta_population.h>
+#include <ea/metapopulation.h>
 #include <ea/selection/random.h>
 #include <ea/mutation.h>
 
@@ -56,7 +56,7 @@ struct task_resource_consumption : reaction_event<EA> {
     
     virtual ~task_resource_consumption() { }
     virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer   
+                            typename EA::task_library_type::task_ptr_type task, // task pointer   
                             double r,
                             EA& ea) {
         get<SAVED_RESOURCES>(ind, 0.0) += r;

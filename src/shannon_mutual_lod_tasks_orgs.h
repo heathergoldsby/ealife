@@ -17,7 +17,7 @@
 #include <ea/line_of_descent.h>
 #include <ea/analysis/tool.h>
 #include <ea/digital_evolution/isa.h>
-#include <ea/digital_evolution/spatial.h>
+#include <ea/digital_evolution/discrete_spatial_environment.h>
 
 
 

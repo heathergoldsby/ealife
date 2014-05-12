@@ -15,30 +15,46 @@
 #include <vector>
 #include <ea/datafile.h>
 #include <ea/line_of_descent.h>
-#include <ea/analysis/tool.h>
+#include <ea/analysis.h>
+
+//#include <ea/analysis/tool.h>
 #include <ea/digital_evolution/isa.h>
-#include <ea/digital_evolution/spatial.h>
+#include <ea/digital_evolution/discrete_spatial_environment.h>
 
 
 
-namespace ealib {
-    namespace analysis {
-        
+//namespace ealib {
+//    namespace analysis {
+
         /* Rerun a LoD, where a LoD is the sequential list of eas that contributed to a final dominant
          ea. Each ea is tagged with a founder, which is used for the rerun.*/
         
 
 
+        /*         LIBEA_ANALYSIS_TOOL(lod_knockouts) {
+         //        template <typename EA>
+         //        struct lod_knockouts : public unary_function<EA> {
+         //        struct lod_knockouts : public ealib::analysis::unary_function<EA> {
+         
+         //            static const char* name() { return "lod_knockouts"; }
+         //
+         //            virtual void operator()(EA& ea) {
+         //                using namespace ealib;
+         //                using namespace ealib::analysis;
+         
+         line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
+         */
         
         /*! lod_gls_aging_res_over_time */
-        template <typename EA>
-        struct lod_gls_aging_res_over_time_compact : public ealib::analysis::unary_function<EA> {
-            static const char* name() { return "lod_gls_aging_res_over_time_compact"; }
-            
-            virtual void operator()(EA& ea) {
-                using namespace ealib;
-                using namespace ealib::analysis;
-                
+//        template <typename EA>
+//        struct lod_gls_aging_res_over_time_compact : public ealib::analysis::unary_function<EA> {
+//            static const char* name() { return "lod_gls_aging_res_over_time_compact"; }
+//            
+//            virtual void operator()(EA& ea) {
+//                using namespace ealib;
+//                using namespace ealib::analysis;
+
+        LIBEA_ANALYSIS_TOOL(lod_gls_aging_res_over_time_compact) {
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
@@ -116,18 +132,20 @@ namespace ealib {
                 }
             }
             
-        };
+ //       };
 
 
         /*! lod_gls_aging_res_over_time */
-        template <typename EA>
-        struct lod_gls_aging_res_over_time : public ealib::analysis::unary_function<EA> {
-            static const char* name() { return "lod_gls_aging_res_over_time"; }
+//        template <typename EA>
+//        struct lod_gls_aging_res_over_time : public ealib::analysis::unary_function<EA> {
+//            static const char* name() { return "lod_gls_aging_res_over_time"; }
             
-            virtual void operator()(EA& ea) {
-                using namespace ealib;
-                using namespace ealib::analysis;
-                
+//            virtual void operator()(EA& ea) {
+//                using namespace ealib;
+//                using namespace ealib::analysis;
+    LIBEA_ANALYSIS_TOOL(lod_gls_aging_res_over_time) {
+        
+        
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
@@ -199,20 +217,22 @@ namespace ealib {
                 }
             }
             
-        };
+//        };
         
         
         
         
         /*! lod_knockouts reruns each subpopulation along a line of descent - setup for circle / square plot
          */
-        template <typename EA>
-        struct lod_gls_circle_square_plot : public ealib::analysis::unary_function<EA> {
-            static const char* name() { return "lod_gls_circle_square_plot"; }
-            
-            virtual void operator()(EA& ea) {
-                using namespace ealib;
-                using namespace ealib::analysis;
+//        template <typename EA>
+//        struct lod_gls_circle_square_plot : public ealib::analysis::unary_function<EA> {
+//            static const char* name() { return "lod_gls_circle_square_plot"; }
+//            
+//            virtual void operator()(EA& ea) {
+//                using namespace ealib;
+//                using namespace ealib::analysis;
+
+        LIBEA_ANALYSIS_TOOL(lod_gls_circle_square_plot) {
                 
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
@@ -273,19 +293,21 @@ namespace ealib {
                 }
             }
             
-        };
+//};
 
-        
+
         /*! lod_gls_germ_soma_mean_var reruns each subpopulation along a line of descent - setup for circle / square plot
          */
-        template <typename EA>
-        struct lod_gls_germ_soma_mean_var : public ealib::analysis::unary_function<EA> {
-            static const char* name() { return "lod_gls_germ_soma_mean_var"; }
-            
-            virtual void operator()(EA& ea) {
-                using namespace ealib;
-                using namespace ealib::analysis;
-                
+//        template <typename EA>
+//        struct lod_gls_germ_soma_mean_var : public ealib::analysis::unary_function<EA> {
+//            static const char* name() { return "lod_gls_germ_soma_mean_var"; }
+//            
+//            virtual void operator()(EA& ea) {
+//                using namespace ealib;
+//                using namespace ealib::analysis;
+
+LIBEA_ANALYSIS_TOOL(lod_gls_germ_soma_mean_var) {
+
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
@@ -389,19 +411,21 @@ namespace ealib {
             
             
                         
-        };
+       // };
         
         
         /*! lod_gls_task_count reruns each subpopulation along a line of descent - prints how many of each task were done.
          */
-        template <typename EA>
-        struct lod_gls_task_count : public ealib::analysis::unary_function<EA> {
-            static const char* name() { return "lod_gls_task_count"; }
-            
-            virtual void operator()(EA& ea) {
-                using namespace ealib;
-                using namespace ealib::analysis;
-                
+//        template <typename EA>
+//        struct lod_gls_task_count : public ealib::analysis::unary_function<EA> {
+//            static const char* name() { return "lod_gls_task_count"; }
+//            
+//            virtual void operator()(EA& ea) {
+//                using namespace ealib;
+//                using namespace ealib::analysis;
+
+LIBEA_ANALYSIS_TOOL(lod_gls_task_count) {
+
                 line_of_descent<EA> lod = lod_load(get<ANALYSIS_INPUT>(ea), ea);
                 
                 typename line_of_descent<EA>::iterator i=lod.begin(); ++i;
@@ -468,11 +492,11 @@ namespace ealib {
             
             
             
-        };
-    }
-
-    
-    
-}
+//        };
+//    }
+//
+//    
+//    
+//}
 
 #endif

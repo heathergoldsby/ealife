@@ -1220,28 +1220,12 @@
 		3E667D8517ABE01100A42924 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
-					"\"$(SRCROOT)/../ealib/build/Debug\"",
-				);
-				PRODUCT_NAME = stripes;
-				VERSION_INFO_FILE = stripes;
 			};
 			name = Debug;
 		};
 		3E667D8617ABE01100A42924 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../DerivedData/research/Build/Products/Debug\"",
-					"\"$(SRCROOT)/../ealib/build/Debug\"",
-				);
-				PRODUCT_NAME = stripes;
-				VERSION_INFO_FILE = stripes;
 			};
 			name = Release;
 		};
@@ -1405,22 +1389,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 42441A7E158616AF009863BE /* ealife.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				CLANG_CXX_LIBRARY = "compiler-default";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 			};
 			name = Debug;
 		};
@@ -1428,15 +1398,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 42441A7E158616AF009863BE /* ealife.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
+				CLANG_CXX_LIBRARY = "compiler-default";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 			};
 			name = Release;
 		};
