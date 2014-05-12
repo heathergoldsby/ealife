@@ -88,6 +88,33 @@ DIGEVO_INSTRUCTION_DECL(if_soma){
 
 // Events!
 
+/*! Did an organism die by suicide? If so, tally it!
+ 
+ */
+LIBEA_MD_DECL(APOPTOSIS_COUNT, "ea.digevo.apoptosis_count", int);
+
+template <typename EA>
+struct gs_apoptosis_event : death_event<EA> {
+    
+    //! Constructor.
+    gs_apoptosis_event(EA& ea) : death_event<EA>(ea) {
+    }
+    
+    //! Destructor.
+    virtual ~gs_apoptosis_event() {
+    }
+    
+    /*! Called for every inheritance event. We are using the germ/soma status
+     of the first parent
+     */
+    virtual void operator()(typename EA::individual_type& offspring,
+                            EA& ea) {
+        if (get<APOPTOSIS_STATUS>(offspring, 0) == 1) {
+            get<APOPTOSIS_COUNT>(ea, 0) += 1;
+        }
+        
+    }
+};
 
 /*! An organism inherits its parent's germ/soma status. If it is undefined, 
  then it is set to germ.
@@ -127,7 +154,7 @@ struct task_mutagenesis : reaction_event<EA> {
     
     virtual ~task_mutagenesis() { }
     virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer
+                            typename EA::task_library_type::task_ptr_type task, // task pointer
                             double r, // amount of resource consumed
                             EA& ea) {
 
@@ -154,7 +181,7 @@ struct task_mutagenesis_control : reaction_event<EA> {
     
     virtual ~task_mutagenesis_control() { }
     virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer
+                            typename EA::task_library_type::task_ptr_type task, // task pointer
                             double r, // amount of resource consumed
                             EA& ea) {
         
@@ -220,7 +247,7 @@ struct gls_replication : end_of_update_event<EA> {
                 (get<GROUP_RESOURCE_UNITS>(*i) > get<GROUP_REP_THRESHOLD>(*i))){
                 
                 // grab a copy of the first individual: 
-                typename EA::individual_type::individual_type germ;
+                typename EA::individual_type::ea_type::individual_type germ;
                 int germ_present = false;
                 
                 // If so, setup a new replicate pop.
@@ -233,9 +260,11 @@ struct gls_replication : end_of_update_event<EA> {
                 accumulator_set<double, stats<tag::mean, tag::variance> > soma_workload_acc; 
                 
                 
+
                 
-                for(typename EA::individual_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j) {
-                    typename EA::individual_type::individual_type& org=**j;
+                for(typename EA::individual_type::ea_type::population_type::iterator j=i->population().begin(); j!=i->population().end(); ++j) {
+
+                    typename EA::individual_type::ea_type::individual_type& org=**j;
                     if (get<GERM_STATUS>(org, true)) {
                         ++germ_count;
                         germ_workload_acc(get<WORKLOAD>(org, 0.0));
@@ -287,15 +316,18 @@ struct gls_replication : end_of_update_event<EA> {
                 
                 // mutate it:
                 configurable_per_site m(get<GERM_MUTATION_PER_SITE_P>(ea)); 
-                mutate(germ,m,*p);
+                mutate(germ,m,p->ea());
                 
                 // and fill up the offspring population with copies of the germ:
-                typename EA::individual_type::individual_ptr_type o=p->make_individual(germ.repr());
-                p->append(o);
+                /*   typename EA::individual_type::ea_type::individual_ptr_type o = (*i)->ea().copy_individual(g);
+                 (*i)->insert((*i)->end(), o);
+                 */
+                typename EA::individual_type::ea_type::individual_ptr_type o=p->ea().copy_individual(germ.repr());
+                p->insert(p->end(), o);
                 offspring.push_back(p);
                 
                 // reset resource units
-                i->env().reset_resources();
+                i->ea().env().reset_resources();
                 put<GROUP_RESOURCE_UNITS>(0,*i);
                 
                 // i == parent individual;
@@ -312,7 +344,7 @@ struct gls_replication : end_of_update_event<EA> {
             int n = get<META_POPULATION_SIZE>(ea) - offspring.size(); 
             
             typename EA::population_type survivors;
-            select_n<selection::random>(ea.population(), survivors, n, ea);
+            select_n<selection::random< > >(ea.population(), survivors, n, ea);
             
             // add the offspring to the list of survivors:
             survivors.insert(survivors.end(), offspring.begin(), offspring.end());
@@ -363,6 +395,45 @@ struct gls_replication : end_of_update_event<EA> {
     
     
 };
+
+/*! Prints information about the mean number of task-switches
+ */
+
+
+template <typename EA>
+struct apoptosis_tracking : end_of_update_event<EA> {
+    apoptosis_tracking(EA& ea) : end_of_update_event<EA>(ea), _df("apop.dat") {
+        _df.add_field("update")
+        .add_field("mean_apop")
+        .add_field("max_apop");
+        
+    }
+    
+    //! Destructor.
+    virtual ~apoptosis_tracking() {
+    }
+    
+    //! Track how many task-switches are being performed!
+    virtual void operator()(EA& ea) {
+        if ((ea.current_update() % 100) == 0) {
+            accumulator_set<double, stats<tag::mean, tag::max> > apop;
+
+            
+            for(typename EA::iterator i=ea.begin(); i!=ea.end(); ++i) {
+                apop(get<APOPTOSIS_COUNT>(i->ea(), 0));
+            }
+
+            _df.write(ea.current_update())
+            .write(mean(apop))
+            .write(max(apop))
+            .endl();
+        }
+        
+    }
+    datafile _df;
+    
+};
+
 
 
 #endif

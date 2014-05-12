@@ -22,16 +22,16 @@
 
 #include "subpopulation_lod_analysis.h"
 #include "lod_knockouts.h"
+#include "multi_birth_selfrep_not_ancestor.h"
 
 #include <ea/digital_evolution/population_founder.h>
 #include <ea/line_of_descent.h>
 
 
 //! Configuration object for an EA.
-template <typename EA>
 struct gls_configuration : public default_configuration {
     
-//    typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
+//    typedef typename EA::task_library_type::task_ptr_type task_ptr_type;
 //    typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
 //    
     
@@ -68,15 +68,20 @@ struct gls_configuration : public default_configuration {
         append_isa<if_soma>(ea);
         append_isa<donate_res_to_group>(ea);
         append_isa<get_xy>(ea);
+        append_isa<apoptosis>(ea);
         
-        add_event<task_mutagenesis>(this,ea);
-        add_event<gs_inherit_event>(this,ea);
-        add_event<task_resource_consumption>(this,ea);
+        add_event<task_mutagenesis>(ea);
+        add_event<gs_apoptosis_event>(ea);
+//        add_event<gs_inherit_event>(ea);
+        add_event<task_resource_consumption>(ea);
         
     }
 
     template <typename EA>
     void initialize(EA& ea) {
+        typedef typename EA::task_library_type::task_ptr_type task_ptr_type;
+        typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
+        
         // Add tasks
         task_ptr_type task_not = make_task<tasks::task_not,catalysts::additive<0> >("not", ea);
         task_ptr_type task_nand = make_task<tasks::task_nand,catalysts::additive<0> >("nand", ea);
@@ -143,7 +148,7 @@ typedef digital_evolution
 , empty_neighbor
 > ea_type;
 
-
+/*
  
 template <typename EA>
 struct mp_configuration : public abstract_configuration<EA> {
@@ -153,13 +158,20 @@ struct mp_configuration : public abstract_configuration<EA> {
         }
     }
 };
+*/
 
-
-
+/*
 //! Meta-population definition.
 typedef meta_population<
 population_lod<population_founder<ea_type> >, 
  mp_configuration> mea_type;
+ */
+
+typedef metapopulation
+< subpopulation<ea_type>
+> mea_type;
+
+
 
 /*!
  */
@@ -173,7 +185,6 @@ public:
         add_option<SPATIAL_Y>(this);
         add_option<META_POPULATION_SIZE>(this);
         add_option<POPULATION_SIZE>(this);
-        add_option<INITIAL_POPULATION_SIZE>(this);
         add_option<REPRESENTATION_SIZE>(this);
         add_option<SCHEDULER_TIME_SLICE>(this);
         add_option<MUTATION_PER_SITE_P>(this);
@@ -209,21 +220,22 @@ public:
     
     virtual void gather_tools() {
 
-        add_tool<ealib::analysis::lod_knockouts>(this);
-        add_tool<ealib::analysis::lod_gls_circle_square_plot>(this);
-        add_tool<ealib::analysis::lod_gls_germ_soma_mean_var>(this);
-        add_tool<ealib::analysis::lod_gls_aging_res_over_time>(this);
-        add_tool<ealib::analysis::lod_gls_aging_res_over_time_compact>(this);
-        add_tool<ealib::analysis::lod_gls_task_count>(this);
+        //add_tool<ealib::analysis::lod_knockouts>(this);
+        //add_tool<ealib::analysis::lod_gls_circle_square_plot>(this);
+        //add_tool<ealib::analysis::lod_gls_germ_soma_mean_var>(this);
+        //add_tool<ealib::analysis::lod_gls_aging_res_over_time>(this);
+        //add_tool<ealib::analysis::lod_gls_aging_res_over_time_compact>(this);
+        //add_tool<ealib::analysis::lod_gls_task_count>(this);
 
         
     }
     
     virtual void gather_events(EA& ea) {
-        add_event<gls_replication>(this,ea);
-        add_event<task_performed_tracking>(this,ea);
-        add_event<datafiles::mrca_lineage>(this,ea);
-        add_event<population_founder_event>(this,ea);
+        add_event<gls_replication>(ea);
+        add_event<task_performed_tracking>(ea);
+        add_event<apoptosis_tracking>(ea);
+//        add_event<datafiles::mrca_lineage>(ea);
+//        add_event<population_founder_event>(ea);
     };
 };
 LIBEA_CMDLINE_INSTANCE(mea_type, cli);

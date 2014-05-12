@@ -31,7 +31,7 @@
 template <typename EA>
 struct gls_configuration : public abstract_configuration<EA> {
     
-    typedef typename EA::tasklib_type::task_ptr_type task_ptr_type;
+    typedef typename EA::task_library_type::task_ptr_type task_ptr_type;
     typedef typename EA::environment_type::resource_ptr_type resource_ptr_type;
     
     

@@ -83,7 +83,7 @@ struct task_lethality : reaction_event<EA> {
     
     virtual ~task_lethality() { }
     virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer
+                            typename EA::task_library_type::task_ptr_type task, // task pointer
                             double r, // amount of resource consumed
                             EA& ea) {
         put<LAST_TASK>(task->name(), ind);
@@ -108,7 +108,7 @@ struct task_first_age : reaction_event<EA> {
     
     virtual ~task_first_age() { }
     virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer
+                            typename EA::task_library_type::task_ptr_type task, // task pointer
                             double r,
                             EA& ea) {
         std::string t = task->name();

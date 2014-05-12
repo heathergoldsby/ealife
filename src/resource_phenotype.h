@@ -41,7 +41,7 @@ struct spots : reaction_event<EA> {
     
     virtual ~spots() { }
     virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer
+                            typename EA::task_library_type::task_ptr_type task, // task pointer
                             double r,
                             EA& ea) {
         
@@ -84,7 +84,7 @@ struct stripes : reaction_event<EA> {
     
     virtual ~stripes() { }
     virtual void operator()(typename EA::individual_type& ind, // individual
-                            typename EA::tasklib_type::task_ptr_type task, // task pointer
+                            typename EA::task_library_type::task_ptr_type task, // task pointer
                             double r,
                             EA& ea) {
         
