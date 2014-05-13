@@ -274,6 +274,7 @@ struct gls_replication : end_of_update_event<EA> {
                             germ.repr().resize(org.hw().original_size());
                             germ.hw().initialize();
                             germ_present = true;
+
                         }
                     } else {
                         soma_workload_acc(get<WORKLOAD>(org, 0.0));
@@ -323,8 +324,12 @@ struct gls_replication : end_of_update_event<EA> {
                  (*i)->insert((*i)->end(), o);
                  */
                 typename EA::individual_type::ea_type::individual_ptr_type o=p->ea().copy_individual(germ.repr());
+                inherits_from(germ, *o, p->ea());
+
                 p->insert(p->end(), o);
+                
                 offspring.push_back(p);
+                
                 
                 // reset resource units
                 i->ea().env().reset_resources();
