@@ -69,6 +69,16 @@
 			<key>orderHint</key>
 			<integer>15</integer>
 		</dict>
+		<key>stripes_control.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>40</integer>
+		</dict>
+		<key>stripes_location.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>41</integer>
+		</dict>
 		<key>ts-soft-reset.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -153,6 +163,16 @@
 			<true/>
 		</dict>
 		<key>42441A8A15861724009863BE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>48460678192D1DFC005579F9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>48460689192D1FFE005579F9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

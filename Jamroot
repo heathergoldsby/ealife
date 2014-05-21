@@ -88,6 +88,25 @@ exe stripes :
 
 install dist : stripes : <location>$(HOME)/bin ;
 
+exe stripes_control :
+    src/stripes_control.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : stripes_control : <location>$(HOME)/bin ;
+
+exe stripes_location :
+    src/stripes_location.cpp
+    /libea//libea
+    /libea//libea_runner
+    : <include>./include <link>static
+    ;
+
+install dist : stripes_location : <location>$(HOME)/bin ;
+
+
 exe age_poly :
     src/age_poly_2_task.cpp
     /libea//libea
